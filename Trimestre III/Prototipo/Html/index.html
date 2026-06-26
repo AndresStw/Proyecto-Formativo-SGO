@@ -1,26 +1,23 @@
 <!Doctype html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-    content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap -->
 
-    <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
 
     <!-- Font Awesome -->
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <!-- CSS -->
 
-    <link rel="stylesheet"
-    href="../CSS/index.css">
+    <link rel="stylesheet" href="../CSS/index.css">
 
     <link rel="icon" href="../Img/logo-sabor caleño.png">
 
@@ -34,12 +31,9 @@
 
         <nav class="d-flex justify-content-around align-items-center gap-4 p-3 navegacion">
 
-            <img src="../Img/logo-sabor caleño.png"
-            alt="Logo Restaurante"
-            class="logo">
+            <img src="../Img/logo-sabor caleño.png" alt="Logo Restaurante" class="logo">
 
-            <p id="tituloR"
-            class="m-0 text-white">
+            <p id="tituloR" class="m-0 text-white">
 
                 Sabor Caleño
 
@@ -47,22 +41,21 @@
 
             <div class="d-flex justify-content-end gap-4 align-items-center">
 
-                <a class="text-white text-decoration-none"
-                href="">
+                <a class="text-white text-decoration-none" href="#inicio">
                     Inicio
                 </a>
 
-                <a class="text-white text-decoration-none"
-                href="">
+                <a class="text-white text-decoration-none" href="#nosotros">
                     Nosotros
                 </a>
 
-                <a class="text-white text-decoration-none"
-                href="">
+                <a class="text-white text-decoration-none" href="#menu">
                     Menú
                 </a>
 
-                <button class="btn btn-dark login">
+                <button  class="btn btn-login-nav login"
+                  data-bs-toggle="modal"
+                  data-bs-target="#loginModal">
                     Login
                 </button>
 
@@ -76,20 +69,17 @@
 
         <!-- CARRUSEL -->
 
-        <section class="principal">
+        <section class="principal" id="inicio" >
 
-            <div id="carruselPrincipal"
-            class="carousel slide">
+            <div id="carruselPrincipal" class="carousel slide">
 
                 <div class="carousel-inner">
 
-                   
+
 
                     <div class="carousel-item active">
 
-                        <img src="../Img/Mesas.jpg"
-                        class="d-block w-100 imagenCarrusel"
-                        alt="Restaurante">
+                        <img src="../Img/Mesas.jpg" class="d-block w-100 imagenCarrusel" alt="Restaurante">
 
                         <div class="carrusel-contenido">
 
@@ -107,9 +97,7 @@
 
                     <div class="carousel-item">
 
-                        <img src="../Img/vista.jpg"
-                        class="d-block w-100 imagenCarrusel"
-                        alt="Vista Restaurante">
+                        <img src="../Img/vista.jpg" class="d-block w-100 imagenCarrusel" alt="Vista Restaurante">
 
                         <div class="carrusel-contenido">
 
@@ -127,9 +115,7 @@
 
                     <div class="carousel-item">
 
-                        <img src="../Img/Cali.jpg"
-                        class="d-block w-100 imagenCarrusel"
-                        alt="Cali">
+                        <img src="../Img/Cali.jpg" class="d-block w-100 imagenCarrusel" alt="Cali">
 
                         <div class="carrusel-contenido">
 
@@ -148,19 +134,15 @@
                 </div>
 
 
-                <button class="carousel-control-prev"
-                type="button"
-                data-bs-target="#carruselPrincipal"
-                data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carruselPrincipal"
+                    data-bs-slide="prev">
 
                     <span class="carousel-control-prev-icon"></span>
 
                 </button>
 
-                <button class="carousel-control-next"
-                type="button"
-                data-bs-target="#carruselPrincipal"
-                data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carruselPrincipal"
+                    data-bs-slide="next">
 
                     <span class="carousel-control-next-icon"></span>
 
@@ -170,9 +152,53 @@
 
         </section>
 
+        <!-- Login -->
+
+    <div class="modal fade" id="loginModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-login">
+          <div class="model-header border-0">
+            <h2 class="modal-title w-100 text-center"><b>Iniciar Sesion</b></h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="">
+              <div class="mb-3">
+                <label for="email" class="form-label"><b>Correo Electronico</b></label>
+                <input
+                  type="email" name="CorreoUsuario" class="form-control" item id="email" placeholder="Ingresa tu correo"
+                  minlength="5" maxlength="40" required
+                />
+              </div>
+
+              <div class="mb-4">
+                <label for="password" class="form-label"><b>Contraseña</b></label>
+                <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña"
+                  minlength="5px" maxlength="20px" required
+                />
+              </div>
+
+              <button type="submit" class="btn btn-login btn-ingresar w-100">
+                Ingresar
+              </button>
+              <div class="d-flex justify-content-between mt-3">
+                <a href="" class="link-login">¿Olvidaste tu contraseña?</a>
+                <a href="registro.html" class="link-login">Registrate</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
         <section class="container text-center py-4">
 
-            <h2 class="tituloSeccion">
+            <h2 class="tituloSeccion" id="nosotros">
                 Sobre Nosotros
             </h2>
 
@@ -190,7 +216,7 @@
         </section>
 
 
-        <section class="container py-5">
+        <section class="container py-5" >
 
             <h2 class="text-center mb-5 tituloSeccion">
                 Platos Destacados
@@ -200,11 +226,9 @@
 
                 <div class="col-md-4">
 
-                    <div class="card tarjetaPlato">
+                    <div class="card tarjetaPlato" id="menu">
 
-                        <img src="../Img/Sancocho.jpg"
-                        class="card-img-top imagenPlato"
-                        alt="Sancocho">
+                        <img src="../Img/Sancocho.jpg" class="card-img-top imagenPlato" alt="Sancocho">
 
                         <div class="card-body text-center">
 
@@ -226,9 +250,7 @@
 
                     <div class="card tarjetaPlato">
 
-                        <img src="../Img/chuleta valluna.jpg"
-                        class="card-img-top imagenPlato"
-                        alt="Chuleta">
+                        <img src="../Img/chuleta valluna.jpg" class="card-img-top imagenPlato" alt="Chuleta">
 
                         <div class="card-body text-center">
 
@@ -250,9 +272,7 @@
 
                     <div class="card tarjetaPlato">
 
-                        <img src="../Img/arroz.jpg"
-                        class="card-img-top imagenPlato"
-                        alt="Arroz Atollado">
+                        <img src="../Img/arroz.jpg" class="card-img-top imagenPlato" alt="Arroz Atollado">
 
                         <div class="card-body text-center">
 
@@ -350,6 +370,9 @@
     <!-- JS -->
 
     <script src="../JavaScript/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://kit.fontawesome.com/a0994db117.js" crossorigin="Anonymous"></script>
 
 </body>
 
