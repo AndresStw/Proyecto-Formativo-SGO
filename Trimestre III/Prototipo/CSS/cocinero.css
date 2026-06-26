@@ -1,0 +1,344 @@
+:root {
+    --blanco: #FFFCE8;
+    --naranja: #ff6b00;
+    --verde: #4caf50;
+    --negro: #3E363F;
+    --fondo: #F4F0E8;
+    --gris: #777;
+}
+ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ 
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--fondo);
+    color: var(--negro);
+}
+ 
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+ 
+.sidebar {
+    width: 270px;
+    background-color: #fffdf4;
+    border-right: 1px solid rgba(0,0,0,.08);
+    padding: 30px 20px;
+}
+ 
+.sidebar-logo {
+    text-align: center;
+    margin-bottom: 38px;
+}
+ 
+.sidebar-logo img {
+    width: 120px;
+}
+ 
+.sidebar-logo h2 {
+    color: var(--naranja);
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+ 
+.sidebar-logo p {
+    color: var(--negro);
+    font-size: 16px;
+}
+ 
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+ 
+.sidebar-menu a {
+    text-decoration: none;
+    color: var(--negro);
+    padding: 14px 18px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    transition: .3s;
+}
+ 
+.sidebar-menu a:hover {
+    background-color: rgba(198, 157, 87, 0.107);
+    color: var(--naranja);
+}
+ 
+.sidebar-menu a.active {
+    background-color: rgba(198, 157, 87, 0.107);
+    color: var(--naranja);
+    border-left: 4px solid var(--naranja);
+}
+ 
+.dashboard-main {
+    flex: 1;
+    padding: 35px;
+    background:
+        radial-gradient(circle at top right, rgba(221,64,58,.07), transparent 35%),
+        var(--fondo);
+}
+ 
+.topbar {
+    background-color: white;
+    border-radius: 24px;
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    border-top: 2px solid rgba(242, 70, 2, 0.65);
+}
+ 
+.topbar h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+ 
+.topbar p {
+    margin: 0;
+    color: var(--gris);
+}
+ 
+.admin-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+ 
+.admin-info i {
+    color: var(--naranja);
+    font-size: 34px;
+}
+ 
+.card-resumen {
+    background-color: white;
+    border-radius: 24px;
+    min-height: 125px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    transition: .3s;
+    border-left: 3px solid #ff6b00;
+}
+ 
+.card-resumen:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(0,0,0,.10);
+}
+ 
+.card-resumen i {
+    color: var(--naranja);
+    font-size: 40px;
+}
+ 
+.card-resumen h3 {
+    font-size: 38px;
+    font-weight: 700;
+    margin: 0;
+}
+ 
+.card-resumen p {
+    margin: 0;
+    color: var(--gris);
+}
+ 
+.panel-pedidos {
+    background-color: white;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.06);
+    border-top: 2px solid #ff6b00;
+}
+ 
+.cabecera-tabla {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+ 
+.cabecera-tabla h2 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+ 
+.cabecera-tabla p {
+    color: var(--gris);
+    margin: 0;
+}
+ 
+.pedidos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+ 
+.pedido-card {
+    background-color: #fffefa;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    border-left: 5px solid var(--naranja);
+    transition: .3s;
+}
+ 
+.pedido-card.listo {
+    border-left: 5px solid var(--verde);
+    opacity: .7;
+}
+ 
+.pedido-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+ 
+.pedido-card-header h3 {
+    font-size: 22px;
+    font-weight: 700;
+}
+ 
+.badge-mesa {
+    background-color: rgba(50, 68, 161, 0.12);
+    color: var(--naranja);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 20px;
+}
+ 
+.badge-estado {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+ 
+.badge-estado.pendiente {
+    background-color: rgba(232, 198, 46, 0.15);
+    color: var(--naranja);
+}
+ 
+.badge-estado.listo {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: var(--verde);
+}
+ 
+.pedido-card ul {
+    list-style: none;
+    margin: 12px 0;
+    padding: 0;
+}
+ 
+.pedido-card ul li {
+    padding: 4px 0;
+    color: var(--negro);
+    font-size: 15px;
+    border-bottom: 1px dashed rgba(0,0,0,.08);
+}
+ 
+.pedido-card .nota {
+    font-size: 13px;
+    color: var(--gris);
+    font-style: italic;
+    margin-bottom: 12px;
+}
+ 
+.pedido-card .hora {
+    font-size: 13px;
+    color: var(--gris);
+    margin-bottom: 12px;
+}
+ 
+.btn-listo {
+    width: 100%;
+    background-color: var(--naranja);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 30px;
+    font-weight: 700;
+    transition: .3s;
+}
+ 
+.btn-listo:hover {
+    background-color: #ff7300e1;
+    color: white;
+}
+ 
+.btn-listo:disabled {
+    background-color: var(--verde);
+    color: white;
+    cursor: default;
+}
+ 
+.sin-pedidos {
+    text-align: center;
+    color: var(--gris);
+    padding: 40px 0;
+    font-size: 18px;
+}
+ 
+
+ 
+@media screen and (max-width: 992px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+ 
+    .sidebar {
+        width: 100%;
+        box-shadow: 4px 0 18px rgba(0,0,0,.04);
+    }
+ 
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+ 
+    .cabecera-tabla {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+ 
+@media screen and (max-width: 768px) {
+    .dashboard-main {
+        padding: 20px;
+    }
+ 
+    .topbar h1 {
+        font-size: 34px;
+    }
+ 
+    .cabecera-tabla h2 {
+        font-size: 32px;
+    }
+ 
+    .card-resumen h3 {
+        font-size: 30px;
+    }
+}

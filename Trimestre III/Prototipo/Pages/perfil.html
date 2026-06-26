@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../Assets/CSS/global.css">
+    <link rel="icon" href="../Assets/Img/logos/logo-sabor caleño.png">
+    <title>Sabor Caleño - Mi Perfil</title>
+</head>
+<body class="bg-light">
+
+    <header>
+        <nav class="d-flex justify-content-around align-items-center gap-4 p-3" style="background: linear-gradient(90deg, #ff6b00, #ff8c00, #ffb347);">
+            <img src="../Assets/Img/logos/logo-sabor caleño.png" alt="Logo" style="width: 60px; border-radius: 10px; border: 2px solid black;">
+            <p class="m-0 text-white fw-bold fs-3" style="font-style: italic;">Sabor Caleño</p>
+            <div class="d-flex justify-content-end gap-4 align-items-center">
+                <a class="text-white text-decoration-none fw-bold" href="../index.html">Inicio</a>
+                <a class="text-white text-decoration-none fw-bold" href="menu.html">Menú</a>
+                <button class="btn btn-dark btn-sm" id="btn-cerrar-sesion">Cerrar Sesión</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm p-4 text-center">
+                    <div class="mb-3">
+                        <i class="fa-solid fa-circle-user text-secondary" style="font-size: 80px;"></i>
+                    </div>
+                    <h4 class="fw-bold" id="perfil-nombre">Cliente Demo</h4>
+                    <p class="text-muted small" id="perfil-correo">cliente@saborcaleno.com</p>
+                    <hr>
+                    <p class="mb-1 text-start"><b>Teléfono:</b> <span id="perfil-telefono">3001234567</span></p>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm p-4">
+                    <h5 class="fw-bold mb-4" style="color: #ff6b00;"><i class="fa-solid fa-clock-rotate-left me-2"></i>Mis Pedidos Recientes</h5>
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>ID Pedido</th>
+                                    <th>Fecha</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historial-pedidos">
+                                <tr>
+                                    <td>#1001</td>
+                                    <td>Hoy</td>
+                                    <td>$25.000</td>
+                                    <td><span class="badge bg-warning text-dark">En preparación</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bundle.min.js"></script>
+    <script src="../Assets/JavaScript/perfil.js"></script>
+</body>
+</html>
