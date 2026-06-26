@@ -123,7 +123,7 @@ text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
 }
 
 #pie-web{
-    background-image: url(../Img/footer.jpg);
+    background-image: url(../Img/fondo/footer.jpg);
     padding: 50px 0;
     margin-top: 50px;
 }
@@ -154,5 +154,3 @@ text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
 
     margin-right: 10px;
 }
-
-

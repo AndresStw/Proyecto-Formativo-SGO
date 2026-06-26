@@ -1,0 +1,44 @@
+.btn-filtro {
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-filtro.active, .btn-filtro:hover {
+    background-color: #ff6b00 !important;
+    border-color: #ff6b00 !important;
+    color: white !important;
+}
+
+.card {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-agregar {
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #ff6b00 !important;
+}
+
+#contador-carrito {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+.table th {
+    border-top: none;
+    color: #495057;
+    font-weight: 600;
+}

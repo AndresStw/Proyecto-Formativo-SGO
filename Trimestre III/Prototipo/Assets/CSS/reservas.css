@@ -1,0 +1,17 @@
+.card {
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
+}
+
+input[type="date"], input[type="time"], select {
+    cursor: pointer;
+}
+
+form .btn {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form .btn:hover {
+    background-color: #e66000 !important;
+    transform: translateY(-1px);
+}
