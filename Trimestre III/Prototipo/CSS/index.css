@@ -65,8 +65,59 @@ a:active{
     border-radius: 20px;
     transition: 0.3s;
     border: solid rgb(255, 101, 11) 2px;
+    background-color: rgb(0, 0, 0);
+    color:white;
 }
 
+.modal-login{
+    border-radius: 25px;
+    border: groove #030303 5px ;
+    background: linear-gradient(
+    90deg,
+    #ff6b00,
+    #ff8c00,
+    #ffb347
+);
+
+}
+
+.model-header h2, label{
+    font-weight: 500;
+    font-family: 'Times New Roman', Times, serif;
+    text-shadow: 5px 2px 3px rgb(170, 96, 96)
+}
+
+
+.model-header h2:hover{
+    color:rgb(255, 255, 255)
+
+}
+
+.modal-body input:focus{
+   background-color: #fff8a7;
+  border-color:rgb(0, 0, 0)
+  
+}
+
+.btn-ingresar{
+    background: #030303;
+    color:white;
+    width:50% !important;
+    margin-left: 120px;
+
+}
+
+.modal-login a{
+    text-decoration: none;
+    color:black
+
+}
+
+.modal-login a:hover{
+    color:white !important;
+    transform: scale(1.0)
+
+}
 .login:hover{
     transform: scale(1.1);
     color:rgb(255, 255, 255)
