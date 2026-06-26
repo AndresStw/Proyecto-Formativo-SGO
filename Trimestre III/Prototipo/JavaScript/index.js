@@ -24,7 +24,7 @@ document.querySelector('.btn-ingresar').addEventListener('click', function(event
         'cocinero@saborcaleno.com': {
             password: '5678',
             rol: 'Cocinero',
-            redireccion: 'pages/cocinero.html'
+            redireccion: 'cocinero.html'
         },
 
         'cajero@saborcaleno.com': {

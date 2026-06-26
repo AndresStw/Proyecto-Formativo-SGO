@@ -14,7 +14,7 @@ let pedidos = [
         hora: "12:10 PM",
         platos: ["2 Pizza familiar", "1 Gaseosa 1.5L"],
         nota: "",
-        estado: "pendiente"
+        estado: "listo"
     },
     {
         id: 3,
@@ -30,7 +30,7 @@ let pedidos = [
         hora: "11:50 AM",
         platos: ["1 Ensalada César", "1 Agua con gas"],
         nota: "",
-        estado: "listo"
+        estado: "pendiente"
     }
 ];
 
