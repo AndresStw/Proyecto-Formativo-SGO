@@ -1,23 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const btnLogin = document.getElementById("btn-login");
-    const usuarioLogueado = JSON.parse(localStorage.getItem("usuarioLogueado"));
+    actualizarBotonLogin();
 
-    if (btnLogin && usuarioLogueado) {
-        btnLogin.textContent = "Mi Cuenta";
-        btnLogin.classList.remove("btn-dark");
-        btnLogin.classList.add("btn-warning", "text-dark", "fw-bold");
-    }
+    const formLogin = document.getElementById("form-login");
+    if (formLogin) {
+        formLogin.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
 
-    if (btnLogin) {
-        btnLogin.addEventListener("click", () => {
-            if (usuarioLogueado) {
-                if (usuarioLogueado.rol === "admin") {
-                    window.location.href = "Admin/dashboard.html";
-                } else {
-                    window.location.href = "Pages/perfil.html";
-                }
+            const resultado = iniciarSesion(email, password);
+            if (resultado.success) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById("loginModal"));
+                if (modal) modal.hide();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenido!',
+                    text: `Has iniciado sesión como ${resultado.usuario.nombre}`,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                setTimeout(() => {
+                    redirigirSegunRol(resultado.usuario);
+                }, 1500);
+
+                formLogin.reset();
             } else {
-                window.location.href = "Pages/login.html";
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Credenciales incorrectas',
+                    text: 'Revisa tu correo y contraseña',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
             }
         });
     }

@@ -1,6 +1,6 @@
 const Validaciones = {
     validarEmail: (email) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;//analizar 
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     },
     validarPassword: (password) => {

@@ -1,17 +1,54 @@
-.card {
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05) !important;
+:root {
+    --naranja: #ff6b00;
+    --naranja-claro: #ff8c00;
+    --naranja-suave: #ffb347;
+    --negro: #1a1a1a;
+    --blanco: #ffffff;
+    --gris-claro: #f8f9fa;
+    --gris-texto: #6c757d;
 }
 
-input[type="date"], input[type="time"], select {
+.card {
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06) !important;
+    border: 2px solid rgba(255, 107, 0, 0.08);
+}
+
+input[type="date"],
+input[type="time"],
+select {
     cursor: pointer;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 10px 14px;
+    transition: all 0.3s ease;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+    border-color: var(--naranja);
+    box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.1);
 }
 
 form .btn {
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    background: linear-gradient(90deg, var(--naranja), var(--naranja-claro));
+    color: white;
+    font-weight: 700;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 form .btn:hover {
-    background-color: #e66000 !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(255, 107, 0, 0.3);
+    color: white;
+}
+
+form .btn:active {
+    transform: translateY(1px);
 }

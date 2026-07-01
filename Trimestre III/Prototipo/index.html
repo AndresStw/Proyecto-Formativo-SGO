@@ -2,393 +2,194 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap -->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
 
-<<<<<<< HEAD
-    <!-- Font Awesome  para los iconos que no se olvide-->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-
-
-    <!-- Para titulos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Carter+One&family=Monsieur+La+Doulaise&display=swap"
         rel="stylesheet">
 
-=======
     <!-- Font Awesome -->
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- CSS -->
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="Assets/CSS/index.css">
 
-    <link rel="stylesheet" href="../Prototipo/Assets/CSS/index.css">
-
-    <link rel="icon" href="../Prototipo/Assets/Img/logos/logo_sabor caleño2026.png">
+    <link rel="icon" href="Assets/Img/logos/logo_sabor caleño2026.png">
 
     <title>Restaurante Sabor Caleño</title>
-
 </head>
 
 <body>
 
     <header>
-
         <nav class="d-flex justify-content-around align-items-center gap-4 p-3 navegacion">
-
-            <img src="../Prototipo/Assets/Img/logos/logo_sabor caleño2026.png" alt="Logo Restaurante" class="logo">
-
-<<<<<<< HEAD
-            <!-- <p id="tituloR" class="m-0 text-white">
-
-                Sabor Caleñor
-
-            </p> -->
-            <p id="tituloR" class="abril-fatface-regular">
-                
-                Sabor Caleño
-            </p>
-
-=======
-            <p id="tituloR" class="m-0 text-white">
-
-                Sabor Caleño
-
-            </p>
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
+            <img src="Assets/Img/logos/logo_sabor caleño2026.png" alt="Logo Restaurante" class="logo">
+            <p id="tituloR" class="abril-fatface-regular m-0 text-white">Sabor Caleño</p>
 
             <div class="d-flex justify-content-end gap-4 align-items-center">
-
-                <a class="text-white text-decoration-none" href="">
-                    Inicio
-                </a>
-
-                <a class="text-white text-decoration-none" href="">
-                    Nosotros
-                </a>
-
-                <a class="text-white text-decoration-none" href="">
-                    Menú
-                </a>
-
-                <button class="btn btn-dark login">
+                <a class="text-white text-decoration-none" href="#inicio">Inicio</a>
+                <a class="text-white text-decoration-none" href="#nosotros">Nosotros</a>
+                <a class="text-white text-decoration-none" href="Pages/menu.html">Menú</a>
+                <button class="btn btn-login-nav login" data-bs-toggle="modal" data-bs-target="#loginModal">
                     Login
                 </button>
-
             </div>
-
         </nav>
-
     </header>
 
     <main>
-
-        <!-- CARRUSEL -->
-
-        <section class="principal">
-
+        <!-- Carrusel -->
+        <section class="principal" id="inicio">
             <div id="carruselPrincipal" class="carousel slide">
-
                 <div class="carousel-inner">
-
-
-
                     <div class="carousel-item active">
-
-<<<<<<< HEAD
-                        <img src="../Prototipo/Assets/Img/fondo/Mesas.jpg" class="d-block w-100 imagenCarrusel"
-                            alt="Restaurante">
-=======
-                        <img src="../Prototipo/Assets/Img/fondo/Mesas.jpg" class="d-block w-100 imagenCarrusel" alt="Restaurante">
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
-
+                        <img src="Assets/Img/fondo/Mesas.jpg" class="d-block w-100 imagenCarrusel" alt="Restaurante">
                         <div class="carrusel-contenido">
-
-                            <p class="textoPrincipal">
-
-                                <i>
-                                    La autenticidad del sabor valluno
-                                </i>
-
-                            </p>
-
+                            <p class="textoPrincipal"><i>La autenticidad del sabor valluno</i></p>
                         </div>
-
                     </div>
-
                     <div class="carousel-item">
-
-<<<<<<< HEAD
-                        <img src="../Prototipo/Assets/Img/fondo/vista.jpg" class="d-block w-100 imagenCarrusel"
+                        <img src="Assets/Img/fondo/vista.jpg" class="d-block w-100 imagenCarrusel"
                             alt="Vista Restaurante">
-=======
-                        <img src="../Prototipo/Assets/Img/fondo/vista.jpg" class="d-block w-100 imagenCarrusel" alt="Vista Restaurante">
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
-
                         <div class="carrusel-contenido">
-
-                            <p class="textoPrincipal">
-
-                                <i>
-                                    Un espacio diseñado para compartir
-                                </i>
-
-                            </p>
-
+                            <p class="textoPrincipal"><i>Un espacio diseñado para compartir</i></p>
                         </div>
-
                     </div>
-
                     <div class="carousel-item">
-
-<<<<<<< HEAD
-                        <img src="../Prototipo/Assets/Img/fondo/Cali.jpg" class="d-block w-100 imagenCarrusel"
-                            alt="Cali">
-=======
-                        <img src="../Prototipo/Assets/Img/fondo/vista.jpg" class="d-block w-100 imagenCarrusel" alt="Cali">
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
-
+                        <img src="Assets/Img/fondo/Cali.jpg" class="d-block w-100 imagenCarrusel" alt="Cali">
                         <div class="carrusel-contenido">
-
-                            <p class="textoPrincipal">
-
-                                <i>
-                                    La esencia del Valle en un solo lugar
-                                </i>
-
-                            </p>
-
+                            <p class="textoPrincipal"><i>La esencia del Valle en un solo lugar</i></p>
                         </div>
-
                     </div>
-
                 </div>
-
-
                 <button class="carousel-control-prev" type="button" data-bs-target="#carruselPrincipal"
                     data-bs-slide="prev">
-
                     <span class="carousel-control-prev-icon"></span>
-
                 </button>
-
                 <button class="carousel-control-next" type="button" data-bs-target="#carruselPrincipal"
                     data-bs-slide="next">
-
                     <span class="carousel-control-next-icon"></span>
-
                 </button>
-
             </div>
-
         </section>
 
-        <section class="container text-center py-4">
-
-            <h2 class="tituloSeccion">
-                Sobre Nosotros
-            </h2>
-
-            <p class="textoNosotros">
-
-                En <b><i>Sabor Caleño</i></b> ofrecemos los mejores platos típicos del <b>Valle</b>,
-                preparados con tradición, pasión y la auténtica sazón colombiana.
-
-<<<<<<< HEAD
-                Nuestros restaurantes están ubicados en <b>Bogotá D.C -Marco Fidel/Santa Lucia  y Cali-Aguacatal/El Pondaje/Pancelili</b>, un espacio diseñado
-=======
-                Nuestro restaurante está ubicado en <b>Santa Lucía</b>, un espacio diseñado
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
-                para compartir en familia, disfrutar de un ambiente acogedor y vivir
-                una experiencia llena de cultura, sabor y tradición caleña.
-
-            </p>
-
-        </section>
-
-
-        <section class="container py-5">
-
-            <h2 class="text-center mb-5 tituloSeccion">
-                Platos Destacados
-            </h2>
-
-            <div class="row g-4">
-
-                <div class="col-md-4">
-
-                    <div class="card tarjetaPlato">
-
-<<<<<<< HEAD
-                        <img src="../Prototipo/Assets/Img/platos/Caldo_Pescado.png" class="card-img-top imagenPlato"
-                            alt="Sancocho">
-=======
-                        <img src="../Prototipo/Assets/Img/platos/Caldo_Pescado.png" class="card-img-top imagenPlato" alt="Sancocho">
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
-
-                        <div class="card-body text-center">
-
-                            <h5 class="card-title">
-                                Caldo de pescado
-                            </h5>
-
-                            <p class="card-text">
-                                Delicioso sancocho tradicional caleño.
-                            </p>
-
-                        </div>
-
+        <!-- Modal de Login -->
+        <div class="modal fade" id="loginModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modal-login">
+                    <div class="modal-header border-0">
+                        <h2 class="modal-title w-100 text-center"><b>Iniciar Sesión</b></h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-
-                </div>
-
-                <div class="col-md-4">
-
-                    <div class="card tarjetaPlato">
-
-<<<<<<< HEAD
-                        <img src="../Prototipo/Assets/Img/platos/chuleta valluna.jpg" class="card-img-top imagenPlato"
-                            alt="Chuleta">
-=======
-                        <img src="../Prototipo/Assets/Img/platos/chuleta valluna.jpg" class="card-img-top imagenPlato" alt="Chuleta">
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
-
-                        <div class="card-body text-center">
-
-                            <h5 class="card-title">
-                                Chuleta Valluna
-                            </h5>
-
-                            <p class="card-text">
-                                Crujiente y acompañada con papas y ensalada.
-                            </p>
-
-                        </div>
-
+                    <div class="modal-body">
+                        <form id="form-login">
+                            <div class="mb-3">
+                                <label for="email" class="form-label"><b>Correo Electrónico</b></label>
+                                <input type="email" name="CorreoUsuario" class="form-control" id="email"
+                                    placeholder="Ingresa tu correo" minlength="5" maxlength="40" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label"><b>Contraseña</b></label>
+                                <input type="password" class="form-control" id="password"
+                                    placeholder="Ingresa tu contraseña" minlength="5" maxlength="20" required>
+                            </div>
+                            <button type="submit" class="btn btn-login btn-ingresar w-100">Ingresar</button>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="#" class="link-login">¿Olvidaste tu contraseña?</a>
+                                <a href="Pages/registro.html" class="link-login">Regístrate</a>
+                            </div>
+                        </form>
                     </div>
-
                 </div>
-
-                <div class="col-md-4">
-
-                    <div class="card tarjetaPlato">
-
-<<<<<<< HEAD
-                        <img src="../Prototipo/Assets/Img/platos/arroz.jpg" class="card-img-top imagenPlato"
-                            alt="Arroz Atollado">
-=======
-                        <img src="../Prototipo/Assets/Img/platos/arroz.jpg" class="card-img-top imagenPlato" alt="Arroz Atollado">
->>>>>>> 08d648cfcb1ff6e3645ce4014329e45124a00aa2
-
-                        <div class="card-body text-center">
-
-                            <h5 class="card-title">
-                                Arroz Atollado
-                            </h5>
-
-                            <p class="card-text">
-                                Sabor tradicional con ingredientes auténticos.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
             </div>
-
-        </section>
-
-    </main>
-
-
-    <footer id="pie-web">
-
-        <div class="container">
-
-            <div class="row text-white text-center g-4">
-
-                <div class="col-md-4">
-
-                    <h2>Redes Sociales</h2>
-
-                    <p>
-                        <i class="fa-brands fa-instagram"></i>
-                        @saborcaleno
-                    </p>
-
-                    <p>
-                        <i class="fa-brands fa-facebook"></i>
-                        Sabor Caleño Oficial
-                    </p>
-
-                </div>
-
-
-
-                <div class="col-md-4">
-
-                    <h2>Contacto</h2>
-
-                    <p>
-                        <i class="fa-solid fa-phone"></i>
-                        +57 300 123 4567
-                    </p>
-
-                    <p>
-                        <i class="fa-regular fa-envelope"></i>
-                        saborcaleno@gmail.com
-                    </p>
-
-                </div>
-
-
-
-                <div class="col-md-4">
-
-                    <h2>Ubicación</h2>
-
-                    <p>
-                        <i class="fa-solid fa-location-dot"></i>
-                        Santa Lucía
-                    </p>
-
-                    <p>
-                        <i class="fa-solid fa-earth-americas"></i>
-                        Colombia
-                    </p>
-
-                </div>
-
-            </div>
-
         </div>
 
+        <!-- Sobre Nosotros -->
+        <section class="container text-center py-4" id="nosotros">
+            <h2 class="tituloSeccion">Sobre Nosotros</h2>
+            <p class="textoNosotros">
+                En <b><i>Sabor Caleño</i></b> ofrecemos los mejores platos típicos del <b>Valle</b>,
+                preparados con tradición, pasión y la auténtica sazón colombiana.
+                Nuestros restaurantes están ubicados en <b>Bogotá D.C - Marco Fidel/Santa Lucía y Cali - Aguacatal/El
+                    Pondaje/Pance</b>, un espacio diseñado
+                para compartir en familia, disfrutar de un ambiente acogedor y vivir
+                una experiencia llena de cultura, sabor y tradición caleña.
+            </p>
+        </section>
+
+        <!-- Platos Destacados -->
+        <section class="container py-5" id="menu">
+            <h2 class="text-center mb-5 tituloSeccion">Platos Destacados</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card tarjetaPlato">
+                        <img src="Assets/Img/platos/Caldo_Pescado.png" class="card-img-top imagenPlato"
+                            alt="Caldo de Pescado">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Caldo de Pescado</h5>
+                            <p class="card-text">Delicioso sancocho tradicional caleño.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card tarjetaPlato">
+                        <img src="Assets/Img/platos/chuleta valluna.jpg" class="card-img-top imagenPlato"
+                            alt="Chuleta Valluna">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Chuleta Valluna</h5>
+                            <p class="card-text">Crujiente y acompañada con papas y ensalada.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card tarjetaPlato">
+                        <img src="Assets/Img/platos/arroz.jpg" class="card-img-top imagenPlato" alt="Arroz Atollado">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Arroz Atollado</h5>
+                            <p class="card-text">Sabor tradicional con ingredientes auténticos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="pie-web">
+        <div class="container">
+            <div class="row text-white text-center g-4">
+                <div class="col-md-4">
+                    <h2>Redes Sociales</h2>
+                    <p><i class="fa-brands fa-instagram"></i> @saborcaleno</p>
+                    <p><i class="fa-brands fa-facebook"></i> Sabor Caleño Oficial</p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Contacto</h2>
+                    <p><i class="fa-solid fa-phone"></i> +57 300 123 4567</p>
+                    <p><i class="fa-regular fa-envelope"></i> saborcaleno@gmail.com</p>
+                </div>
+                <div class="col-md-4">
+                    <h2>Ubicación</h2>
+                    <p><i class="fa-solid fa-location-dot"></i> Santa Lucía</p>
+                    <p><i class="fa-solid fa-earth-americas"></i> Colombia</p>
+                </div>
+            </div>
+        </div>
     </footer>
 
-
-
     <!-- Bootstrap JS -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JS -->
-
-    <script src="../Prototipo/Assets/JavaScript/index.js"></script>
-
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- JS propio -->
+    <script src="Assets/JavaScript/auth.js"></script>
+    <script src="Assets/JavaScript/index.js"></script>
 </body>
 
 </html>
