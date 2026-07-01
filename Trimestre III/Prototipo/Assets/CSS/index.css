@@ -1,7 +1,20 @@
 *{
+
     margin: 0;
     padding: 0;
+    
+
 }
+.root {
+
+--Negro:black;
+--Blanco-Hueso:#e6ffc4;
+--Text-Blanco:#ffffff;
+
+
+}
+
+
 body, header{
     font-family: Arial, Helvetica, sans-serif;
 
@@ -154,3 +167,27 @@ text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
 
     margin-right: 10px;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Monsieur+La+Doulaise&display=swap');
+/* Letra mas moderna */
+.monsieur-la-doulaise-regular {
+  font-family: "Monsieur La Doulaise", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.abril-fatface-regular {
+  font-family: "Abril Fatface", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.carter-one-regular {
+  font-family: "Carter One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+
