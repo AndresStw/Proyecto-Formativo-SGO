@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, header {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navegacion {
+    background: linear-gradient(90deg, #ff6b00, #ff8c00, #ffb347);
+    font-weight: 700;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#tituloR {
+    font-size: 25px;
+    font-style: italic;
+    font-weight: 800;
+}
+
+#tituloR:hover {
+    transform: scale(1.1);
+    color: rgb(0, 0, 0) !important;
+}
+
+.navegacion a {
+    transition: 0.3s;
+}
+
+a:hover {
+    color: rgb(0, 0, 0) !important;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+a:active {
+    color: rgb(241, 226, 19) !important;
+}
+
+.logo {
+    width: 100px;
+    border-radius: 10px;
+    border: solid rgb(0, 0, 0) 2px;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
+.login {
+    border-radius: 20px;
+    transition: 0.3s;
+    border: solid rgb(255, 101, 11) 2px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+.modal-login {
+    border-radius: 25px;
+    border: groove #030303 5px;
+    background: linear-gradient(90deg, #ff6b00, #ff8c00, #ffb347);
+}
+
+.modal-header h2, label {
+    font-weight: 500;
+    font-family: 'Times New Roman', Times, serif;
+    text-shadow: 5px 2px 3px rgb(170, 96, 96);
+}
+
+.modal-header h2:hover {
+    color: rgb(255, 255, 255);
+}
+
+.modal-body input:focus {
+    background-color: #fff8a7;
+    border-color: rgb(0, 0, 0);
+}
+
+.btn-ingresar {
+    background: #030303;
+    color: white;
+    width: 50% !important;
+    margin-left: 120px;
+}
+
+.modal-login a {
+    text-decoration: none;
+    color: black;
+}
+
+.modal-login a:hover {
+    color: white !important;
+    transform: scale(1.0);
+}
+
+.login:hover {
+    transform: scale(1.1);
+    color: rgb(255, 255, 255);
+}
+
+.imagenCarrusel {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+}
+
+.textoPrincipal {
+    font-size: 30px;
+    text-align: center;
+    font-weight: 700;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.tituloSeccion {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.textoNosotros {
+    font-size: 20px;
+}
+
+.imagenPlato {
+    height: 250px;
+    object-fit: cover;
+}
+
+.tarjetaPlato {
+    transition: 0.3s;
+}
+
+.tarjetaPlato:hover {
+    transform: scale(1.03);
+}
+
+.imagenGaleria {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.imagenGaleria:hover {
+    transform: scale(1.05);
+}
+
+#pie-web {
+    background-image: url('../img/fondo/footer.jpg');
+    padding: 50px 0;
+    margin-top: 50px;
+}
+
+#pie-web h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+#pie-web p {
+    font-size: 20px;
+    color: white;
+    transition: 0.3s;
+}
+
+#pie-web p:hover {
+    transform: scale(1.05);
+    color: rgb(8, 6, 2);
+}
+
+#pie-web i {
+    margin-right: 10px;
+}

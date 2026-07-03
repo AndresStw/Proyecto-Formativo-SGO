@@ -1,0 +1,57 @@
+```
+└── 📁Prototipo
+    └── 📁Admin
+        ├── categorias.html
+        ├── dashboard.html
+        ├── pedidos.html
+        ├── platos.html
+        ├── reportes.html
+        ├── reservas.html
+        ├── usuarios.html
+    └── 📁Assets
+        └── 📁CSS
+            ├── cocinero.css
+            ├── dashboard.css
+            ├── global.css
+            ├── index.css
+            ├── login.css
+            ├── menu.css
+            ├── reservas.css
+        └── 📁Img
+            └── 📁empleados
+            └── 📁fondo
+                ├── Cali.jpg
+                ├── footer.jpg
+                ├── Mesas.jpg
+                ├── vista.jpg
+            └── 📁iconos
+            └── 📁logos
+                ├── logo_sabor caleño2026.png
+            └── 📁platos
+                ├── arroz.jpg
+                ├── Caldo_Costilla.png
+                ├── Caldo_Pescado.png
+                ├── chuleta valluna.jpg
+                ├── Taza_Chocolate.png
+        └── 📁JavaScript
+            ├── auth.js
+            ├── carrito.js
+            ├── cocinero.js
+            ├── dashboard.js
+            ├── index.js
+            ├── login.js
+            ├── menu.js
+            ├── perfil.js
+            ├── reservas.js
+            ├── validaciones.js
+    └── 📁Pages
+        ├── carrito.html
+        ├── cocinero.html
+        ├── contacto.html
+        ├── login.html
+        ├── menu.html
+        ├── perfil.html
+        ├── registro.html
+        ├── reservas.html
+    └── index.html
+```

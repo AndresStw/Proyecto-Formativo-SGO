@@ -1,0 +1,62 @@
+:root {
+    --naranja: #ff6b00;
+    --naranja-claro: #ff8c00;
+    --naranja-suave: #ffb347;
+    --negro: #1a1a1a;
+    --blanco: #ffffff;
+    --gris-claro: #f8f9fa;
+    --gris-texto: #6c757d;
+}
+
+body {
+    background-color: var(--gris-claro);
+}
+
+.tarjeta-metrica {
+    border-left: 4px solid var(--naranja-claro);
+    border-radius: 12px;
+    background-color: var(--blanco);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+
+.tarjeta-metrica:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255, 107, 0, 0.12);
+}
+
+.estado-pedido {
+    font-size: 13px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.btn-outline-primary {
+    color: var(--naranja);
+    border-color: var(--naranja);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--naranja);
+    border-color: var(--naranja);
+    color: white;
+    transform: scale(1.05);
+}
+
+.nav-admin .nav-link {
+    color: #495057;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-admin .nav-link:hover,
+.nav-admin .nav-link.active {
+    background: linear-gradient(90deg, rgba(255, 107, 0, 0.1), rgba(255, 140, 0, 0.05));
+    color: var(--naranja);
+    transform: translateX(5px);
+}
