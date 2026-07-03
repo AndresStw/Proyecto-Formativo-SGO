@@ -1,34 +1,157 @@
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-4 border-bottom">
-        <h1 class="h2 fw-bold">Gestión de Platos</h1>
-        <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#modalPlato">
-            <i class="fa-solid fa-plus me-1"></i> Nuevo Plato
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Platos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="Assets/CSS/platos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<main class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+        <h1>Gestión de Platos</h1>
+
+        <button class="btn btn-dark">
+            <i class="fa-solid fa-plus"></i>
+            Nuevo Plato
         </button>
     </div>
 
-    <div class="card border-0 shadow-sm p-4">
-        <table class="table align-middle">
-            <thead>
-                <tr>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="../Assets/Img/platos/Sancocho.jpg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;"></td>
-                    <td><b>Sancocho Valluno</b></td>
-                    <td>Platos Fuertes</td>
-                    <td>$25.000</td>
-                    <td>
-                        <button class="btn btn-sm btn-light border"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="card p-4">
+
+        <div class="table-responsive">
+
+            <table class="table align-middle">
+
+                <thead>
+
+                    <tr>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            <img src="../Assets/Img/platos/Sancocho.jpg" alt="Sancocho">
+                        </td>
+
+                        <td>
+                            <b>Sancocho Valluno</b>
+                        </td>
+
+                        <td>
+                            Platos Fuertes
+                        </td>
+
+                        <td>
+                            <strong>$25.000</strong>
+                        </td>
+
+                        <td>
+
+                            <button class="btn btn-light">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
+                            <button class="btn btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <img src="../Assets/Img/platos/Bandeja-Paisa.jpg" alt="Bandeja Paisa">
+                        </td>
+
+                        <td>
+                            <b>Bandeja Paisa</b>
+                        </td>
+
+                        <td>
+                            Platos Fuertes
+                        </td>
+
+                        <td>
+                            <strong>$32.000</strong>
+                        </td>
+
+                        <td>
+
+                            <button class="btn btn-light">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
+                            <button class="btn btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            <img src="../Assets/Img/platos/Empanadas.jpg" alt="Empanadas">
+                        </td>
+
+                        <td>
+                            <b>Empanadas Vallunas</b>
+                        </td>
+
+                        <td>
+                            Entradas
+                        </td>
+
+                        <td>
+                            <strong>$12.000</strong>
+                        </td>
+
+                        <td>
+
+                            <button class="btn btn-light">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+
+                            <button class="btn btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
     </div>
+
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
