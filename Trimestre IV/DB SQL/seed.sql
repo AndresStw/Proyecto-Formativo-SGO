@@ -1,80 +1,326 @@
 -- seed.sql
--- Datos de ejemplo para pruebas y consultas
+-- Datos de ejemplo para Sabor Caleno SGO
+USE sabor_caleno_sgo;
 
--- Roles
-INSERT INTO roles (name) VALUES ('admin'), ('manager'), ('clerk') ON CONFLICT DO NOTHING;
+-- =============================================
+-- CATALOGOS BASICOS
+-- =============================================
+-- Modalidades de pedido
+INSERT INTO
+    modalidadPedido (nombreModalidad, descripcion)
+VALUES
+    (
+        'En Mesa',
+        'Pedido para consumir en el restaurante'
+    ),
+    ('Para Llevar', 'Pedido para llevar'),
+    ('Domicilio', 'Pedido a domicilio');
 
--- Usuarios (passwords are example hashes; replace before production)
-INSERT INTO users (username, password_hash, full_name, email) VALUES
-('admin','$2y$12$ExampleHashForAdmin','Administrador SGO','admin@saborcaleño.test'),
-('jdoe','$2y$12$ExampleHashJdoe','Juan Doe','jdoe@saborcaleño.test')
-ON CONFLICT DO NOTHING;
+-- Estados de pedido
+INSERT INTO
+    Estado_Pedido (nombre_estado)
+VALUES
+    ('Pendiente'),
+    ('En Preparacion'),
+    ('Listo'),
+    ('Entregado'),
+    ('Cancelado');
 
--- Asignar roles
-INSERT INTO user_roles (user_id, role_id)
-SELECT u.id, r.id FROM users u, roles r WHERE u.username='admin' AND r.name='admin'
-ON CONFLICT DO NOTHING;
+-- Tipos de plato
+INSERT INTO
+    Tipo_Plato (nombre_tipo)
+VALUES
+    ('Entrada'),
+    ('Plato Principal'),
+    ('Postre'),
+    ('Bebida'),
+    ('Guarnicion');
 
--- Proveedores
-INSERT INTO suppliers (name, contact_name, phone, email) VALUES
-('Distribuciones Caleñas','Luisa Perez','+57 3000000000','luisa@distribucion.test')
-ON CONFLICT DO NOTHING;
+-- Metodos de pago
+INSERT INTO
+    MetodoPago (metodo)
+VALUES
+    ('Efectivo'),
+    ('Tarjeta Credito'),
+    ('Tarjeta Debito'),
+    ('Transferencia'),
+    ('QR');
 
--- Productos
-INSERT INTO products (sku, name, description, price, cost, supplier_id) VALUES
-('PROD-CAF-001','Café Sabor Caleño 250g','Café tostado molido, origen Valle','12.50','6.50',1),
-('PROD-ARE-001','Arepa Tradicional','Arepa de maíz blanco','1.20','0.50',1)
-ON CONFLICT DO NOTHING;
+-- =============================================
+-- USUARIOS
+-- =============================================
+INSERT INTO
+    Usuario (
+        primerNombre,
+        segundoNombre,
+        primerApellido,
+        segundoApellido,
+        email,
+        password_hash
+    )
+VALUES
+    (
+        'Juan',
+        'Carlos',
+        'Perez',
+        'Gomez',
+        'juan.perez@restaurante.com',
+        '$2y$12$ExampleHash'
+    ),
+    (
+        'Maria',
+        'Luisa',
+        'Rodriguez',
+        'Martinez',
+        'maria.r@restaurante.com',
+        '$2y$12$ExampleHash'
+    ),
+    (
+        'Carlos',
+        'Andres',
+        'Lopez',
+        'Diaz',
+        'carlos.l@restaurante.com',
+        '$2y$12$ExampleHash'
+    ),
+    (
+        'Ana',
+        'Maria',
+        'Torres',
+        'Garcia',
+        'ana.t@restaurante.com',
+        '$2y$12$ExampleHash'
+    ),
+    (
+        'Pedro',
+        NULL,
+        'Ramirez',
+        'Cruz',
+        'pedro.r@restaurante.com',
+        '$2y$12$ExampleHash'
+    ),
+    (
+        'Laura',
+        'Fernanda',
+        'Sanchez',
+        'Ortiz',
+        'laura.s@restaurante.com',
+        '$2y$12$ExampleHash'
+    );
 
--- Inventario
-INSERT INTO inventory (product_id, quantity) VALUES
-(1, 120),
-(2, 500)
-ON CONFLICT (product_id) DO UPDATE SET quantity = EXCLUDED.quantity;
+-- =============================================
+-- ROLES DE USUARIOS
+-- =============================================
+-- Administrador (usuario 1)
+INSERT INTO
+    Administrador (Usuario_idUsuario, nivel_acceso)
+VALUES
+    (1, 'Total');
 
--- Clientes
-INSERT INTO customers (name, phone, email) VALUES
-('Restaurante El Sabor','+57 3120000000','restaurante@sabor.test'),
-('Cliente Casa','+57 3100000000','cliente1@casa.test')
-ON CONFLICT DO NOTHING;
+-- Cajero (usuario 2)
+INSERT INTO
+    Cajero (Usuario_idUsuario, caja_asignada)
+VALUES
+    (2, 'Caja 1');
 
--- Direcciones
-INSERT INTO addresses (customer_id, line1, city, state, postal_code) VALUES
-(1,'Calle 10 # 5-20','Cali','Valle del Cauca','760001'),
-(2,'Carrera 7 # 12-34','Cali','Valle del Cauca','760002')
-ON CONFLICT DO NOTHING;
+-- Cocinero (usuario 3)
+INSERT INTO
+    Cocinero (Usuario_idUsuario, especialidad, turno)
+VALUES
+    (3, 'Carnes', 'Mañana'),
+    (4, 'Postres', 'Tarde');
 
--- Pedidos y detalles
-INSERT INTO orders (customer_id, status, total_amount) VALUES
-(1,'completed',50.00),
-(2,'pending',3.60)
-RETURNING id;
+-- Mesero (usuario 5)
+INSERT INTO
+    Mesero (Usuario_idUsuario, zona_asignada)
+VALUES
+    (5, 'Zona Norte');
 
--- Para simplificar, asumimos ordenes 1 y 2 existen
-INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
-(1,1,3,12.50), -- 3 x Café = 37.50
-(1,2,10,1.20), -- 10 x Arepa = 12.00
-(2,2,3,1.20)
-ON CONFLICT DO NOTHING;
+-- Cliente (usuario 6)
+INSERT INTO
+    Cliente (
+        id_cliente,
+        Usuario_idUsuario,
+        nivelCliente,
+        estadoMembresia
+    )
+VALUES
+    ('CLI-001', 6, 'Oro', 'Activa');
 
--- Encuesta ejemplo
-INSERT INTO surveys (name, description) VALUES ('Encuesta de Satisfacción','Encuesta posventa') ON CONFLICT DO NOTHING;
-INSERT INTO survey_questions (survey_id, question_text, question_type) VALUES
-(1,'¿Cómo calificaría la calidad del producto?','rating'),
-(1,'¿Recomendaría nuestros productos?','choice')
-ON CONFLICT DO NOTHING;
+-- =============================================
+-- DIRECCIONES Y TELEFONOS
+-- =============================================
+INSERT INTO
+    Direccion (Usuario_idUsuario, ciudad, calle, barrio)
+VALUES
+    (6, 'Cali', 'Calle 10 # 5-20', 'San Fernando');
 
--- Respuestas ejemplo
-INSERT INTO survey_responses (survey_id, customer_id) VALUES (1,1) RETURNING id;
--- Asumimos response id 1
-INSERT INTO survey_answers (response_id, question_id, answer_text) VALUES
-(1,1,'5'),
-(1,2,'Sí')
-ON CONFLICT DO NOTHING;
+INSERT INTO
+    Telefono (Usuario_idUsuario, telefono, operador)
+VALUES
+    (6, '+573001234567', 'Claro');
 
--- Procesos y tareas
-INSERT INTO process_flows (name, description) VALUES ('Pedido a entrega','Flujo desde orden hasta entrega') ON CONFLICT DO NOTHING;
-INSERT INTO tasks (process_flow_id, name, assigned_user_id, status) VALUES (1,'Preparar pedido',2,'todo') ON CONFLICT DO NOTHING;
+-- =============================================
+-- MESAS
+-- =============================================
+INSERT INTO
+    Mesa (capacidad, numero_mesa, Mesero_id_mesero)
+VALUES
+    (2, 'Mesa 1', 1),
+    (4, 'Mesa 2', 1),
+    (6, 'Mesa 3', 1),
+    (8, 'Mesa 4', 1);
 
--- Ejemplo de audit log
-INSERT INTO audit_logs (actor_id, action, details) VALUES (1,'seed_data','Inserción inicial de datos de ejemplo');
+-- =============================================
+-- PLATOS
+-- =============================================
+INSERT INTO
+    Plato (
+        nombre,
+        descripcion,
+        precio,
+        disponible,
+        Tipo_Plato_idTipo_Plato
+    )
+VALUES
+    (
+        'Bandeja Paisa',
+        'Arroz, frijoles, carne molida, chicharron, huevo, platano, arepa',
+        25000,
+        TRUE,
+        2
+    ),
+    (
+        'Sancocho de Gallina',
+        'Sopa tradicional con gallina, yuca, platano, papa',
+        22000,
+        TRUE,
+        2
+    ),
+    (
+        'Arepa con Queso',
+        'Arepa de maiz blanco con queso costeno',
+        8000,
+        TRUE,
+        1
+    ),
+    (
+        'Limonada',
+        'Limonada natural con hierbabuena',
+        6000,
+        TRUE,
+        4
+    ),
+    (
+        'Tres Leches',
+        'Postre de tres leches con merengue',
+        10000,
+        TRUE,
+        3
+    );
+
+-- =============================================
+-- INSUMOS
+-- =============================================
+INSERT INTO
+    Insumo (nombre, unidad_medida, precio_unitario)
+VALUES
+    ('Arroz', 'kg', 4000),
+    ('Frijoles', 'kg', 5000),
+    ('Carne Molida', 'kg', 15000),
+    ('Chicharron', 'kg', 18000),
+    ('Huevo', 'unidad', 800),
+    ('Platano', 'unidad', 500),
+    ('Arepa', 'unidad', 1500),
+    ('Queso Costeno', 'kg', 12000),
+    ('Gallina', 'kg', 14000),
+    ('Yuca', 'kg', 3000),
+    ('Limon', 'kg', 4000),
+    ('Hierbabuena', 'kg', 6000),
+    ('Leche', 'litro', 4000),
+    ('Azucar', 'kg', 3000);
+
+-- =============================================
+-- INVENTARIO
+-- =============================================
+INSERT INTO
+    Inventario (
+        Insumo_idInsumo,
+        stock_actual,
+        stock_minimo,
+        Administrador_id_administrador
+    )
+VALUES
+    (1, 50, 10, 1),
+    (2, 30, 8, 1),
+    (3, 20, 5, 1),
+    (4, 15, 3, 1),
+    (5, 100, 20, 1),
+    (6, 80, 15, 1),
+    (7, 60, 10, 1),
+    (8, 25, 5, 1),
+    (9, 10, 2, 1),
+    (10, 40, 10, 1);
+
+-- =============================================
+-- RECETAS
+-- =============================================
+-- Receta para Bandeja Paisa (idPlato = 1)
+INSERT INTO
+    Receta (Plato_idPlato, descripcion)
+VALUES
+    (1, 'Receta tradicional bandeja paisa');
+
+INSERT INTO
+    Detalle_Receta (Receta_idReceta, Insumo_idInsumo, cantidad)
+VALUES
+    (1, 1, 0.5), -- Arroz
+    (1, 2, 0.5), -- Frijoles
+    (1, 3, 0.3), -- Carne Molida
+    (1, 4, 0.2), -- Chicharron
+    (1, 5, 1), -- Huevo
+    (1, 6, 1), -- Platano
+    (1, 7, 1);
+
+-- Arepa
+-- =============================================
+-- PEDIDOS
+-- =============================================
+INSERT INTO
+    Pedido (
+        fecha_hora,
+        Mesero_id_mesero,
+        Mesa_idMesa,
+        Cliente_id_cliente,
+        modalidadPedido_id_modalidad,
+        Estado_Pedido_idEstado_Pedido
+    )
+VALUES
+    (NOW (), 1, 1, 'CLI-001', 1, 2);
+
+-- Detalle del pedido
+INSERT INTO
+    Detalle_Pedido (
+        Pedido_idPedido,
+        Plato_idPlato,
+        cantidad,
+        precio_unitario,
+        Observaciones
+    )
+VALUES
+    (1, 1, 2, 25000, 'Sin chicharron por favor'),
+    (1, 4, 2, 6000, 'Con hielo');
+
+-- =============================================
+-- VENTAS
+-- =============================================
+INSERT INTO
+    Venta (
+        fecha,
+        total,
+        Pedido_idPedido,
+        Metodo_Pago_idMetodo_Pago,
+        Cajero_id_cajero
+    )
+VALUES
+    (NOW (), 62000, 1, 1, 1);

@@ -6,7 +6,7 @@ Este README documenta la rama **`feature/customer-experience-v4`** del proyecto 
 
 **Rama Principal:** `feature/customer-experience-v4`  
 **Repositorio:** [AndresStw/Proyecto-Formativo-SGO](https://github.com/AndresStw/Proyecto-Formativo-SGO)  
-**Última Actualización:** 04 de Agosto de 2026  
+**Última Actualización:** 20 de Agosto de 2026  
 **Estado:** Activa
 
 ---
@@ -49,23 +49,142 @@ La rama `feature/customer-experience-v4` fue creada con los siguientes propósit
 
 ## 📁 Estructura del Proyecto
 
-```
-Proyecto-Formativo-SGO/
-├── Trimestre I/
-│   ├── Requisitos (RF/RNF)
-│   ├── Presentaciones iniciales
-│   ├── Diagramas BPMN
-│   └── Documentación base
-│
-├── Trimestre II/
-│   ├── Extensiones del proyecto
-│   ├── Análisis de proveedores
-│   ├── Cotizaciones
-│   ├── Formatos de costos
-│   └── SRS actualizados
-│
-└── Documentación general
-    └── Especificaciones y guías
+``` Ultimo Cambio 20 Agosto 2026 Nueva estructura 
+└── 📁Proyecto-Formativo-SGO
+    └── 📁.idea
+        ├── .gitignore
+        ├── misc.xml
+        ├── modules.xml
+        ├── Proyecto Formativo 2026 SGO 3315796 Sabor-Caleño.iml
+        ├── vcs.xml
+        ├── workspace.xml
+    └── 📁Trimestre I
+        └── 📁BPMN
+            ├── BPMN.pdf
+        └── 📁featurecustomer-experience-v4
+            ├── Links formularios.docx
+            ├── Modulo 4 app movil y web_Kevin Landazuri.pdf
+            ├── Modulo 4 Segunda version – Aplicación Web y Aplicación Móvil (Cliente) (1).pdf
+            ├── Recolección de datos _Cajero_ - Formularios de Google.pdf
+            ├── Recolección de datos _Gerente_ - Formularios de Google.pdf
+            ├── Wireframe de sitio web.json
+        └── 📁Formato De Costos
+            ├── FORMATO DE INFORME DE COSTOS Y ANÁLISIS DE PROVEEDORES.docx
+        └── 📁Formato SRS
+            ├── FormatoSRS Proyecto formativo.docx
+        └── 📁Proyecto versiones
+            ├── Sabor Caleño proyecto_V1.pdf
+            ├── Sabor Caleño proyecto_V2.pptx
+            ├── Sabor Caleño proyecto_V3.pdf
+        └── 📁Recoleccion de datos
+            ├── Encuesta_Recolección de datos(cuestionario).docx
+        └── 📁RF y RNF
+            ├── RF y RNF.docx
+    └── 📁Trimestre II
+        ├── cuadro cotizaciones.xlsx
+        ├── FORMATO DE INFORME DE COSTOS Y ANÁLISIS DE PROVEEDORES.docx
+        ├── GC-F-004FormatoPlantillaPresentacionPowerPointV10.pptx.pdf
+        ├── Sabor Caleño proyecto Fase II .pdf
+    └── 📁Trimestre III
+        └── 📁Prototipo
+            └── 📁Admin
+                ├── categorias.html
+                ├── dashboard.html
+                ├── pedidos.html
+                ├── platos.html
+                ├── reportes.html
+                ├── reservas.html
+                ├── usuarios.html
+            └── 📁Assets
+                └── 📁CSS
+                    ├── admin.css
+                    ├── categoria.css
+                    ├── cocinero.css
+                    ├── dashboard.css
+                    ├── global.css
+                    ├── index.css
+                    ├── login.css
+                    ├── menu.css
+                    ├── pedidos.css
+                    ├── platos.css
+                    ├── reportes.css
+                    ├── reservas.css
+                    ├── usuario.css
+                └── 📁Img
+                    └── 📁fondo
+                        ├── Cali.jpg
+                        ├── footer.jpg
+                        ├── Mesas.jpg
+                        ├── vista.jpg
+                    └── 📁logos
+                        ├── logo_sabor caleño2026.png
+                    └── 📁platos
+                        ├── arroz.jpg
+                        ├── Caldo_Costilla.png
+                        ├── Caldo_Pescado.png
+                        ├── ChampuCaleño.png
+                        ├── chuleta valluna.jpg
+                        ├── Taza_Chocolate.png
+                └── 📁JavaScript
+                    ├── auth.js
+                    ├── carrito.js
+                    ├── cocinero.js
+                    ├── dashboard.js
+                    ├── index.js
+                    ├── login.js
+                    ├── menu.js
+                    ├── perfil.js
+                    ├── reservas.js
+                    ├── validaciones.js
+            └── 📁Pages
+                ├── carrito.html
+                ├── cocinero.html
+                ├── contacto.html
+                ├── login.html
+                ├── menu.html
+                ├── perfil.html
+                ├── registro.html
+                ├── reservas.html
+            ├── Estructura.md
+            ├── index.html
+        ├── Diagram Employment Sabor-Caleño-2026 V1.0.png
+        ├── Diagrama1.dia
+        ├── Diagrama1.dia.autosave
+        ├── Diagrama1.dia~
+        ├── MER.dia
+        ├── MER.dia.autosave
+        ├── MER.dia~
+        ├── MR (modelo relacional) (1).mwb.bak
+        ├── MR (modelo relacionall).mwb
+        ├── MR (modelo relacionall).mwb.bak
+        ├── Normalizacion.xlsx
+    └── 📁Trimestre IV
+        └── 📁DB SQL
+            ├── README.md
+            ├── schema.sql
+            ├── seed.sql
+            ├── SQL-README.md
+        └── 📁SaborCaleñoSGO
+            └── 📁public
+                ├── favicon.svg
+                ├── icons.svg
+            └── 📁src
+                └── 📁assets
+                    ├── hero.png
+                    ├── react.svg
+                    ├── vite.svg
+                ├── App.css
+                ├── App.jsx
+                ├── index.css
+                ├── main.jsx
+            ├── .gitignore
+            ├── .oxlintrc.json
+            ├── index.html
+            ├── package-lock.json
+            ├── package.json
+            ├── README.md
+            ├── vite.config.js
+    └── README.md
 ```
 
 ---

@@ -1,145 +1,272 @@
 -- schema.sql
--- Esquema para Sabor Caleño SGO (PostgreSQL)
+-- Esquema para Sabor Caleno SGO (MariaDB)
+-- Generado a partir del MER del restaurante Tiene las correciones de ambiegudas 
 
--- Roles y usuarios
-CREATE TABLE roles (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(50) NOT NULL UNIQUE
-);
 
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  username VARCHAR(50) NOT NULL UNIQUE,
-  password_hash VARCHAR(255) NOT NULL,
-  full_name VARCHAR(150),
-  email VARCHAR(150) UNIQUE,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
-);
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS sabor_caleno_sgo DEFAULT CHARACTER
+SET
+  utf8mb4 -- No eliminar Hasta que corrijamos el error de carachteres
+  DEFAULT COLLATE utf8mb4_unicode_ci;
 
-CREATE TABLE user_roles (
-  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  role_id INTEGER NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
-  PRIMARY KEY (user_id, role_id)
-);
+-- No eliminar
+USE sabor_caleno_sgo;
 
--- Clientes y direcciones
-CREATE TABLE customers (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(200) NOT NULL,
-  phone VARCHAR(30),
-  email VARCHAR(150),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
-);
+-- =============================================
+-- TABLAS DE USUARIOS Y PERSONAS
+-- =============================================
 
-CREATE TABLE addresses (
-  id SERIAL PRIMARY KEY,
-  customer_id INTEGER REFERENCES customers(id) ON DELETE CASCADE,
-  line1 VARCHAR(255) NOT NULL,
-  line2 VARCHAR(255),
-  city VARCHAR(100),
-  state VARCHAR(100),
-  postal_code VARCHAR(30),
-  country VARCHAR(100) DEFAULT 'Colombia'
-);
+-- Usuario base (persona)
+CREATE TABLE
+  Usuario (
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    primerNombre VARCHAR(45) NOT NULL,
+    segundoNombre VARCHAR(45),
+    primerApellido VARCHAR(45) NOT NULL,
+    segundoApellido VARCHAR(45),
+    email VARCHAR(150) UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
 
--- Productos, proveedores e inventario
-CREATE TABLE suppliers (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(200) NOT NULL,
-  contact_name VARCHAR(150),
-  phone VARCHAR(30),
-  email VARCHAR(150)
-);
+-- Direcciones
+CREATE TABLE
+  Direccion (
+    idDireccion INT PRIMARY KEY AUTO_INCREMENT,
+    Usuario_idUsuario INT NOT NULL,
+    ciudad VARCHAR(45) NOT NULL,
+    calle VARCHAR(45) NOT NULL,
+    barrio VARCHAR(45) NOT NULL,
+    FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
+  );
 
-CREATE TABLE products (
-  id SERIAL PRIMARY KEY,
-  sku VARCHAR(50) UNIQUE,
-  name VARCHAR(200) NOT NULL,
-  description TEXT,
-  price NUMERIC(10,2) NOT NULL DEFAULT 0,
-  cost NUMERIC(10,2) DEFAULT 0,
-  supplier_id INTEGER REFERENCES suppliers(id),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
-);
+-- Telefonos
+CREATE TABLE
+  Telefono (
+    idTelefono INT PRIMARY KEY AUTO_INCREMENT,
+    Usuario_idUsuario INT NOT NULL,
+    telefono CHAR(15) NOT NULL,
+    operador VARCHAR(45) NOT NULL,
+    FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
+  );
 
-CREATE TABLE inventory (
-  product_id INTEGER PRIMARY KEY REFERENCES products(id) ON DELETE CASCADE,
-  quantity INTEGER NOT NULL DEFAULT 0,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT now()
-);
+-- =============================================
+-- ROLES DE USUARIOS (HERENCIA)
+-- =============================================
+-- Cliente
+CREATE TABLE
+  Cliente (
+    id_cliente VARCHAR(45) PRIMARY KEY,
+    Usuario_idUsuario INT NOT NULL,
+    nivelCliente VARCHAR(45) NOT NULL DEFAULT 'Estandar',
+    estadoMembresia VARCHAR(45) NOT NULL DEFAULT 'Activa',
+    FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
+  );
 
--- Pedidos y detalle de pedidos
-CREATE TABLE orders (
-  id SERIAL PRIMARY KEY,
-  customer_id INTEGER REFERENCES customers(id),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
-  status VARCHAR(50) DEFAULT 'pending',
-  total_amount NUMERIC(12,2) DEFAULT 0
-);
+-- Cajero
+CREATE TABLE
+  Cajero (
+    id_cajero INT PRIMARY KEY AUTO_INCREMENT,
+    Usuario_idUsuario INT NOT NULL,
+    caja_asignada VARCHAR(45) NOT NULL,
+    FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
+  );
 
-CREATE TABLE order_items (
-  id SERIAL PRIMARY KEY,
-  order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
-  product_id INTEGER REFERENCES products(id),
-  quantity INTEGER NOT NULL DEFAULT 1,
-  unit_price NUMERIC(10,2) NOT NULL
-);
+-- Administrador
+CREATE TABLE
+  Administrador (
+    id_administrador INT PRIMARY KEY AUTO_INCREMENT,
+    Usuario_idUsuario INT NOT NULL,
+    nivel_acceso VARCHAR(45) NOT NULL DEFAULT 'Basico',
+    FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
+  );
 
--- Encuestas y respuestas (para Customer Experience)
-CREATE TABLE surveys (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(200) NOT NULL,
-  description TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
-);
+-- Cocinero
+CREATE TABLE
+  Cocinero (
+    id_cocinero INT PRIMARY KEY AUTO_INCREMENT,
+    Usuario_idUsuario INT NOT NULL,
+    especialidad VARCHAR(45) NOT NULL,
+    turno VARCHAR(45) NOT NULL,
+    FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
+  );
 
-CREATE TABLE survey_questions (
-  id SERIAL PRIMARY KEY,
-  survey_id INTEGER REFERENCES surveys(id) ON DELETE CASCADE,
-  question_text TEXT NOT NULL,
-  question_type VARCHAR(50) DEFAULT 'text' -- text, rating, choice
-);
+-- Mesero
+CREATE TABLE
+  Mesero (
+    id_mesero INT PRIMARY KEY AUTO_INCREMENT,
+    Usuario_idUsuario INT NOT NULL,
+    zona_asignada VARCHAR(45) NOT NULL,
+    FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
+  );
 
-CREATE TABLE survey_responses (
-  id SERIAL PRIMARY KEY,
-  survey_id INTEGER REFERENCES surveys(id) ON DELETE CASCADE,
-  customer_id INTEGER REFERENCES customers(id),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
-);
+-- =============================================
+-- MESAS
+-- =============================================
+CREATE TABLE
+  Mesa (
+    idMesa INT PRIMARY KEY AUTO_INCREMENT,
+    capacidad INT NOT NULL,
+    numero_mesa VARCHAR(10) NOT NULL UNIQUE,
+    Mesero_id_mesero INT NOT NULL,
+    FOREIGN KEY (Mesero_id_mesero) REFERENCES Mesero (id_mesero)
+  );
 
-CREATE TABLE survey_answers (
-  id SERIAL PRIMARY KEY,
-  response_id INTEGER REFERENCES survey_responses(id) ON DELETE CASCADE,
-  question_id INTEGER REFERENCES survey_questions(id) ON DELETE CASCADE,
-  answer_text TEXT
-);
+-- =============================================
+-- CATALOGOS (TABLAS MAESTRAS)
+-- =============================================
+-- Modalidad de pedido
+CREATE TABLE
+  modalidadPedido (
+    id_modalidad INT PRIMARY KEY AUTO_INCREMENT,
+    nombreModalidad VARCHAR(45) NOT NULL,
+    descripcion VARCHAR(45)
+  );
 
--- Procesos y tareas (para BPMN / flujos operativos)
-CREATE TABLE process_flows (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(200) NOT NULL,
-  description TEXT
-);
+-- Estado del pedido
+CREATE TABLE
+  Estado_Pedido (
+    idEstado_Pedido INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_estado VARCHAR(45) NOT NULL
+  );
 
-CREATE TABLE tasks (
-  id SERIAL PRIMARY KEY,
-  process_flow_id INTEGER REFERENCES process_flows(id) ON DELETE SET NULL,
-  name VARCHAR(200) NOT NULL,
-  assigned_user_id INTEGER REFERENCES users(id),
-  status VARCHAR(50) DEFAULT 'todo',
-  due_date DATE
-);
+-- Tipo de plato
+CREATE TABLE
+  Tipo_Plato (
+    idTipo_Plato INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_tipo VARCHAR(45) NOT NULL
+  );
 
--- Auditoría básica
-CREATE TABLE audit_logs (
-  id BIGSERIAL PRIMARY KEY,
-  event_time TIMESTAMP WITH TIME ZONE DEFAULT now(),
-  actor_id INTEGER REFERENCES users(id),
-  action VARCHAR(200),
-  details JSONB
-);
+-- Metodo de pago
+CREATE TABLE
+  MetodoPago (
+    idMetodo_Pago INT PRIMARY KEY AUTO_INCREMENT,
+    metodo VARCHAR(45) NOT NULL
+  );
 
--- Índices útiles
-CREATE INDEX idx_orders_customer ON orders(customer_id);
-CREATE INDEX idx_products_sku ON products(sku);
-CREATE INDEX idx_inventory_quantity ON inventory(quantity);
+-- =============================================
+-- PLATOS
+-- =============================================
+CREATE TABLE
+  Plato (
+    idPlato INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(45) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    disponible BOOLEAN DEFAULT TRUE,
+    Tipo_Plato_idTipo_Plato INT NOT NULL,
+    FOREIGN KEY (Tipo_Plato_idTipo_Plato) REFERENCES Tipo_Plato (idTipo_Plato)
+  );
+
+-- =============================================
+-- PEDIDOS
+-- =============================================
+CREATE TABLE
+  Pedido (
+    idPedido INT PRIMARY KEY AUTO_INCREMENT,
+    fecha_hora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    tiempo_preparacion INT COMMENT 'Tiempo en minutos',
+    hora_entrega DATETIME,
+    Mesero_id_mesero INT NOT NULL,
+    Mesa_idMesa INT,
+    Cliente_id_cliente VARCHAR(45) NOT NULL,
+    modalidadPedido_id_modalidad INT NOT NULL,
+    Estado_Pedido_idEstado_Pedido INT NOT NULL,
+    FOREIGN KEY (Mesero_id_mesero) REFERENCES Mesero (id_mesero),
+    FOREIGN KEY (Mesa_idMesa) REFERENCES Mesa (idMesa) ON DELETE SET NULL,
+    FOREIGN KEY (Cliente_id_cliente) REFERENCES Cliente (id_cliente),
+    FOREIGN KEY (modalidadPedido_id_modalidad) REFERENCES modalidadPedido (id_modalidad),
+    FOREIGN KEY (Estado_Pedido_idEstado_Pedido) REFERENCES Estado_Pedido (idEstado_Pedido)
+  );
+
+-- Detalle del pedido
+CREATE TABLE
+  Detalle_Pedido (
+    idDetalle_Pedido INT PRIMARY KEY AUTO_INCREMENT,
+    Pedido_idPedido INT NOT NULL,
+    Plato_idPlato INT NOT NULL,
+    cantidad INT NOT NULL DEFAULT 1,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    Observaciones TEXT,
+    FOREIGN KEY (Pedido_idPedido) REFERENCES Pedido (idPedido) ON DELETE CASCADE,
+    FOREIGN KEY (Plato_idPlato) REFERENCES Plato (idPlato)
+  );
+
+-- =============================================
+-- INSUMOS E INVENTARIO
+-- =============================================
+CREATE TABLE
+  Insumo (
+    idInsumo INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(45) NOT NULL,
+    unidad_medida VARCHAR(45) NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL DEFAULT 0
+  );
+
+CREATE TABLE
+  Inventario (
+    idInventario INT PRIMARY KEY AUTO_INCREMENT,
+    Insumo_idInsumo INT NOT NULL,
+    stock_actual INT NOT NULL DEFAULT 0,
+    stock_minimo INT NOT NULL DEFAULT 5,
+    Administrador_id_administrador INT NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (Insumo_idInsumo) REFERENCES Insumo (idInsumo) ON DELETE CASCADE,
+    FOREIGN KEY (Administrador_id_administrador) REFERENCES Administrador (id_administrador)
+  );
+
+-- =============================================
+-- RECETAS
+-- =============================================
+CREATE TABLE
+  Receta (
+    idReceta INT PRIMARY KEY AUTO_INCREMENT,
+    Plato_idPlato INT NOT NULL,
+    descripcion TEXT,
+    FOREIGN KEY (Plato_idPlato) REFERENCES Plato (idPlato) ON DELETE CASCADE
+  );
+
+CREATE TABLE
+  Detalle_Receta (
+    idDetalle_Receta INT PRIMARY KEY AUTO_INCREMENT,
+    Receta_idReceta INT NOT NULL,
+    Insumo_idInsumo INT NOT NULL,
+    cantidad DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (Receta_idReceta) REFERENCES Receta (idReceta) ON DELETE CASCADE,
+    FOREIGN KEY (Insumo_idInsumo) REFERENCES Insumo (idInsumo)
+  );
+
+-- =============================================
+-- VENTAS
+-- =============================================
+CREATE TABLE
+  Venta (
+    idventa INT PRIMARY KEY AUTO_INCREMENT,
+    fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    total DECIMAL(12, 2) NOT NULL DEFAULT 0,
+    Pedido_idPedido INT NOT NULL,
+    Metodo_Pago_idMetodo_Pago INT NOT NULL,
+    Cajero_id_cajero INT NOT NULL,
+    FOREIGN KEY (Pedido_idPedido) REFERENCES Pedido (idPedido),
+    FOREIGN KEY (Metodo_Pago_idMetodo_Pago) REFERENCES MetodoPago (idMetodo_Pago),
+    FOREIGN KEY (Cajero_id_cajero) REFERENCES Cajero (id_cajero)
+  );
+
+-- =============================================
+-- INDICES
+-- =============================================
+CREATE INDEX idx_usuario_email ON Usuario (email);
+
+CREATE INDEX idx_pedido_cliente ON Pedido (Cliente_id_cliente);
+
+CREATE INDEX idx_pedido_estado ON Pedido (Estado_Pedido_idEstado_Pedido);
+
+CREATE INDEX idx_pedido_mesero ON Pedido (Mesero_id_mesero);
+
+CREATE INDEX idx_detalle_pedido ON Detalle_Pedido (Pedido_idPedido);
+
+CREATE INDEX idx_inventario_insumo ON Inventario (Insumo_idInsumo);
+
+CREATE INDEX idx_receta_plato ON Receta (Plato_idPlato);
+
+CREATE INDEX idx_venta_fecha ON Venta (fecha);
