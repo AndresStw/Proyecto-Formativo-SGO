@@ -71,15 +71,3 @@ Estructura propuesta (resumen ER):
 - surveys (1) --- (N) survey_questions
 - survey_responses (1) --- (N) survey_answers (N) --- (1) survey_questions
 
-Buenas prácticas y siguientes pasos:
-
-- En producción, no almacenar contraseñas en texto ni hashes de ejemplo; integrar un proveedor de autenticación o usar bcrypt con salt.
-- Añadir constraints y validaciones adicionales según reglas de negocio (e.g., estados válidos para orders, triggers para recalcular total_amount).
-- Crear scripts de migración (Flyway/Liquibase) si se requiere control de versiones de esquema.
-- Diseñar respaldos periódicos y políticas de retención para audit_logs e información sensible.
-
-Si quieres, puedo:
-- Generar un diagrama ER visual (PNG/SVG) y añadirlo al repo.
-- Añadir constraints/triggers para mantener total_amount consistente en orders.
-- Simplificar o expandir el esquema según módulos que prefieran (finanzas, producción, empleados).
-
