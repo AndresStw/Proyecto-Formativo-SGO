@@ -3,18 +3,16 @@
 -- Generado a partir del MER del restaurante Tiene las correciones de ambiegudas 
 
 
--- Crear la base de datos
 CREATE DATABASE IF NOT EXISTS sabor_caleno_sgo DEFAULT CHARACTER
+
 SET
   utf8mb4 -- No eliminar Hasta que corrijamos el error de carachteres
   DEFAULT COLLATE utf8mb4_unicode_ci;
 
--- No eliminar
-USE sabor_caleno_sgo;
 
--- =============================================
+USE sabor_caleno_sgo; -- No eliminaaaaaaaaaaar
+
 -- TABLAS DE USUARIOS Y PERSONAS
--- =============================================
 
 -- Usuario base (persona)
 CREATE TABLE
@@ -50,9 +48,8 @@ CREATE TABLE
     FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
   );
 
--- =============================================
 -- ROLES DE USUARIOS (HERENCIA)
--- =============================================
+
 -- Cliente
 CREATE TABLE
   Cliente (
@@ -100,21 +97,18 @@ CREATE TABLE
     FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario (idUsuario) ON DELETE CASCADE
   );
 
--- =============================================
 -- MESAS
--- =============================================
 CREATE TABLE
   Mesa (
     idMesa INT PRIMARY KEY AUTO_INCREMENT,
     capacidad INT NOT NULL,
-    numero_mesa VARCHAR(10) NOT NULL UNIQUE,
+    numero_mesa VARCHAR(10) NOT NULL UNIQUE, -- Foranea 
     Mesero_id_mesero INT NOT NULL,
     FOREIGN KEY (Mesero_id_mesero) REFERENCES Mesero (id_mesero)
   );
 
--- =============================================
 -- CATALOGOS (TABLAS MAESTRAS)
--- =============================================
+
 -- Modalidad de pedido
 CREATE TABLE
   modalidadPedido (
@@ -144,9 +138,7 @@ CREATE TABLE
     metodo VARCHAR(45) NOT NULL
   );
 
--- =============================================
 -- PLATOS
--- =============================================
 CREATE TABLE
   Plato (
     idPlato INT PRIMARY KEY AUTO_INCREMENT,
@@ -155,12 +147,11 @@ CREATE TABLE
     precio DECIMAL(10, 2) NOT NULL DEFAULT 0,
     disponible BOOLEAN DEFAULT TRUE,
     Tipo_Plato_idTipo_Plato INT NOT NULL,
-    FOREIGN KEY (Tipo_Plato_idTipo_Plato) REFERENCES Tipo_Plato (idTipo_Plato)
+    FOREIGN KEY (Tipo_Plato_idTipo_Plato) REFERENCES Tipo_Plato (idTipo_Plato) -- Esta esta super dificil de entender
   );
 
--- =============================================
 -- PEDIDOS
--- =============================================
+
 CREATE TABLE
   Pedido (
     idPedido INT PRIMARY KEY AUTO_INCREMENT,
@@ -192,9 +183,9 @@ CREATE TABLE
     FOREIGN KEY (Plato_idPlato) REFERENCES Plato (idPlato)
   );
 
--- =============================================
+
 -- INSUMOS E INVENTARIO
--- =============================================
+
 CREATE TABLE
   Insumo (
     idInsumo INT PRIMARY KEY AUTO_INCREMENT,
@@ -215,9 +206,7 @@ CREATE TABLE
     FOREIGN KEY (Administrador_id_administrador) REFERENCES Administrador (id_administrador)
   );
 
--- =============================================
 -- RECETAS
--- =============================================
 CREATE TABLE
   Receta (
     idReceta INT PRIMARY KEY AUTO_INCREMENT,
@@ -236,9 +225,7 @@ CREATE TABLE
     FOREIGN KEY (Insumo_idInsumo) REFERENCES Insumo (idInsumo)
   );
 
--- =============================================
 -- VENTAS
--- =============================================
 CREATE TABLE
   Venta (
     idventa INT PRIMARY KEY AUTO_INCREMENT,
@@ -252,9 +239,7 @@ CREATE TABLE
     FOREIGN KEY (Cajero_id_cajero) REFERENCES Cajero (id_cajero)
   );
 
--- =============================================
 -- INDICES
--- =============================================
 CREATE INDEX idx_usuario_email ON Usuario (email);
 
 CREATE INDEX idx_pedido_cliente ON Pedido (Cliente_id_cliente);
