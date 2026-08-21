@@ -266,7 +266,6 @@ Este proyecto es resultado del trabajo colaborativo de:
 - **davidvillanuevapotosi** - Cotizaciones y análisis presupuestarios
 - **brandonxrojas** - Diagramas BPMN y análisis de procesos
 - **sclavijo291-dot** - Documentación y especificaciones SRS
-- **Kevin Landazuri** - Desarrollo de módulos de aplicación móvil/web
 
 ---
 
