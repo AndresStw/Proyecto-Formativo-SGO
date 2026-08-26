@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "email": "cliente@saborcaleno.com",
+      "password": "$2a$10$Lt5hw3E3D4FX6CZyL.cCfeWl6ijyW9JxR/Zf/R9iEz9U.ip8col.q",
+      "id": 1
+    }
+  ],
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Caldo de costilla",
+      "descripcion": "Acompañado de arroz, aguacate y banano con presa de pollo.",
+      "precio": 9000,
+      "categoria": "platos"
+    },
+    {
+      "id": 2,
+      "nombre": "Chuleta Valluna",
+      "descripcion": "Filete de cerdo apanado crujiente, papas fritas y ensalada.",
+      "precio": 22000,
+      "categoria": "platos"
+    }
+  ],
+  "pedidos": []
+}

@@ -146,7 +146,7 @@ CREATE TABLE
     descripcion TEXT,
     precio DECIMAL(10, 2) NOT NULL DEFAULT 0,
     disponible BOOLEAN DEFAULT TRUE,
-    Tipo_Plato_idTipo_Plato INT NOT NULL,
+    Tipo_Plato_idTipo_Plato INT NOT NULL,-- resumir
     FOREIGN KEY (Tipo_Plato_idTipo_Plato) REFERENCES Tipo_Plato (idTipo_Plato) -- Esta esta super dificil de entender
   );
 
@@ -156,11 +156,11 @@ CREATE TABLE
   Pedido (
     idPedido INT PRIMARY KEY AUTO_INCREMENT,
     fecha_hora DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    tiempo_preparacion INT COMMENT 'Tiempo en minutos',
+    tiempo_preparacion INT COMMENT 'Tiempo en minutos', -- Cambiarlo a int
     hora_entrega DATETIME,
     Mesero_id_mesero INT NOT NULL,
     Mesa_idMesa INT,
-    Cliente_id_cliente VARCHAR(45) NOT NULL,
+    Cliente_id_cliente VARCHAR(45) NOT NULL,-- Abreviar
     modalidadPedido_id_modalidad INT NOT NULL,
     Estado_Pedido_idEstado_Pedido INT NOT NULL,
     FOREIGN KEY (Mesero_id_mesero) REFERENCES Mesero (id_mesero),

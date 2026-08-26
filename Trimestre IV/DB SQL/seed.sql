@@ -2,7 +2,9 @@
 -- Datos de ejemplo para Sabor Caleno SGO
 USE sabor_caleno_sgo;
 
+-- =============================================
 -- CATALOGOS BASICOS
+-- =============================================
 INSERT INTO
     modalidadPedido (nombreModalidad, descripcion)
 VALUES
@@ -40,7 +42,9 @@ VALUES
     ('Transferencia'),
     ('QR');
 
+-- =============================================
 -- USUARIOS (15 USUARIOS)
+-- =============================================
 INSERT INTO
     Usuario (
         primerNombre,
@@ -172,8 +176,9 @@ VALUES
         '$2y$12$ExampleHash'
     );
 
+-- =============================================
 -- ROLES DE USUARIOS
-
+-- =============================================
 -- Administradores (usuario 1)
 INSERT INTO
     Administrador (Usuario_idUsuario, nivel_acceso)
@@ -219,7 +224,9 @@ VALUES
     ('CLI-009', 14, 'Estandar', 'Inactiva'),
     ('CLI-010', 15, 'Oro', 'Activa');
 
+-- =============================================
 -- DIRECCIONES Y TELEFONOS
+-- =============================================
 INSERT INTO
     Direccion (Usuario_idUsuario, ciudad, calle, barrio)
 VALUES
@@ -248,7 +255,9 @@ VALUES
     (14, '+573809012345', 'Claro'),
     (15, '+573901234567', 'Tigo');
 
+-- =============================================
 -- MESAS
+-- =============================================
 INSERT INTO
     Mesa (capacidad, numero_mesa, Mesero_id_mesero)
 VALUES
@@ -257,7 +266,9 @@ VALUES
     (6, 'Mesa 3', 1),
     (8, 'Mesa 4', 1);
 
--- PLATOS (Son 10 PLATOS)
+-- =============================================
+-- PLATOS (10 PLATOS)
+-- =============================================
 INSERT INTO
     Plato (
         nombre,
@@ -338,7 +349,9 @@ VALUES
         2
     );
 
+-- =============================================
 -- INSUMOS
+-- =============================================
 INSERT INTO
     Insumo (nombre, unidad_medida, precio_unitario)
 VALUES
@@ -376,7 +389,9 @@ VALUES
     (9, 10, 2, 1),
     (10, 40, 10, 1);
 
+-- =============================================
 -- RECETAS
+-- =============================================
 INSERT INTO
     Receta (Plato_idPlato, descripcion)
 VALUES
@@ -393,11 +408,9 @@ VALUES
     (1, 6, 1),
     (1, 7, 1);
 
-
+-- =============================================
 -- PEDIDOS (15 PEDIDOS CON TIEMPOS VARIADOS)
-
-/*Esto va aparte       PEDIDOS DE PRUEBA CON CHAT GPT */
-
+-- =============================================
 -- Pedido 1 - Entregado (Mesa 1, CLI-001) - tiempo: 25 min
 INSERT INTO
     Pedido (
@@ -788,8 +801,9 @@ VALUES
         )
     );
 
+-- =============================================
 -- DETALLES DE PEDIDOS
-
+-- =============================================
 -- Pedido 1 (Bandeja Paisa x2, Limonada x2)
 INSERT INTO
     Detalle_Pedido (
@@ -996,8 +1010,9 @@ VALUES
     (15, 9, 2, 9000, NULL),
     (15, 4, 1, 6000, NULL);
 
+-- =============================================
 -- VENTAS (Para pedidos entregados) Pruebita 
-
+-- =============================================
 -- Pedido 1: 2*25000 + 2*6000 = 62000
 INSERT INTO
     Venta (

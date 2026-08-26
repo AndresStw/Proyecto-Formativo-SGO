@@ -18,6 +18,7 @@ SELECT
 FROM
     Usuario
 WHERE
+.3625
     segundoNombre IS NOT NULL
 ORDER BY
     primerApellido;
@@ -85,7 +86,7 @@ FROM
     Insumo i
     INNER JOIN Inventario inv ON i.idInsumo = inv.Insumo_idInsumo
 WHERE
-    inv.stock_actual < (
+    inv.stock_actual < ( -- Corregir 
         SELECT
             AVG(stock_minimo)
         FROM
@@ -257,4 +258,10 @@ GROUP BY
 ORDER BY
     pla.precio DESC;
     
+    --  Insumos con mayor consumo 
+    -- isumos con mayor desperdicio 
     -- 
+    
+    
+    
+    
