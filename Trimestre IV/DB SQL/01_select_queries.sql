@@ -18,7 +18,7 @@ SELECT
 FROM
     Usuario
 WHERE
-.3625
+
     segundoNombre IS NOT NULL
 ORDER BY
     primerApellido;

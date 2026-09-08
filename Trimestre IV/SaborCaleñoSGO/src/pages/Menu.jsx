@@ -87,9 +87,9 @@ function Menu() {
   // Mostrar productos
   return (
     <div className="container py-5">
-      <h2 className="text-center fw-bold mb-4" style={{ color: "#ff6b00" }}>
+      <h1 className="text-center fw-bold mb-4" style={{ color: "#ff6b00" }}>
         Nuestro Menú Auténtico
-      </h2>
+      </h1>
 
       {productos.length === 0 ? (
         <p className="text-center text-muted">No hay productos disponibles</p>

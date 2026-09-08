@@ -8,11 +8,12 @@
   ],
   "productos": [
     {
+      "nombre": "Sancocho de Pescado",
+      "descripcion": "Delicioso sancocho con pescado fresco y verduras.",
+      "precio": 25000,
+      "categoria": "platos",
       "id": 1,
-      "nombre": "Caldo de costilla",
-      "descripcion": "Acompañado de arroz, aguacate y banano con presa de pollo.",
-      "precio": 9000,
-      "categoria": "platos"
+      "img-id": 1
     },
     {
       "id": 2,
@@ -20,6 +21,20 @@
       "descripcion": "Filete de cerdo apanado crujiente, papas fritas y ensalada.",
       "precio": 22000,
       "categoria": "platos"
+    },
+    {
+      "nombre": "Sancocho de Pescado",
+      "descripcion": "Delicioso sancocho con pescado fresco y verduras.",
+      "precio": 25000,
+      "categoria": "platos",
+      "id": 3
+    },
+    {
+      "nombre": "Sancocho de Pescado",
+      "descripcion": "Delicioso sancocho con pescado fresco y verduras.",
+      "precio": 25000,
+      "categoria": "platos",
+      "id": 4
     }
   ],
   "pedidos": []

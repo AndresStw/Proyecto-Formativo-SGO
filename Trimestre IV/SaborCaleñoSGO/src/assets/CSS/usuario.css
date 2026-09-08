@@ -1,0 +1,295 @@
+:root{
+    --primary:#212529;
+    --secondary:#6c757d;
+    --success:#198754;
+    --danger:#dc3545;
+    --warning:#ffc107;
+    --info:#0dcaf0;
+    --light:#f8f9fa;
+    --white:#ffffff;
+    --border:#e9ecef;
+    --shadow:0 8px 20px rgba(0,0,0,.08);
+    --radius:14px;
+    --transition:.25s ease;
+}
+
+body{
+    background:#f4f6f9;
+    font-family:'Segoe UI',sans-serif;
+    color:#212529;
+}
+
+main{
+    min-height:100vh;
+}
+
+.border-bottom{
+    border-color:#e5e5e5!important;
+}
+
+h1,h2,h3,h4{
+    font-weight:700;
+}
+
+/* Tarjetas */
+
+.card{
+    border:none;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    transition:var(--transition);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+}
+
+.card-header{
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    font-weight:600;
+}
+
+/* Avatar */
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#212529;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:1rem;
+}
+
+/* Tabla */
+
+.table{
+    margin-bottom:0;
+    vertical-align:middle;
+}
+
+.table thead{
+    background:#212529;
+    color:#fff;
+}
+
+.table thead th{
+    border:none;
+    padding:15px;
+    font-size:.92rem;
+    font-weight:600;
+}
+
+.table tbody td{
+    padding:15px;
+    border-color:#ececec;
+}
+
+.table tbody tr{
+    transition:.25s;
+}
+
+.table tbody tr:hover{
+    background:#f8f9fa;
+}
+
+/* Roles */
+
+.rol{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:30px;
+    font-size:.82rem;
+    font-weight:600;
+}
+
+.rol-admin{
+    background:#212529;
+    color:#fff;
+}
+
+.rol-cliente{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+.rol-mesero{
+    background:#cff4fc;
+    color:#055160;
+}
+
+.rol-cocinero{
+    background:#fff3cd;
+    color:#856404;
+}
+
+/* Estado */
+
+.estado{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:30px;
+    font-size:.82rem;
+    font-weight:600;
+}
+
+.estado-activo{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+.estado-inactivo{
+    background:#f8d7da;
+    color:#842029;
+}
+
+/* Formularios */
+
+.form-control,
+.form-select{
+    border-radius:10px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#212529;
+    box-shadow:0 0 0 .2rem rgba(33,37,41,.12);
+}
+
+.form-label{
+    font-weight:600;
+}
+
+/* Botones */
+
+.btn{
+    border-radius:10px;
+    font-weight:500;
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.table .btn{
+    width:38px;
+    height:38px;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    padding:0;
+}
+
+/* Modal */
+
+.modal-content{
+    border:none;
+    border-radius:18px;
+}
+
+.modal-header{
+    background:#212529;
+    color:#fff;
+}
+
+.modal-footer{
+    border-top:1px solid var(--border);
+}
+
+/* Estadísticas */
+
+.stat-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-number{
+    font-size:2rem;
+    font-weight:700;
+}
+
+.stat-icon{
+    width:55px;
+    height:55px;
+    border-radius:14px;
+    background:#212529;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:1.3rem;
+}
+
+/* Animación */
+
+.fade-up{
+    animation:fadeUp .35s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* Scroll */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#bdbdbd;
+    border-radius:20px;
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+    .table{
+        font-size:.92rem;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .card{
+        margin-bottom:20px;
+    }
+
+    .table-responsive{
+        border-radius:12px;
+    }
+
+}
+
+@media(max-width:576px){
+
+    .d-flex.justify-content-between{
+        flex-direction:column;
+        align-items:flex-start!important;
+        gap:15px;
+    }
+
+    .table th,
+    .table td{
+        white-space:nowrap;
+    }
+
+}

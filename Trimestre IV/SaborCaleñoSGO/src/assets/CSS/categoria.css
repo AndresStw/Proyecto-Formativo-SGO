@@ -1,0 +1,250 @@
+:root{
+    --primary:#212529;
+    --primary-hover:#343a40;
+    --secondary:#6c757d;
+    --success:#198754;
+    --danger:#dc3545;
+    --warning:#ffc107;
+    --info:#0dcaf0;
+    --light:#f8f9fa;
+    --white:#ffffff;
+    --border:#dee2e6;
+    --shadow:0 8px 20px rgba(0,0,0,.08);
+    --radius:14px;
+    --transition:.25s ease;
+}
+
+body{
+    background:#f5f7fb;
+    color:#212529;
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+
+main{
+    min-height:100vh;
+}
+
+h1,h2,h3,h4,h5{
+    font-weight:700;
+}
+
+.border-bottom{
+    border-color:#e8e8e8!important;
+}
+
+
+.card{
+    border:none;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    transition:var(--transition);
+}
+
+.card:hover{
+    transform:translateY(-2px);
+}
+
+.card-header{
+    background:var(--white);
+    border-bottom:1px solid var(--border);
+    font-weight:600;
+}
+
+
+.table{
+    margin-bottom:0;
+    vertical-align:middle;
+}
+
+.table thead{
+    background:#212529;
+    color:#fff;
+}
+
+.table thead th{
+    border:none;
+    padding:15px;
+    font-size:.92rem;
+    font-weight:600;
+}
+
+.table tbody td{
+    padding:14px;
+    border-color:#ececec;
+}
+
+.table tbody tr{
+    transition:var(--transition);
+}
+
+.table tbody tr:hover{
+    background:#f8f9fa;
+}
+
+
+.btn{
+    border-radius:10px;
+    transition:var(--transition);
+    font-weight:500;
+}
+
+.btn-dark:hover{
+    transform:translateY(-2px);
+}
+
+.btn-success:hover{
+    transform:translateY(-2px);
+}
+
+.btn-danger:hover{
+    transform:translateY(-2px);
+}
+
+.btn-warning:hover{
+    transform:translateY(-2px);
+}
+
+
+.table .btn{
+    width:38px;
+    height:38px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+}
+
+
+.input-group-text{
+    border-radius:10px 0 0 10px;
+}
+
+.form-control{
+    border-radius:10px;
+    transition:.2s;
+}
+
+.form-control:focus{
+    border-color:#212529;
+    box-shadow:0 0 0 .2rem rgba(33,37,41,.15);
+}
+
+
+.modal-content{
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+}
+
+.modal-header{
+    background:#212529;
+    color:#fff;
+}
+
+.modal-title{
+    font-weight:600;
+}
+
+.modal-footer{
+    border-top:1px solid #ececec;
+}
+
+
+.form-label{
+    font-weight:600;
+}
+
+textarea.form-control{
+    resize:none;
+}
+
+
+.badge{
+    padding:.55em .8em;
+    border-radius:20px;
+}
+
+
+.pagination .page-link{
+    color:#212529;
+    border-radius:8px;
+    margin:0 2px;
+}
+
+.pagination .page-item.active .page-link{
+    background:#212529;
+    border-color:#212529;
+}
+
+
+.fade-up{
+    animation:fadeUp .4s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#b8b8b8;
+    border-radius:20px;
+}
+
+
+@media(max-width:992px){
+
+    h1{
+        font-size:1.8rem;
+    }
+
+    .table{
+        font-size:.9rem;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .table-responsive{
+        border-radius:12px;
+    }
+
+    .btn{
+        font-size:.9rem;
+    }
+
+    .card{
+        margin-bottom:20px;
+    }
+
+}
+
+@media(max-width:576px){
+
+    .d-flex.justify-content-between{
+        flex-direction:column;
+        align-items:flex-start!important;
+        gap:15px;
+    }
+
+    .table thead th,
+    .table tbody td{
+        white-space:nowrap;
+    }
+
+}
