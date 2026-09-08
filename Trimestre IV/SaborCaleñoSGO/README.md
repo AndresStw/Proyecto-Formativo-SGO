@@ -74,7 +74,7 @@ Invoke-RestMethod -Method Get -Uri "http://localhost:3000/users" -Headers @{Auth
 Invoke-RestMethod -Method Get -Uri "http://localhost:3000/productos" -Headers @{Authorization="Bearer $token"}
 ```
 
-> ⚠️ **Nunca subas un token real al repositorio.** Usa siempre un placeholder como `TU_TOKEN_AQUI` en la documentación y en los ejemplos.
+> ⚠️ **Nunca suban un token real al repositorio.** Usa siempre un placeholder como `TU_TOKEN_AQUI` en la documentación y en los ejemplos.
 
 ## ➕ Agregar datos desde la terminal
 
