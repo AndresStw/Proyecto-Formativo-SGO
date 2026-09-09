@@ -1,0 +1,103 @@
+/* 
+   perfil.css - Sabor Caleño
+   Estilos de la pagina de perfil de usuario
+    */
+
+.perfil-card {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  text-align: center;
+}
+
+.perfil-avatar {
+  font-size: 5rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+.perfil-nombre {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.perfil-email {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.perfil-puntos {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FFF8E1;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.perfil-detalles {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.perfil-detalles p {
+  margin-bottom: 0.5rem;
+  color: var(--text-gray);
+}
+
+.pedidos-card {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  padding: 2rem;
+}
+
+.pedidos-titulo {
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.perfil-table {
+  margin-bottom: 1rem;
+}
+
+.perfil-table thead th {
+  font-weight: 600;
+  color: var(--text-gray);
+  border-bottom: 2px solid #E5E7EB;
+  padding: 0.75rem 0;
+}
+
+.perfil-table tbody td {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.perfil-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.pedidos-ver-todos {
+  color: var(--secondary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.pedidos-ver-todos:hover {
+  color: var(--secondary-dark);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .perfil-card,
+  .pedidos-card {
+    padding: 1.5rem;
+  }
+
+  .perfil-avatar {
+    font-size: 4rem;
+  }
+}

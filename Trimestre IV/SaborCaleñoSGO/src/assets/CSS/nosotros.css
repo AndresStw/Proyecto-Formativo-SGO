@@ -1,0 +1,116 @@
+/* 
+   nosotros.css - Sabor Caleño
+   Estilos de la pagina de contacto y nosotros
+    */
+
+.nosotros-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.nosotros-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+
+.nosotros-subtitulo {
+  color: var(--text-gray);
+  font-size: 1.1rem;
+}
+
+.nosotros-info {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  padding: 2rem;
+  height: 100%;
+}
+
+.info-titulo {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.info-lista {
+  list-style: none;
+  padding: 0;
+}
+
+.info-lista li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.info-lista li:last-child {
+  border-bottom: none;
+}
+
+.info-dia {
+  font-weight: 500;
+}
+
+.info-hora {
+  color: var(--text-gray);
+}
+
+.info-mision {
+  color: var(--text-gray);
+  line-height: 1.7;
+}
+
+.info-ubicacion {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #F1F5F9;
+}
+
+.info-ubicacion p {
+  margin-bottom: 0.25rem;
+  color: var(--text-gray);
+}
+
+.nosotros-formulario {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+}
+
+.form-titulo {
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+}
+
+.nosotros-formulario .form-control {
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-sm);
+  border: 2px solid #E5E7EB;
+  transition: border-color 0.3s ease;
+}
+
+.nosotros-formulario .form-control:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .nosotros-titulo {
+    font-size: 1.5rem;
+  }
+
+  .nosotros-info,
+  .nosotros-formulario {
+    padding: 1.5rem;
+  }
+
+  .info-lista li {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

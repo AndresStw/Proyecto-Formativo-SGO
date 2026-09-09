@@ -1,40 +1,144 @@
-import React from "react";
-import { Link } from "react-router-dom";
+// src/pages/Nosotros.jsx
+import { useState } from "react";
+import "../assets/CSS/nosotros.css";
 
-function Nosotros (){
-     returns(
-       
-        <div className="row g-5">
-            <div className="col-md-6">
-                <h4 className="fw-bold mb-3">Horarios de Atención</h4>
-                <ul className="list-unstyled mb-4">
-                    <li><i className="fa-regular fa-clock me-2 text-warning"></i><b>Lunes a Viernes:</b> 11:30 AM - 9:00 PM</li>
-                    <li><i className="fa-regular fa-clock me-2 text-warning"></i><b>Sábados y Domingos:</b> 11:00 AM - 10:00 PM</li>
-                </ul>
+function Nosotros() {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    correo: "",
+    mensaje: ""
+  });
+  const [enviado, setEnviado] = useState(false);
 
-                <h4 className="fw-bold mb-3">Nuestra Misión</h4>
-                <p className="text-muted">Traer un pedacito del Valle del Cauca a tu mesa, rescatando las recetas tradicionales de las abuelas caleñas con ingredientes frescos y un servicio impecable.</p>
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí iría la lógica para enviar el mensaje
+    console.log("Mensaje enviado:", formData);
+    setEnviado(true);
+    setTimeout(() => setEnviado(false), 5000);
+    setFormData({ nombre: "", correo: "", mensaje: "" });
+  };
+
+  return (
+    <div className="container py-5">
+      <div className="nosotros-header">
+        <h2 className="nosotros-titulo">Contáctanos y Conócenos</h2>
+        <p className="nosotros-subtitulo">
+          Estamos ubicados en Santa Lucía, listos para atenderte con la mejor alegría valluna.
+        </p>
+      </div>
+
+      <div className="row g-5">
+        {/* Información */}
+        <div className="col-md-6">
+          <div className="nosotros-info">
+            <h4 className="info-titulo">
+              <i className="fa-regular fa-clock me-2" style={{ color: 'var(--secondary)' }}></i>
+              Horarios de Atención
+            </h4>
+            <ul className="info-lista">
+              <li>
+                <span className="info-dia">Lunes a Viernes:</span>
+                <span className="info-hora">11:30 AM - 9:00 PM</span>
+              </li>
+              <li>
+                <span className="info-dia">Sábados y Domingos:</span>
+                <span className="info-hora">11:00 AM - 10:00 PM</span>
+              </li>
+            </ul>
+
+            <h4 className="info-titulo mt-4">
+              <i className="fa-regular fa-heart me-2" style={{ color: 'var(--secondary)' }}></i>
+              Nuestra Misión
+            </h4>
+            <p className="info-mision">
+              Traer un pedacito del Valle del Cauca a tu mesa, rescatando las recetas 
+              tradicionales de las abuelas caleñas con ingredientes frescos y un servicio impecable.
+            </p>
+
+            <div className="info-ubicacion">
+              <h4 className="info-titulo">
+                <i className="fa-solid fa-location-dot me-2" style={{ color: 'var(--secondary)' }}></i>
+                Encuéntranos
+              </h4>
+              <p>
+                <strong>Sede Principal:</strong> Santa Lucía, Bogotá D.C.
+              </p>
+              <p>
+                <strong>Sede Cali:</strong> Aguacatal / El Pondaje / Pance
+              </p>
             </div>
-
-            <div className="col-md-6">
-                <div className="card p-4 border-0 shadow-sm bg-white">
-                    <h5 className="fw-bold mb-3">Déjanos un mensaje</h5>
-                    <form>
-                        <div className="mb-3">
-                            <label className="form-label small fw-semibold">Nombre</label>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label small fw-semibold">Correo</label>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label small fw-semibold">Mensaje</label>
-                            <textarea className="form-control" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" className="btn w-100 text-white fw-bold" style="background: linear-gradient(90deg, #ff6b00, #ff8c00, #ffb347); border: none;">Enviar</button>
-                    </form>
-                </div>
-            </div>
+          </div>
         </div>
-     );
+
+        {/* Formulario */}
+        <div className="col-md-6">
+          <div className="nosotros-formulario">
+            <h5 className="form-titulo">Déjanos un mensaje</h5>
+            
+            {enviado && (
+              <div className="alert alert-success">
+                <i className="fa-solid fa-circle-check me-2"></i>
+                ¡Mensaje enviado con éxito! Te responderemos pronto.
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Nombre</label>
+                <input
+                  type="text"
+                  name="nombre"
+                  className="form-control"
+                  placeholder="Tu nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Correo Electrónico</label>
+                <input
+                  type="email"
+                  name="correo"
+                  className="form-control"
+                  placeholder="correo@ejemplo.com"
+                  value={formData.correo}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label fw-semibold">Mensaje</label>
+                <textarea
+                  name="mensaje"
+                  className="form-control"
+                  rows="4"
+                  placeholder="Cuéntanos tu experiencia o lo que necesites..."
+                  value={formData.mensaje}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <button type="submit" className="btn-primary-custom w-100">
+                <i className="fa-regular fa-paper-plane me-2"></i> Enviar Mensaje
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 export default Nosotros;

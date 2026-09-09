@@ -3,39 +3,145 @@
     {
       "email": "cliente@saborcaleno.com",
       "password": "$2a$10$Lt5hw3E3D4FX6CZyL.cCfeWl6ijyW9JxR/Zf/R9iEz9U.ip8col.q",
-      "id": 1
+      "id": 1,
+      "nombre": "Cliente Demo",
+      "telefono": "3001234567"
     }
   ],
   "productos": [
     {
-      "nombre": "Sancocho de Pescado",
-      "descripcion": "Delicioso sancocho con pescado fresco y verduras.",
-      "precio": 25000,
-      "categoria": "platos",
       "id": 1,
-      "img-id": 1
+      "nombre": "Arepa con Panela",
+      "descripcion": "Arepa recién hecha acompañada de panela con queso y mantequilla.",
+      "precio": 8000,
+      "categoria": "desayunos",
+      "imagen": "/assets/Img/Desayunos/Arepapanela-modified.png",
+      "rating": 4.7,
+      "tiempo": "15min",
+      "calorias": 280
     },
     {
       "id": 2,
       "nombre": "Chuleta Valluna",
       "descripcion": "Filete de cerdo apanado crujiente, papas fritas y ensalada.",
       "precio": 22000,
-      "categoria": "platos"
+      "categoria": "platos",
+      "imagen": "/assets/Img/platos/chuleta-valluna-modified.png",
+      "rating": 4.9,
+      "tiempo": "25min",
+      "calorias": 500
     },
     {
+      "id": 3,
       "nombre": "Sancocho de Pescado",
-      "descripcion": "Delicioso sancocho con pescado fresco y verduras.",
-      "precio": 25000,
-      "categoria": "platos",
-      "id": 3
+      "descripcion": "Sancocho de pescado fresco con verduras y arroz.",
+      "precio": 23000,
+      "categoria": "caldos",
+      "imagen": "/assets/Img/caldos/sancocho-pescado-modified.png",
+      "rating": 4.6,
+      "tiempo": "35min",
+      "calorias": 400
     },
     {
-      "nombre": "Sancocho de Pescado",
-      "descripcion": "Delicioso sancocho con pescado fresco y verduras.",
-      "precio": 25000,
+      "id": 4,
+      "nombre": "Mondongo",
+      "descripcion": "Sopa de mondongo con verduras, acompañada de arroz y aguacate.",
+      "precio": 22000,
+      "categoria": "caldos",
+      "imagen": "/assets/Img/caldos/mondongo-modified.png",
+      "rating": 4.7,
+      "tiempo": "40min",
+      "calorias": 500
+    },
+    {
+      "id": 5,
+      "nombre": "Champús Caleño",
+      "descripcion": "Bebida tradicional a base de maíz, lulo, piña y hojas de naranjo.",
+      "precio": 8000,
+      "categoria": "bebidas",
+      "imagen": "/assets/Img/Bebida/champus-valluno-modified.png",
+      "rating": 4.5,
+      "tiempo": "5min",
+      "calorias": 180
+    },
+    {
+      "id": 6,
+      "nombre": "Arroz Atollado",
+      "descripcion": "Arroz con carnes, verduras y especias, el sabor tradicional del Valle.",
+      "precio": 28000,
       "categoria": "platos",
-      "id": 4
+      "imagen": "/assets/Img/platos/arroz-atollado-modified.png",
+      "rating": 4.9,
+      "tiempo": "35min",
+      "calorias": 600
+    },
+    {
+      "id": 7,
+      "nombre": "Lulada",
+      "descripcion": "Refrescante bebida de lulo con hielo y limón.",
+      "precio": 7000,
+      "categoria": "bebidas",
+      "imagen": "/assets/Img/Bebida/lulada-individual-modified.png",
+      "rating": 4.4,
+      "tiempo": "5min",
+      "calorias": 150
+    },
+    {
+      "id": 8,
+      "nombre": "Sobrebarriga con Hogao",
+      "descripcion": "Sobrebarriga cocinada lentamente con hogao criollo.",
+      "precio": 30000,
+      "categoria": "platos",
+      "imagen": "/assets/Img/platos/sobrebarriga-hogao-modified.png",
+      "rating": 4.8,
+      "tiempo": "40min",
+      "calorias": 560
     }
   ],
-  "pedidos": []
+  "pedidos": [
+    {
+      "id": 1,
+      "fecha": "26/08/2024",
+      "cliente": "Cliente Demo",
+      "usuarioEmail": "cliente@saborcaleno.com",
+      "items": [
+        { "nombre": "Chuleta Valluna", "cantidad": 1, "precio": 22000 },
+        { "nombre": "Champús Caleño", "cantidad": 2, "precio": 8000 }
+      ],
+      "total": 38000,
+      "metodoPago": "Efectivo",
+      "estado": "Entregado",
+      "estadoBadge": "success",
+      "imagen": "/assets/Img/platos/chuleta-valluna-modified.png"
+    },
+    {
+      "id": 2,
+      "fecha": "25/08/2024",
+      "cliente": "Cliente Demo",
+      "usuarioEmail": "cliente@saborcaleno.com",
+      "items": [
+        { "nombre": "Sancocho de Pescado", "cantidad": 2, "precio": 25000 }
+      ],
+      "total": 50000,
+      "metodoPago": "Tarjeta",
+      "estado": "Entregado",
+      "estadoBadge": "success",
+      "imagen": "/assets/Img/caldos/sancocho-pescado-modified.png"
+    },
+    {
+      "id": 3,
+      "fecha": "24/08/2024",
+      "cliente": "Cliente Demo",
+      "usuarioEmail": "cliente@saborcaleno.com",
+      "items": [
+        { "nombre": "Arepa con Panela", "cantidad": 2, "precio": 8000 },
+        { "nombre": "Mondongo", "cantidad": 1, "precio": 22000 }
+      ],
+      "total": 38000,
+      "metodoPago": "Efectivo",
+      "estado": "En preparación",
+      "estadoBadge": "warning",
+      "imagen": "/assets/Img/caldos/mondongo-modified.png"
+    }
+  ]
 }

@@ -1,0 +1,75 @@
+/*
+   /src/assets/CSS/carrito.css:2
+   Estilos de la pagina del carrito de compras
+    */
+
+.carrito-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 2rem;
+}
+
+.carrito-vacio {
+  padding: 4rem 0;
+}
+
+.carrito-icon {
+  font-size: 4rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.carrito-vacio h3 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.carrito-items {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+
+.carrito-resumen {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  position: sticky;
+  top: 100px;
+}
+
+.resumen-titulo {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.resumen-linea {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: var(--text-gray);
+}
+
+.resumen-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+@media (max-width: 768px) {
+  .carrito-titulo {
+    font-size: 1.5rem;
+  }
+
+  .carrito-items {
+    padding: 1rem;
+  }
+
+  .carrito-resumen {
+    padding: 1rem;
+    position: static;
+  }
+}

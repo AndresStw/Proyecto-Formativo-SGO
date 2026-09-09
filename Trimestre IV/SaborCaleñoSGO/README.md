@@ -1,11 +1,11 @@
-#  Proyecto — Guía de instalación y uso para el equipo
+# Proyecto — Guía de instalación y uso para el equipo
 
-##  Requisitos previos
+## Requisitos previos
 
 - Tener [Node.js](https://nodejs.org/) instalado.
 - Clonar el repositorio y ubicarte en la carpeta del proyecto.
 
-##  Instalación de dependencias
+## Instalación de dependencias
 
 Todas las dependencias del proyecto ya están definidas en `package.json`. Para instalarlas:
 
@@ -24,6 +24,7 @@ bootstrap@5.3.8
 json-server-auth@2.1.0
 json-server@0.17.4
 oxlint@1.80.0
+react-icons@5.7.0
 react-dom@19.2.8
 react-router-dom@7.18.2
 react@19.2.8
@@ -74,7 +75,7 @@ Invoke-RestMethod -Method Get -Uri "http://localhost:3000/users" -Headers @{Auth
 Invoke-RestMethod -Method Get -Uri "http://localhost:3000/productos" -Headers @{Authorization="Bearer $token"}
 ```
 
-> ⚠️ **Nunca subas un token real al repositorio.** Usa siempre un placeholder como `TU_TOKEN_AQUI` en la documentación y en los ejemplos.
+> ⚠️ **Nunca suban un token real al repositorio.** Usa siempre un placeholder como `TU_TOKEN_AQUI` en la documentación y en los ejemplos.
 
 ## ➕ Agregar datos desde la terminal
 

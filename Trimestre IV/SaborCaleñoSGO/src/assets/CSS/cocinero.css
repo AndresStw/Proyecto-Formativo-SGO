@@ -1,382 +1,193 @@
-:root {
-    --naranja: #ff6b00;
-    --naranja-claro: #ff8c00;
-    --naranja-suave: #ffb347;
-    --negro: #1a1a1a;
-    --blanco: #ffffff;
-    --gris-claro: #f8f9fa;
-    --gris-texto: #6c757d;
-    --verde: #28a745;
+/* 
+   cocinero.css - Sabor Caleño
+   Estilos del panel de cocinero gestion de  los pedidos solo se accede desde el rol cocinero
+   */
+
+.cocinero-container {
+  background: var(--bg-light);
+  min-height: 100vh;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.cocinero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
 }
 
-body {
-    font-family: 'Arial', Helvetica, sans-serif;
-    background-color: var(--gris-claro);
-    color: var(--negro);
+.cocinero-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.25rem;
 }
 
-.dashboard-layout {
-    display: flex;
-    min-height: 100vh;
+.cocinero-subtitulo {
+  color: var(--text-gray);
+  font-size: 1rem;
 }
 
-.sidebar {
-    width: 270px;
-    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
-    border-right: 2px solid var(--naranja);
-    padding: 30px 20px;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
-}
-
-.sidebar-logo {
-    text-align: center;
-    margin-bottom: 38px;
-}
-
-.sidebar-logo img {
-    width: 120px;
-    border-radius: 12px;
-    border: 2px solid var(--naranja);
-    transition: transform 0.3s ease;
-}
-
-.sidebar-logo img:hover {
-    transform: scale(1.05);
-}
-
-.sidebar-logo h2 {
-    background: linear-gradient(90deg, var(--naranja), var(--naranja-claro), var(--naranja-suave));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 36px;
-    font-weight: 800;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-family: 'Arial', Helvetica, sans-serif;
-}
-
-.sidebar-logo p {
-    color: var(--gris-texto);
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.sidebar-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.sidebar-menu a {
-    text-decoration: none;
-    color: var(--negro);
-    padding: 14px 18px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    border-left: 4px solid transparent;
-}
-
-.sidebar-menu a:hover {
-    background: linear-gradient(90deg, rgba(255, 107, 0, 0.1), rgba(255, 140, 0, 0.05));
-    color: var(--naranja);
-    transform: translateX(5px);
-    border-left-color: var(--naranja);
-}
-
-.sidebar-menu a.active {
-    background: linear-gradient(90deg, rgba(255, 107, 0, 0.15), rgba(255, 140, 0, 0.08));
-    color: var(--naranja);
-    border-left: 4px solid var(--naranja);
-}
-
-.dashboard-main {
-    flex: 1;
-    padding: 35px;
-    background: var(--gris-claro);
-}
-
-.topbar {
-    background: white;
-    border-radius: 16px;
-    padding: 24px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    border-top: 4px solid var(--naranja);
-}
-
-.topbar h1 {
-    font-size: 42px;
-    font-weight: 800;
-    margin-bottom: 5px;
-    background: linear-gradient(90deg, var(--naranja), var(--naranja-claro));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.topbar p {
-    margin: 0;
-    color: var(--gris-texto);
-    font-weight: 500;
-}
-
-.admin-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--negro);
-}
-
-.admin-info i {
-    color: var(--naranja);
-    font-size: 34px;
+.cocinero-admin {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: var(--text-gray);
 }
 
 .card-resumen {
-    background: white;
-    border-radius: 16px;
-    min-height: 125px;
-    padding: 25px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    transition: all 0.3s ease;
-    border-left: 4px solid var(--naranja);
-}
-
-.card-resumen:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(255, 107, 0, 0.15);
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-left: 4px solid;
 }
 
 .card-resumen i {
-    color: var(--naranja);
-    font-size: 40px;
+  font-size: 2rem;
 }
 
 .card-resumen h3 {
-    font-size: 38px;
-    font-weight: 800;
-    margin: 0;
-    color: var(--negro);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0;
 }
 
 .card-resumen p {
-    margin: 0;
-    color: var(--gris-texto);
-    font-weight: 600;
+  color: var(--text-gray);
+  margin-bottom: 0;
 }
 
-.panel-pedidos {
-    background: white;
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    border-top: 4px solid var(--naranja);
+.cocinero-pedidos {
+  background: var(--bg-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
 }
 
-.cabecera-tabla {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.cocinero-pedidos-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #F1F5F9;
 }
 
-.cabecera-tabla h2 {
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 5px;
-    color: var(--negro);
+.cocinero-pedidos-header h5 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }
 
-.cabecera-tabla p {
-    color: var(--gris-texto);
-    margin: 0;
-    font-weight: 500;
+.cocinero-pedidos-header p {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  margin-bottom: 0;
 }
 
-.pedidos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+.pedido-cocina {
+  background: #F8FAFC;
+  border-radius: var(--border-radius-sm);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid #E5E7EB;
+  transition: all 0.3s ease;
 }
 
-.pedido-card {
-    background: #fffefa;
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    border-left: 5px solid var(--naranja);
-    transition: all 0.3s ease;
+.pedido-cocina:hover {
+  box-shadow: var(--shadow-sm);
 }
 
-.pedido-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+.pedido-cocina-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
-.pedido-card.listo {
-    border-left: 5px solid var(--verde);
-    opacity: 0.8;
+.pedido-cocina-id {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.pedido-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.pedido-cocina-hora {
+  color: var(--text-gray);
+  font-size: 0.85rem;
 }
 
-.pedido-card-header h3 {
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--negro);
+.pedido-cocina-cliente {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
 }
 
-.badge-mesa {
-    background: rgba(255, 107, 0, 0.12);
-    color: var(--naranja);
-    font-weight: 700;
-    font-size: 13px;
-    padding: 5px 12px;
-    border-radius: 20px;
+.pedido-cocina-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
-.badge-estado {
-    font-size: 12px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    text-transform: uppercase;
+.pedido-cocina-item {
+  background: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  border: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.badge-estado.pendiente {
-    background: rgba(255, 107, 0, 0.15);
-    color: var(--naranja);
+.pedido-cocina-notas {
+  font-size: 0.85rem;
+  color: var(--text-gray);
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background: #FFF8E1;
+  border-radius: 8px;
 }
 
-.badge-estado.listo {
-    background: rgba(40, 167, 69, 0.15);
-    color: var(--verde);
+.pedido-cocina-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid #E5E7EB;
 }
 
-.pedido-card ul {
-    list-style: none;
-    margin: 12px 0;
-    padding: 0;
+.pedido-cocina-total {
+  font-size: 0.95rem;
+  color: var(--text-gray);
 }
 
-.pedido-card ul li {
-    padding: 6px 0;
-    color: var(--negro);
-    font-size: 15px;
-    border-bottom: 1px dashed rgba(0,0,0,0.06);
-    font-weight: 500;
+.pedido-cocina-total strong {
+  color: var(--text-dark);
 }
 
-.pedido-card .nota {
-    font-size: 13px;
-    color: var(--gris-texto);
-    font-style: italic;
-    margin-bottom: 12px;
-    background: rgba(255, 107, 0, 0.05);
-    padding: 8px 12px;
-    border-radius: 8px;
-}
+@media (max-width: 768px) {
+  .cocinero-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 
-.pedido-card .hora {
-    font-size: 13px;
-    color: var(--gris-texto);
-    margin-bottom: 12px;
-    font-weight: 600;
-}
+  .cocinero-titulo {
+    font-size: 1.5rem;
+  }
 
-.btn-listo {
-    width: 100%;
-    background: linear-gradient(90deg, var(--naranja), var(--naranja-claro));
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 30px;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+  .card-resumen {
+    padding: 1rem;
+  }
 
-.btn-listo:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
-    color: white;
-}
+  .pedido-cocina {
+    padding: 1rem;
+  }
 
-.btn-listo:disabled {
-    background: var(--verde);
-    cursor: default;
-    opacity: 0.8;
-}
-
-.sin-pedidos {
-    text-align: center;
-    color: var(--gris-texto);
-    padding: 40px 0;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-@media screen and (max-width: 992px) {
-    .dashboard-layout {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 2px solid var(--naranja);
-    }
-
-    .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .cabecera-tabla {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .dashboard-main {
-        padding: 20px;
-    }
-
-    .topbar h1 {
-        font-size: 32px;
-    }
-
-    .cabecera-tabla h2 {
-        font-size: 28px;
-    }
-
-    .card-resumen h3 {
-        font-size: 30px;
-    }
+  .pedido-cocina-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
 }

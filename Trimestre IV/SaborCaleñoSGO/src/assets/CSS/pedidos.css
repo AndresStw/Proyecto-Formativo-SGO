@@ -1,258 +1,189 @@
-:root{
-    --primary:#212529;
-    --success:#198754;
-    --warning:#ffc107;
-    --danger:#dc3545;
-    --info:#0dcaf0;
-    --light:#f8f9fa;
-    --border:#e9ecef;
-    --radius:14px;
-    --shadow:0 8px 20px rgba(0,0,0,.08);
-    --transition:.25s ease;
+/* 
+   pedidos.css - Sabor Caleño
+   Estilos de la pagina de pedidos y detalle de pedido
+    */
+
+.pedidos-container {
+  background: var(--bg-light);
+  min-height: 100vh;
+  padding: 1rem 0 3rem;
 }
 
-body{
-    background:#f5f7fb;
-    font-family:'Segoe UI',sans-serif;
-    color:#212529;
+.pedidos-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-main{
-    min-height:100vh;
+.pedidos-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--secondary);
+  margin-bottom: 0.25rem;
 }
 
-
-.border-bottom{
-    border-color:#e8e8e8!important;
+.pedidos-subtitulo {
+  color: var(--text-gray);
+  font-size: 1.05rem;
 }
 
-h1{
-    font-weight:700;
+.pedidos-vacio {
+  background: white;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  box-shadow: var(--shadow-sm);
 }
 
-
-.card{
-    border:none;
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    transition:var(--transition);
+.pedidos-vacio i {
+  font-size: 4rem;
+  color: var(--text-light);
 }
 
-.card:hover{
-    transform:translateY(-4px);
+.pedido-detalle {
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem 2rem;
+  margin-top: 2rem;
+  animation: slideUp 0.4s ease;
 }
 
-.card-header{
-    background:#fff;
-    border-bottom:1px solid var(--border);
-    font-weight:600;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.card-body h2{
-    font-size:2rem;
-    font-weight:700;
+.pedido-detalle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #F1F5F9;
+  margin-bottom: 1rem;
 }
 
-.card-body small{
-    color:#6c757d;
+.pedido-detalle-header h4 {
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.1rem;
 }
 
-
-.table{
-    margin-bottom:0;
-    vertical-align:middle;
+.pedido-detalle-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
 }
 
-.table thead{
-    background:#212529;
-    color:#fff;
+.pedido-detalle-info p {
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--text-gray);
 }
 
-.table thead th{
-    border:none;
-    padding:15px;
-    font-weight:600;
-    font-size:.92rem;
+.pedido-detalle-info p strong {
+  color: var(--text-dark);
 }
 
-.table tbody td{
-    padding:15px;
-    border-color:#ececec;
+.pedido-detalle-items h6 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
 }
 
-.table tbody tr{
-    transition:.2s;
+.detalle-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 0.9rem;
 }
 
-.table tbody tr:hover{
-    background:#f8f9fa;
+.detalle-item-nombre {
+  flex: 1;
+  color: var(--text-dark);
 }
 
-
-.estado{
-    display:inline-block;
-    padding:6px 14px;
-    border-radius:50px;
-    font-size:.82rem;
-    font-weight:600;
+.detalle-item-cantidad {
+  color: var(--text-gray);
+  margin: 0 0.5rem;
 }
 
-.estado-pendiente{
-    background:#fff3cd;
-    color:#856404;
+.detalle-item-precio {
+  font-weight: 500;
+  color: var(--text-dark);
 }
 
-.estado-preparando{
-    background:#cff4fc;
-    color:#055160;
+.pedido-detalle-total {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid #F1F5F9;
+  margin-top: 0.5rem;
 }
 
-.estado-entregado{
-    background:#d1e7dd;
-    color:#0f5132;
+.pedido-detalle-total .fw-bold {
+  font-size: 1.5rem;
+  color: var(--secondary);
 }
 
-.estado-cancelado{
-    background:#f8d7da;
-    color:#842029;
+.pedido-detalle .badge {
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  font-size: 0.8rem;
 }
 
+@media (max-width: 768px) {
+  .pedidos-titulo {
+    font-size: 1.5rem;
+  }
 
-.btn{
-    border-radius:10px;
-    transition:var(--transition);
-    font-weight:500;
+  .pedidos-subtitulo {
+    font-size: 0.95rem;
+  }
+
+  .pedido-detalle {
+    padding: 1rem;
+  }
+
+  .pedido-detalle-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .pedido-detalle-total {
+    justify-content: space-between;
+  }
+
+  .pedido-detalle-total .fw-bold {
+    font-size: 1.25rem;
+  }
+
+  .pedidos-vacio {
+    padding: 2rem 1rem;
+  }
 }
 
-.btn:hover{
-    transform:translateY(-2px);
-}
+@media (max-width: 480px) {
+  .pedido-detalle {
+    padding: 0.75rem;
+  }
 
-.table .btn{
-    width:38px;
-    height:38px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding:0;
-}
+  .pedido-detalle-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
 
-
-.form-control,
-.form-select{
-    border-radius:10px;
-}
-
-.form-control:focus,
-.form-select:focus{
-    border-color:#212529;
-    box-shadow:0 0 0 .2rem rgba(33,37,41,.12);
-}
-
-
-.modal-content{
-    border:none;
-    border-radius:18px;
-}
-
-.modal-header{
-    background:#212529;
-    color:#fff;
-}
-
-.modal-title{
-    font-weight:600;
-}
-
-.modal-footer{
-    border-top:1px solid var(--border);
-}
-
-
-.pedido-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:12px 0;
-    border-bottom:1px solid #ececec;
-}
-
-.pedido-item:last-child{
-    border-bottom:none;
-}
-
-
-.total{
-    font-size:1.4rem;
-    font-weight:700;
-    color:#198754;
-}
-
-
-.fade-up{
-    animation:fadeUp .4s ease;
-}
-
-@keyframes fadeUp{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#bdbdbd;
-    border-radius:50px;
-}
-
-
-@media(max-width:992px){
-
-    .table{
-        font-size:.92rem;
-    }
-
-}
-
-@media(max-width:768px){
-
-    .table-responsive{
-        border-radius:12px;
-    }
-
-    .card{
-        margin-bottom:20px;
-    }
-
-    .btn{
-        font-size:.9rem;
-    }
-
-}
-
-@media(max-width:576px){
-
-    .d-flex.justify-content-between{
-        flex-direction:column;
-        align-items:flex-start!important;
-        gap:15px;
-    }
-
-    .table th,
-    .table td{
-        white-space:nowrap;
-    }
-
+  .detalle-item {
+    font-size: 0.8rem;
+  }
 }
