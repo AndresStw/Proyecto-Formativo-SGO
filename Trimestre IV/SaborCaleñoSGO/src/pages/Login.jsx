@@ -42,12 +42,13 @@ function Login() {
       if (response.ok) {
         localStorage.setItem("token", data.accessToken);
         localStorage.setItem("userEmail", email);
+        setPassword("");//limpieza pass
         navigate("/menu");
       } else {
         setError(data.message || "Credenciales incorrectas");
       }
     } catch (err) {
-      setError("Error de conexión. Asegúrate que el servidor está corriendo.");
+      setError("Error 503: Servicio no disponible.");
     } finally {
       setCargando(false);
     }
@@ -99,7 +100,7 @@ function Login() {
                   type={showPassword ? "text" : "password"}
                   className="form-input"
                   placeholder="Ingresa tu contraseña"
-                  value={password}
+                  // value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />

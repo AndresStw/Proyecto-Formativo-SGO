@@ -6,6 +6,13 @@
       "id": 1,
       "nombre": "Cliente Demo",
       "telefono": "3001234567"
+    },
+    {
+      "email": "Prueba1@gmail.com",
+      "password": "$2a$10$qI6owYWZ3p4coAmg2gkWjuEjhaKKbSelosyxLSTq5PufAPAlXffM.",
+      "nombre": "Prueba1",
+      "telefono": "300123454",
+      "id": 2
     }
   ],
   "productos": [
@@ -105,8 +112,16 @@
       "cliente": "Cliente Demo",
       "usuarioEmail": "cliente@saborcaleno.com",
       "items": [
-        { "nombre": "Chuleta Valluna", "cantidad": 1, "precio": 22000 },
-        { "nombre": "Champús Caleño", "cantidad": 2, "precio": 8000 }
+        {
+          "nombre": "Chuleta Valluna",
+          "cantidad": 1,
+          "precio": 22000
+        },
+        {
+          "nombre": "Champús Caleño",
+          "cantidad": 2,
+          "precio": 8000
+        }
       ],
       "total": 38000,
       "metodoPago": "Efectivo",
@@ -120,7 +135,11 @@
       "cliente": "Cliente Demo",
       "usuarioEmail": "cliente@saborcaleno.com",
       "items": [
-        { "nombre": "Sancocho de Pescado", "cantidad": 2, "precio": 25000 }
+        {
+          "nombre": "Sancocho de Pescado",
+          "cantidad": 2,
+          "precio": 25000
+        }
       ],
       "total": 50000,
       "metodoPago": "Tarjeta",
@@ -134,8 +153,16 @@
       "cliente": "Cliente Demo",
       "usuarioEmail": "cliente@saborcaleno.com",
       "items": [
-        { "nombre": "Arepa con Panela", "cantidad": 2, "precio": 8000 },
-        { "nombre": "Mondongo", "cantidad": 1, "precio": 22000 }
+        {
+          "nombre": "Arepa con Panela",
+          "cantidad": 2,
+          "precio": 8000
+        },
+        {
+          "nombre": "Mondongo",
+          "cantidad": 1,
+          "precio": 22000
+        }
       ],
       "total": 38000,
       "metodoPago": "Efectivo",

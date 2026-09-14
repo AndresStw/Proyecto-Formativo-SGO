@@ -11,12 +11,13 @@
   --secondary: #FF6B00;
   --secondary-light: #FF8C00;
   --secondary-dark: #E05F00;
+  --btn:rgb(7, 220, 7); /*Nuevo solo para botones cambiar nombre le puse de imrpovisado --btn*/
 
-  --bg-white: #FFFFFF;
-  --bg-light: #F8F9FA;
+  --bg-white: #353539; /*Toca cambiar esto en todas las variables, porque cambie el tono */
+  --bg-light: #121212;
   --bg-gray: #F1F5F9;
 
-  --text-dark: #1A1A2E;
+  --text-dark: #ffffff; /*Se requiere cambio en classname por re hacer la coloraion del proyecto*/
   --text-gray: #6B7280;
   --text-light: #9CA3AF;
   --text-white: #FFFFFF;
@@ -40,7 +41,7 @@
 
 body {
   font-family: var(--font-family);
-  background: var(--bg-light);
+  background: linear-gradient(rgb(67, 47, 47),rgb(0, 0, 0));
   color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
 }
@@ -62,6 +63,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  border-radius: 30px;
+  margin-top: 20px;
 }
 
 .header-logo {
@@ -81,11 +84,26 @@ body {
   color: var(--secondary);
 }
 
+.header-nav-links  { /*Estos son solo los textos inicio,menu,nosotros*/
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+  gap: 1.5rem;
+  width: 100%; 
+}
+/* Mejora para centrar los textos Inicio,menu,nosotros 
 .header-nav-links {
   display: flex;
-  align-items: center;
+  justify-content: center; 
+  align-items: center;    
   gap: 1.5rem;
-}
+  width: 100%;     
+//////////////////////
+ display: flex;
+  align-items: center;
+  gap: 1.5rem;  
+
+} Toca modificar el btn-login haiendo un nuevo div*/
 
 .header-nav-links a {
   color: var(--text-dark);
@@ -118,11 +136,11 @@ body {
 }
 
 .header-nav-links .btn-login-nav {
-  background: var(--secondary);
+  background: var(--btn);
   color: white;
   border: none;
   padding: 8px 22px;
-  border-radius: 30px;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 0.9rem;
   cursor: pointer;
@@ -168,11 +186,11 @@ body {
 
 /*  BOTONES PERSONALIZADOS  */
 .btn-primary-custom {
-  background: var(--secondary);
+  background: var(--btn);
   color: white;
   border: none;
   padding: 10px 24px;
-  border-radius: 30px;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.25s ease;
@@ -184,25 +202,25 @@ body {
 }
 
 .btn-primary-custom:hover {
-  background: var(--secondary-dark);
+  background: var(--btn);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .btn-outline-custom {
   background: transparent;
-  color: var(--secondary);
-  border: 2px solid var(--secondary);
+  color: var(--btn);
+  border: 2px solid var(--btn);
   padding: 8px 20px;
-  border-radius: 30px;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.25s ease;
   cursor: pointer;
 }
-
+/*Relleno btn conocenos*/
 .btn-outline-custom:hover {
-  background: var(--secondary);
+  background: var(--btn);
   color: white;
 }
 

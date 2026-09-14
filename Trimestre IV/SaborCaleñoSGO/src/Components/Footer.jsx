@@ -68,7 +68,7 @@ function Footer() {
           </div>
 
           <div className="col-md-4">
-            <h5 className="footer-titulo">Contacto</h5> {/* Falta orregirlo esta centrado*/}
+            <h5 className="footer-titulo"></h5> {/* Falta orregirlo esta centrado*/}
             <ul className="footer-contact">
               <li>
                 <i className="fa-solid fa-phone"></i>
@@ -103,8 +103,7 @@ function Footer() {
 
         <div className="footer-bottom">
           <p className="mb-0">
-            &copy; {new Date().getFullYear()} Sabor Caleño. Todos los derechos
-            reservados.
+            &copy; {new Date().getFullYear()} Sabor Caleño.
           </p>
         </div>
       </div>

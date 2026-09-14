@@ -19,7 +19,8 @@
     "react-icons": "^5.7.0",
     "react-router-dom": "^7.18.2",
     "react-slick": "^0.31.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.26.25"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

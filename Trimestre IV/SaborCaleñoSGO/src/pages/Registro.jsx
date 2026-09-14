@@ -33,7 +33,7 @@ function Registro() {
         },
         body: JSON.stringify({ 
           email, 
-          password,
+          password, //texto plano sin encriptar se envia al servirod local  http://localhost:3000/register
           nombre,
           telefono
         }),
@@ -44,6 +44,7 @@ function Registro() {
       if (response.ok) {
         // Guardar el token
         localStorage.setItem("token", data.accessToken);
+        setPassword("");//Limpieza de pass
         setExito(true);
         setTimeout(() => {
           navigate("/menu");
@@ -52,7 +53,7 @@ function Registro() {
         setError(data.message || "Error al registrarse. El correo podría estar en uso.");
       }
     } catch (err) {
-      setError("Error de conexión. Asegúrate que el servidor está corriendo.");
+      setError("Error 503: Servicio no disponible.");
     } finally {
       setCargando(false);
     }
@@ -136,7 +137,7 @@ function Registro() {
                   className="form-control"
                   id="password"
                   placeholder="Mínimo 6 caracteres"
-                  value={password}
+                  // value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />

@@ -12,7 +12,8 @@
 
 import { Link, useLocation } from "react-router-dom";
 import { menuData } from "./menuData";
-import { IoLogIn } from "react-icons/io5";
+import { PiShoppingCartSimpleFill } from "react-icons/pi";
+
 
 
 function Header() {
@@ -31,23 +32,26 @@ function Header() {
 
   return (
     <nav className="header-nav">
+      {/* sugiero separar el logo o quitar el titulo o hacer el titulo + pequeño  */}
       <div className="header-logo">
         <img src={menuData.logo} alt="Sabor Caleño" />
-        <span>Sabor Caleño</span>
+        <span></span>
       </div>
 
       <div className="header-nav-links">
         <Link to="/" className={isActive("/")}>Inicio</Link>
         <Link to="/menu" className={isActive("/menu")}>Menú</Link>
         <Link to="/nosotros" className={isActive("/nosotros")}>Nosotros</Link>
-        
+
+        {/*----------- Desde aca hacia abajo se haria el nuevo contenedor ------*/}
         {token ? (
           <>
             <Link to="/perfil" className={isActive("/perfil")}>
               <i className="fa-regular fa-user me-1"></i> Perfil
             </Link>
             <Link to="/carrito" className={isActive("/carrito")}>
-              <i className="fa-solid fa-basket-shopping me-1"></i>
+              <i className="fa-solid fa-basket-shopping me-1"><PiShoppingCartSimpleFill  color="rgb(7, 220, 7)"/>
+</i>
               {totalItems > 0 && (
                 <span className="badge bg-danger rounded-pill" style={{ fontSize: "0.6rem" }}>
                   {totalItems}
@@ -65,7 +69,9 @@ function Header() {
             </button>
           </Link>
         )}
+        {/*-------------------------- hasta aca-------------- */}
       </div>
+
     </nav>
   );
 }
