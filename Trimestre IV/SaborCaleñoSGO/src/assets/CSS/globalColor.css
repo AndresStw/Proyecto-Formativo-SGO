@@ -1,28 +1,67 @@
 /* src/assets/CSS/globalColor.css */
 
-/* Pense en una funcion de personalizasion de la aplicacion web consta de poder elegir el color de los iconos , como la pagina siempre sera de color negra, usare colores, Amarillo,verde y azul el usuario podra escojer esto en su perfil , es una funcion nueva, tendia que reemplazar los iconos, principales, y definir una variable y a todos esos iconos agregarlos a una classe global para que cambien el color en conjunto todos los iconos. */
-
-/*verificar estandar WCAG- estandar de accesibilidad con el tema de colores*/
-
-/*Nota importante "Analizas y arreglar el tema de iconos toda la aplicacion web debe tener iconos claves y combinar con el contraste para poder hacer esta funcion bien: Adcicionalmente, mirar si agragamos efectos a los iconos es algo mas complejo, y darle mas estilo a la pagina . tendriamos que crear , un boton o barra en la parte de usuario que solo cuando se logee permita hacer esto, y de paso añadir una alerta intercativa bonita que diga y invitemos a que cambie los colores de su pagina. Es un plus"*/
-
-
-/*Buscar la libreria de iconos , y escojer un ajuste general para todos , combinando estilo y tamaños adecuados*/
+/*Este Css. tiene como funcion gestionar todos los cambios de color :v*/
 
 .root {
-    --Yellow-Neon: #fff700;
-    --Green-esmerald:#00FF66 ;
-    --pink-vibrant:#FF6699;
-    --green-pick:rgb(7, 220, 7);
+
+    /* -----------------DEFAUlT THEME---------*/
+    --icon-primary: rgba(7, 220, 7);
+    --icon-sencondary: #39ff39;
+    --icon-hover: rgba(7, 220, 7, 0.15);
+    --bg-icon-hover: rgba(7, 220, 7, 0.15);
 }
 
-/*icono logo*/
+/* --------------------Tema #1 Yellow-Neon-------------*/
+html[data-theme="yellow"] {
+    --icon-primary: #fff700;
+    --icon-secondary: #ffed4e;
+    --icon-hover: rgba(255, 247, 0, 0.8);
+    --bg-icon-hover: rgba(255, 247, 0, 0.15);
+}
 
+/* --------------------Tema #2 pink -------------*/
+html[data-theme="pink"] {
+    --icon-primary: #ff6699;
+    --icon-secondary: #ff99bb;
+    --icon-hover: rgba(255, 102, 153, 0.8);
+    --bg-icon-hover: rgba(255, 102, 153, 0.15);
+}
 
-/*Iconos header*/
+/* --------------------Tema #3 Blue -------------*/
+html[data-theme="blue"] {
+    --icon-primary: #0000ff;
+    --icon-secondary: #3232fb;
+    --icon-hover: rgba(7, 25, 220, 0.544);
+    --bg-icon-hover: rgba(34, 0, 255, 0.106);
+}
 
-/*iconos menu*/
+/*Clases goblaes para todos los iconos*/
 
-/*iconos redes sociales*/
+.icon-accent {
+    color: var(--icon-primary);
+    transition: all 0.3s ease;
+    /*transcicion con acelerarcion */
+    cursor: pointer;
+}
+/* Hovers */
+.icon-accent:hover {
+    color: var(--icon-hover);
+    transform: scale(1.1);
+}
 
-/*otros iconos*/
+/*Botones*/
+
+.btn .icon-accent {
+    margin-right: 0.5rem;
+}
+
+/*Header*/
+.header-nav .icon-accent {
+    font-size: 1.2rem;
+}
+
+/* footer */
+.footer .icon-accent {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+}

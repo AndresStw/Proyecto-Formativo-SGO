@@ -13,6 +13,13 @@
       "nombre": "Prueba1",
       "telefono": "300123454",
       "id": 2
+    },
+    {
+      "email": "Prueba23@gmail.com",
+      "password": "$2a$10$z4J9GGxV1lJvYZ8rLVf3iOVuXRof6mMWGTvitR8ELaSbmQ9Wwu57K",
+      "nombre": "Prueba23",
+      "telefono": "32456774",
+      "id": 3
     }
   ],
   "productos": [

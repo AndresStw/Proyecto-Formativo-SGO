@@ -1,18 +1,7 @@
-// src/pages/Login.jsx
-
-/*
-    - Formulario con email y contraseña
-    - Validacion de credenciales contra JSON Server
-    - Almacena token y email en localStorage al iniciar sesion
-    - Redirige al menu despus del login exitoso
-    - Muestra/oculta contraseña con toggle
-    -obiamente se necesita tener la db.json
-
-*/
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/Img/logos/logo.png";
+import { login } from "../services/Auth"; // Nuevo ajuste
 import "../assets/CSS/login.css";
 
 function Login() {
@@ -27,28 +16,12 @@ function Login() {
     e.preventDefault();
     setError("");
     setCargando(true);
-
     try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("token", data.accessToken);
-        localStorage.setItem("userEmail", email);
-        setPassword("");//limpieza pass
-        navigate("/menu");
-      } else {
-        setError(data.message || "Credenciales incorrectas");
-      }
+      await login(email.trim(), password);
+      setPassword("");
+      navigate("/menu", { replace: true });
     } catch (err) {
-      setError("Error 503: Servicio no disponible.");
+      setError(err.message || "No fue posible iniciar sesion");
     } finally {
       setCargando(false);
     }
@@ -61,21 +34,21 @@ function Login() {
           <div className="login-header">
             <img src={logo} alt="Sabor Caleño" className="login-logo" />
             <h2 className="login-title">¡Bienvenido de vuelta!</h2>
-            <p className="login-subtitle">Inicia sesión para disfrutar de la mejor sazón valluna</p>
+            <p className="login-subtitle">
+              Inicia sesión para disfrutar de la mejor sazón valluna
+            </p>
           </div>
-
           {error && (
-            <div className="login-error">
+            <div className="login-error" role="alert">
               <i className="fa-solid fa-circle-exclamation me-2"></i>
               {error}
             </div>
           )}
-
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
               <label className="form-label">
-                <i className="fa-regular fa-envelope me-2"></i>
-                Correo Electrónico
+                <i className="fa-regular fa-envelope me-2"></i>Correo
+                Electrónico
               </label>
               <div className="input-wrapper">
                 <input
@@ -89,57 +62,36 @@ function Login() {
                 <i className="fa-regular fa-envelope input-icon"></i>
               </div>
             </div>
-
             <div className="form-group">
               <label className="form-label">
-                <i className="fa-solid fa-lock me-2"></i>
-                Contraseña
+                <i className="fa-solid fa-lock me-2"></i>Contraseña
               </label>
               <div className="input-wrapper">
                 <input
                   type={showPassword ? "text" : "password"}
                   className="form-input"
                   placeholder="Ingresa tu contraseña"
-                  // value={password}
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <i 
+                <i
                   className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"} input-icon password-toggle`}
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword((visible) => !visible)}
                 ></i>
               </div>
             </div>
-
-            <div className="form-options">
-              <label className="checkbox-label">
-                <input type="checkbox" />
-                <span>Recordarme</span>
-              </label>
-              <Link to="/recuperar" className="forgot-link">
-                ¿Olvidaste tu contraseña?
-              </Link>
-            </div>
-
-            <button
-              type="submit"
-              className="btn-login"
-              disabled={cargando}
-            >
+            <button type="submit" className="btn-login" disabled={cargando}>
               {cargando ? (
-                <>
-                  <span className="spinner-border spinner-border-sm me-2"></span>
-                  Ingresando...
-                </>
+                "Ingresando..."
               ) : (
                 <>
-                  Iniciar Sesión
+                  Iniciar Sesión{" "}
                   <i className="fa-solid fa-arrow-right ms-2"></i>
                 </>
               )}
             </button>
           </form>
-
           <div className="login-footer">
             <p>
               ¿No tienes cuenta?{" "}
@@ -152,16 +104,10 @@ function Login() {
             </Link>
           </div>
         </div>
-
         <div className="login-decoration">
           <div className="decoration-content">
             <h3>Sabor Caleño</h3>
             <p>La autenticidad del sabor valluno</p>
-            <div className="decoration-features">
-              <span><i className="fa-solid fa-utensils"></i> Platos típicos</span>
-              <span><i className="fa-solid fa-truck"></i> Delivery</span>
-              <span><i className="fa-solid fa-star"></i> Calidad</span>
-            </div>
           </div>
         </div>
       </div>

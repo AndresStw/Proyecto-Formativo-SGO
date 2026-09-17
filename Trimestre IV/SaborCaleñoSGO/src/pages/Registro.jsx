@@ -1,6 +1,6 @@
-// src/pages/Registro.jsx
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { register } from "../services/Auth";
 import "../assets/CSS/registro.css";
 
 function Registro() {
@@ -16,44 +16,29 @@ function Registro() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setCargando(true);
-
-    // Validaciones básicas
     if (password.length < 6) {
       setError("La contraseña debe tener al menos 6 caracteres");
-      setCargando(false);
       return;
     }
-
+    setCargando(true);
     try {
-      const response = await fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ 
-          email, 
-          password, //texto plano sin encriptar se envia al servirod local  http://localhost:3000/register
-          nombre,
-          telefono
-        }),
+      const data = await register({
+        nombre,
+        email: email.trim(),
+        password,
+        telefono,
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // Guardar el token
-        localStorage.setItem("token", data.accessToken);
-        setPassword("");//Limpieza de pass
-        setExito(true);
-        setTimeout(() => {
-          navigate("/menu");
-        }, 1500);
-      } else {
-        setError(data.message || "Error al registrarse. El correo podría estar en uso.");
-      }
+      setPassword("");
+      setExito(true);
+      setTimeout(
+        () =>
+          navigate(data.accessToken || data.token ? "/menu" : "/login", {
+            replace: true,
+          }),
+        1200,
+      );
     } catch (err) {
-      setError("Error 503: Servicio no disponible.");
+      setError(err.message || "No fue posible crear la cuenta");
     } finally {
       setCargando(false);
     }
@@ -66,105 +51,80 @@ function Registro() {
           <div className="registro-card">
             <div className="registro-header">
               <h3 className="registro-title">Crear Cuenta</h3>
-              <p className="registro-subtitle">Regístrate para disfrutar de la mejor sazón valluna</p>
+              <p className="registro-subtitle">
+                Regístrate para disfrutar de la mejor sazón valluna
+              </p>
             </div>
-
             {error && (
               <div className="alert alert-danger" role="alert">
-                <i className="fa-solid fa-circle-exclamation me-2"></i>
                 {error}
               </div>
             )}
-
             {exito && (
               <div className="alert alert-success" role="alert">
-                <i className="fa-solid fa-circle-check me-2"></i>
-                ¡Registro exitoso! Redirigiendo al menú...
+                ¡Registro exitoso! Redirigiendo...
               </div>
             )}
-
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <label htmlFor="nombre" className="form-label fw-semibold">
-                  <i className="fa-regular fa-user me-1"></i> Nombre Completo
+                  Nombre Completo
                 </label>
                 <input
                   type="text"
                   className="form-control"
                   id="nombre"
-                  placeholder="Juan Pérez"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   required
                 />
               </div>
-
               <div className="mb-3">
                 <label htmlFor="telefono" className="form-label fw-semibold">
-                  <i className="fa-solid fa-phone me-1"></i> Teléfono
+                  Teléfono
                 </label>
                 <input
                   type="tel"
                   className="form-control"
                   id="telefono"
-                  placeholder="300 123 4567"
                   value={telefono}
                   onChange={(e) => setTelefono(e.target.value)}
                 />
               </div>
-
               <div className="mb-3">
                 <label htmlFor="email" className="form-label fw-semibold">
-                  <i className="fa-regular fa-envelope me-1"></i> Correo Electrónico
+                  Correo Electrónico
                 </label>
                 <input
                   type="email"
                   className="form-control"
                   id="email"
-                  placeholder="correo@ejemplo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
-
               <div className="mb-3">
                 <label htmlFor="password" className="form-label fw-semibold">
-                  <i className="fa-solid fa-lock me-1"></i> Contraseña
+                  Contraseña
                 </label>
                 <input
                   type="password"
                   className="form-control"
                   id="password"
-                  placeholder="Mínimo 6 caracteres"
-                  // value={password}
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <small className="text-muted">
-                  <i className="fa-regular fa-circle-info me-1"></i>
-                  
-                </small>
               </div>
-
               <button
                 type="submit"
                 className="btn btn-primary-custom w-100"
                 disabled={cargando}
               >
-                {cargando ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2"></span>
-                    Registrando...
-                  </>
-                ) : (
-                  <>
-                    <i className="fa-regular fa-user me-2"></i> Registrarme
-                  </>
-                )}
+                {cargando ? "Registrando..." : "Registrarme"}
               </button>
             </form>
-
             <div className="registro-footer">
               <p className="mb-0 text-muted">
                 ¿Ya tienes cuenta?{" "}

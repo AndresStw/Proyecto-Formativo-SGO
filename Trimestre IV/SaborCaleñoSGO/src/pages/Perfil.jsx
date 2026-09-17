@@ -102,6 +102,7 @@ function Perfil() {
             </button>
           </div>
         </div>
+        <br />
 
         {/* Pedidos recientes */}
         <div className="col-md-8">

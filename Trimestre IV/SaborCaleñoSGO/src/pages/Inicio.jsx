@@ -42,7 +42,7 @@ function Inicio() {
           <div className="col-md-4">
             <div className="feature-card">
               <i className="fa-solid fa-utensils feature-icon"></i>
-              <h4>Platos Auténticos</h4>
+              <h4>Platos Auténticos</h4> {/*Eror de tamañooooo usar  de h4 / h2*/}
               <p>Recetas tradicionales del Valle del Cauca</p>
             </div>
           </div>

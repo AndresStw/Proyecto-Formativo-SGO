@@ -1,6 +1,8 @@
 // src/pages/Menu.jsx
 
 /*
+ERROR: Curiosamente cuando se arrastra algo por ejemplo , inicio a menu se bloquea la pagina 14/09/2026 7:00pm.
+
     - Muestra productos agrupados por categorías (Desayunos, Caldos, Bebidas, Platos)
     - Filtro por categoria y orden por precio
     - Carrito lateral con funcionalidad de minimizar/expandir

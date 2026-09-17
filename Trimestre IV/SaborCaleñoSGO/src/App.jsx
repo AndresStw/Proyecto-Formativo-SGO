@@ -11,6 +11,7 @@ import Nosotros from "./pages/Nosotros";
 import Perfil from "./pages/Perfil";
 import Pedidos from "./pages/Pedidos";
 import PlacingOrder from "./pages/PlacingOrder";
+import ChatPedido from "./pages/ChatPedido"; //Implentado con AI 
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/placing-order" element={<PlacingOrder />} />
+        <Route path="/chat-pedido" element={<ChatPedido />} />
       </Routes>
       <Footer />
     </BrowserRouter>

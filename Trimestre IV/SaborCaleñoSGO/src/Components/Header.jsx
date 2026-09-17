@@ -1,20 +1,8 @@
 // src/Components/Header.jsx
 
-/*
-  Que hace: Barra de navegacion principal.
-    - Muestra el logo y nombre del restaurante
-    - Navegacion a las secciones principales Inicio, Menu, Nosotros
-    - Si el usuario esta logueado muestra Perfil, Carrito y botón Salir
-    - Si no está logueado: muestra boton Login
-    - El contador del carrito muestra la cantidad total de items
-  
-*/
-
 import { Link, useLocation } from "react-router-dom";
 import { menuData } from "./menuData";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
-
-
 
 function Header() {
   const location = useLocation();
@@ -25,35 +13,54 @@ function Header() {
     window.location.href = "/";
   };
 
-  const isActive = (path) => location.pathname === path ? "active" : "";
-
+  const isActive = (path) => (location.pathname === path ? "active" : "");
   const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-  const totalItems = carrito.reduce((acc, item) => acc + (item.cantidad || 1), 0);
+  const totalItems = carrito.reduce(
+    (acc, item) => acc + (item.cantidad || 1),
+    0,
+  );
 
   return (
     <nav className="header-nav">
-      {/* sugiero separar el logo o quitar el titulo o hacer el titulo + pequeño  */}
       <div className="header-logo">
         <img src={menuData.logo} alt="Sabor Caleño" />
         <span></span>
       </div>
 
       <div className="header-nav-links">
-        <Link to="/" className={isActive("/")}>Inicio</Link>
-        <Link to="/menu" className={isActive("/menu")}>Menú</Link>
-        <Link to="/nosotros" className={isActive("/nosotros")}>Nosotros</Link>
+        <Link to="/" className={isActive("/")}>
+          Inicio
+        </Link>
+        <Link to="/menu" className={isActive("/menu")}>
+          Menú
+        </Link>
+        <Link to="/nosotros" className={isActive("/nosotros")}>
+          Nosotros
+        </Link>
 
-        {/*----------- Desde aca hacia abajo se haria el nuevo contenedor ------*/}
+        {token && (
+          <Link
+            to="/chat-pedido"
+            className={`chat-nav-link ${isActive("/chat-pedido")}`}
+          >
+            <i className="fa-brands fa-whatsapp me-1"></i> Pedir por chat
+          </Link>
+        )}
+
         {token ? (
           <>
             <Link to="/perfil" className={isActive("/perfil")}>
               <i className="fa-regular fa-user me-1"></i> Perfil
             </Link>
             <Link to="/carrito" className={isActive("/carrito")}>
-              <i className="fa-solid fa-basket-shopping me-1"><PiShoppingCartSimpleFill  color="rgb(7, 220, 7)"/>
-</i>
+              <i className="fa-solid fa-basket-shopping me-1">
+                <PiShoppingCartSimpleFill color="rgb(7, 220, 7)" />
+              </i>
               {totalItems > 0 && (
-                <span className="badge bg-danger rounded-pill" style={{ fontSize: "0.6rem" }}>
+                <span
+                  className="badge bg-danger rounded-pill"
+                  style={{ fontSize: "0.6rem" }}
+                >
                   {totalItems}
                 </span>
               )}
@@ -69,9 +76,7 @@ function Header() {
             </button>
           </Link>
         )}
-        {/*-------------------------- hasta aca-------------- */}
       </div>
-
     </nav>
   );
 }

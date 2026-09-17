@@ -66,14 +66,15 @@ body {
   border-radius: 30px;
   margin-top: 20px;
 }
-
+/*Se realizara cambio por icono multicolor*/
 .header-logo {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.header-logo img {
+
+.header-logo img { 
   height: 80px;
   width: auto;
 }
@@ -83,6 +84,7 @@ body {
   font-weight: 700;
   color: var(--secondary);
 }
+/* ---------------------------FIN----------------------------------- */
 
 .header-nav-links  { /*Estos son solo los textos inicio,menu,nosotros*/
   display: flex;
@@ -142,7 +144,7 @@ body {
   padding: 8px 22px;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.25s ease;
 }
