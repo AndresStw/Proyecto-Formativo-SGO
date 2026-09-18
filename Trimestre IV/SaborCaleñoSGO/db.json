@@ -20,6 +20,27 @@
       "nombre": "Prueba23",
       "telefono": "32456774",
       "id": 3
+    },
+    {
+      "email": "paula.mora@gmail.com",
+      "password": "$2a$10$OD4XsEL/Isd21i5RXk9VJOmmEcEzNmwhm2ZJyh47PkWkaBEIN7FPi",
+      "nombre": "Paula Mora",
+      "telefono": "1234584",
+      "id": 4
+    },
+    {
+      "email": "mar23@gmail.com",
+      "password": "$2a$10$84dhtLXney8RPtpxzVpLQOl9IrQYD0GZEtZTBuQYioyeJ8.E/f4dS",
+      "nombre": "Marisol Castañeda",
+      "telefono": "125662",
+      "id": 5
+    },
+    {
+      "email": "pepito66@gmail.com",
+      "password": "$2a$10$ydatSAGmLhdon4WmXu7/KusPMnKZjooCa0PLtts6DR/6i9V/Jj47O",
+      "nombre": "Pepito Perez",
+      "telefono": "1065113",
+      "id": 7
     }
   ],
   "productos": [

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/Img/logos/logo.png";
-import { login } from "../services/Auth"; // Nuevo ajuste
+import { login } from "../services/Auth";
+import "../assets/CSS/global.css";
 import "../assets/CSS/login.css";
 
 function Login() {
@@ -19,9 +20,9 @@ function Login() {
     try {
       await login(email.trim(), password);
       setPassword("");
-      navigate("/menu", { replace: true });
+      navigate("/Perfil", { replace: true });
     } catch (err) {
-      setError(err.message || "No fue posible iniciar sesion");
+      setError(err.message || "No fue posible iniciar sesión");
     } finally {
       setCargando(false);
     }
@@ -30,6 +31,7 @@ function Login() {
   return (
     <div className="login-page">
       <div className="login-container">
+        {/* Panel Izquierdo: Formulario */}
         <div className="login-card">
           <div className="login-header">
             <img src={logo} alt="Sabor Caleño" className="login-logo" />
@@ -38,60 +40,67 @@ function Login() {
               Inicia sesión para disfrutar de la mejor sazón valluna
             </p>
           </div>
+
           {error && (
             <div className="login-error" role="alert">
               <i className="fa-solid fa-circle-exclamation me-2"></i>
               {error}
             </div>
           )}
+
           <form onSubmit={handleSubmit} className="login-form">
+            {/* Campo Correo: Ícono de usuario dentro de la bolita izquierda */}
             <div className="form-group">
-              <label className="form-label">
-                <i className="fa-regular fa-envelope me-2"></i>Correo
-                Electrónico
-              </label>
-              <div className="input-wrapper">
+              <div className="input-capsule">
+                <div className="icon-circle">
+                  <i className="fa-solid fa-user"></i>
+                </div>
                 <input
                   type="email"
-                  className="form-input"
+                  className="capsule-input"
                   placeholder="correo@ejemplo.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
-                <i className="fa-regular fa-envelope input-icon"></i>
               </div>
             </div>
+
+            {/* Campo Contraseña: Ícono de candado dentro de la bolita derecha */}
             <div className="form-group">
-              <label className="form-label">
-                <i className="fa-solid fa-lock me-2"></i>Contraseña
-              </label>
-              <div className="input-wrapper">
+              <div className="input-capsule">
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="form-input"
+                  className="capsule-input"
                   placeholder="Ingresa tu contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <i
-                  className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"} input-icon password-toggle`}
+                <button
+                  type="button"
+                  className="icon-circle toggle-btn"
                   onClick={() => setShowPassword((visible) => !visible)}
-                ></i>
+                  aria-label="Mostrar u ocultar contraseña"
+                >
+                  <i className={`fa-solid ${showPassword ? "fa-lock-open" : "fa-lock"}`}></i>
+                </button>
               </div>
             </div>
+
+            {/* Enlace ¿Olvidaste tu contraseña? */}
+            <div className="forgot-password-container">
+              <Link to="/recuperar-contrasena" className="forgot-link">
+                ¿Olvidaste tu contraseña?
+              </Link>
+            </div>
+
+            {/* Botón Verde Plano con border-radius de 10px */}
             <button type="submit" className="btn-login" disabled={cargando}>
-              {cargando ? (
-                "Ingresando..."
-              ) : (
-                <>
-                  Iniciar Sesión{" "}
-                  <i className="fa-solid fa-arrow-right ms-2"></i>
-                </>
-              )}
+              {cargando ? "Ingresando..." : "Iniciar Sesión"}
             </button>
           </form>
+
           <div className="login-footer">
             <p>
               ¿No tienes cuenta?{" "}
@@ -104,10 +113,11 @@ function Login() {
             </Link>
           </div>
         </div>
+
+        {/* Panel Derecho: Solo texto Sabor Caleño */}
         <div className="login-decoration">
           <div className="decoration-content">
             <h3>Sabor Caleño</h3>
-            <p>La autenticidad del sabor valluno</p>
           </div>
         </div>
       </div>

@@ -31,22 +31,19 @@ function Perfil() {
         id: "#1001",
         fecha: "Hoy",
         total: 25000,
-        estado: "En preparación",
-        estadoBadge: "warning"
+        estado: "En preparación"
       },
       {
         id: "#1000",
         fecha: "Ayer",
         total: 32000,
-        estado: "Entregado",
-        estadoBadge: "success"
+        estado: "Entregado"
       },
       {
         id: "#999",
         fecha: "15/08/2024",
         total: 18000,
-        estado: "Entregado",
-        estadoBadge: "success"
+        estado: "Entregado"
       }
     ];
     setPedidos(pedidosData);
@@ -60,7 +57,7 @@ function Perfil() {
 
   if (cargando) {
     return (
-      <div className="container text-center py-5">
+      <div className="perfil-container text-center py-5">
         <div className="spinner-border text-warning" role="status">
           <span className="visually-hidden">Cargando...</span>
         </div>
@@ -69,17 +66,17 @@ function Perfil() {
   }
 
   return (
-    <div className="container py-5">
-      <div className="row g-4">
+    <div className="perfil-container">
+      <div className="perfil-layout">
         {/* Perfil usuario */}
-        <div className="col-md-4">
+        <div className="perfil-col">
           <div className="perfil-card">
             <div className="perfil-avatar">
               <i className="fa-solid fa-circle-user"></i>
             </div>
             <h4 className="perfil-nombre">{user?.nombre}</h4>
             <p className="perfil-email">{user?.email}</p>
-            
+
             <div className="perfil-puntos">
               <i className="fa-solid fa-star" style={{ color: '#FFD700' }}></i>
               <span>{user?.puntos} puntos</span>
@@ -89,12 +86,11 @@ function Perfil() {
 
             <div className="perfil-detalles">
               <p>
-                <i className="fa-solid fa-phone me-2" style={{ color: 'var(--secondary)' }}></i>
                 {user?.telefono}
               </p>
             </div>
 
-            <button 
+            <button
               className="btn-outline-custom w-100 mt-3"
               onClick={handleLogout}
             >
@@ -102,18 +98,17 @@ function Perfil() {
             </button>
           </div>
         </div>
-        <br />
 
         {/* Pedidos recientes */}
-        <div className="col-md-8">
+        <div className="pedidos-col">
           <div className="pedidos-card">
             <h5 className="pedidos-titulo">
               <i className="fa-regular fa-clock me-2" style={{ color: 'var(--secondary)' }}></i>
               Mis Pedidos Recientes
             </h5>
 
-            <div className="table-responsive">
-              <table className="table perfil-table">
+            <div className="perfil-table-wrapper">
+              <table className="perfil-table">
                 <thead>
                   <tr>
                     <th>ID Pedido</th>
@@ -128,11 +123,7 @@ function Perfil() {
                       <td><strong>{pedido.id}</strong></td>
                       <td>{pedido.fecha}</td>
                       <td>${pedido.total.toLocaleString()}</td>
-                      <td>
-                        <span className={`badge bg-${pedido.estadoBadge} text-dark`}>
-                          {pedido.estado}
-                        </span>
-                      </td>
+                      <td>{pedido.estado}</td>
                     </tr>
                   ))}
                 </tbody>

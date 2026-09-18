@@ -3,6 +3,40 @@
    Estilos de la pagina de perfil de usuario
     */
 
+.perfil-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  padding-top: 110px; /* separa el contenido del navbar fijo, ajusta este valor a la altura real de tu navbar */
+}
+
+/* Layout de dos columnas */
+.perfil-layout {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.perfil-col {
+  flex: 0 0 33%;
+  max-width: 33%;
+}
+
+.pedidos-col {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .perfil-col,
+  .pedidos-col {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* Tarjeta de perfil */
 .perfil-card {
   background: var(--bg-white);
   border-radius: var(--border-radius);
@@ -35,7 +69,8 @@
   background: #FFF8E1;
   padding: 0.5rem 1.5rem;
   border-radius: 20px;
-  font-weight: 500;
+  font-weight: 700;
+  color: black;
 }
 
 .perfil-detalles {
@@ -48,6 +83,7 @@
   color: var(--text-gray);
 }
 
+/* Tarjeta de pedidos */
 .pedidos-card {
   background: var(--bg-white);
   border-radius: var(--border-radius);
@@ -60,19 +96,28 @@
   margin-bottom: 1.5rem;
 }
 
+/* Tabla propia (sin depender de .table de Bootstrap) */
+.perfil-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .perfil-table {
+  width: 100%;
+  border-collapse: collapse;
   margin-bottom: 1rem;
 }
 
 .perfil-table thead th {
+  text-align: left;
   font-weight: 600;
   color: var(--text-gray);
   border-bottom: 2px solid #E5E7EB;
-  padding: 0.75rem 0;
+  padding: 0.75rem 1rem;
 }
 
 .perfil-table tbody td {
-  padding: 0.75rem 0;
+  padding: 0.75rem 1rem;
   border-bottom: 1px solid #F1F5F9;
 }
 
