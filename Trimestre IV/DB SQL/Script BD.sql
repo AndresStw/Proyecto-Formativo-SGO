@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `sabor_caleno_sgo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `sabor_caleno_sgo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
 USE `sabor_caleno_sgo`;
--- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.46, for Win64 (x86_64)
 --
--- Host: localhost    Database: sabor_caleno_sgo
+-- Host: 127.0.0.1    Database: sabor_caleno_sgo
 -- ------------------------------------------------------
--- Server version	9.7.0
+-- Server version	5.5.5-10.4.32-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,14 +16,6 @@ USE `sabor_caleno_sgo`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
-SET @@SESSION.SQL_LOG_BIN= 0;
-
---
--- GTID state at the beginning of the backup 
---
-
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b87d7c7d-4ec1-11f1-a54a-36ef0a66de29:1-3306';
 
 --
 -- Table structure for table `administrador`
@@ -33,9 +25,9 @@ DROP TABLE IF EXISTS `administrador`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `administrador` (
-  `id_administrador` int NOT NULL AUTO_INCREMENT,
-  `Usuario_idUsuario` int NOT NULL,
-  `nivel_acceso` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Basico',
+  `id_administrador` int(11) NOT NULL AUTO_INCREMENT,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `nivel_acceso` varchar(45) NOT NULL DEFAULT 'Basico',
   PRIMARY KEY (`id_administrador`),
   KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
   CONSTRAINT `administrador_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE
@@ -60,15 +52,15 @@ DROP TABLE IF EXISTS `alerta_inventario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `alerta_inventario` (
-  `idAlerta` int NOT NULL AUTO_INCREMENT,
-  `Insumo_idInsumo` int NOT NULL,
-  `stock_actual` int NOT NULL,
-  `mensaje` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `idAlerta` int(11) NOT NULL AUTO_INCREMENT,
+  `Insumo_idInsumo` int(11) NOT NULL,
+  `stock_actual` int(11) NOT NULL,
+  `mensaje` varchar(255) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idAlerta`),
   KEY `alerta_inventario_ibfk_1` (`Insumo_idInsumo`),
   CONSTRAINT `alerta_inventario_ibfk_1` FOREIGN KEY (`Insumo_idInsumo`) REFERENCES `insumo` (`idInsumo`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +69,7 @@ CREATE TABLE `alerta_inventario` (
 
 LOCK TABLES `alerta_inventario` WRITE;
 /*!40000 ALTER TABLE `alerta_inventario` DISABLE KEYS */;
-INSERT INTO `alerta_inventario` VALUES (1,4,1,'Stock bajo: quedan 1 unidades (mínimo 3)','2026-09-17 14:25:06');
+INSERT INTO `alerta_inventario` VALUES (1,4,1,'Stock bajo: quedan 1 unidades (mínimo 3)','2026-09-17 14:25:06'),(2,2,5,'','2026-09-17 14:26:06'),(3,1,2,'','2026-09-18 12:20:05'),(4,3,4,'','2026-09-18 13:10:10'),(5,3,3,'','2026-09-20 13:20:10'),(6,1,0,'Stock bajo: quedan 0 unidades (mínimo 10)','2026-09-18 05:01:58');
 /*!40000 ALTER TABLE `alerta_inventario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,11 +81,11 @@ DROP TABLE IF EXISTS `auditoria_usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `auditoria_usuario` (
-  `idAuditoria` int NOT NULL AUTO_INCREMENT,
-  `Usuario_idUsuario` int NOT NULL,
-  `accion` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detalle` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `idAuditoria` int(11) NOT NULL AUTO_INCREMENT,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `accion` varchar(45) NOT NULL,
+  `detalle` varchar(255) DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idAuditoria`),
   KEY `auditoria_usuario_ibfk_1` (`Usuario_idUsuario`),
   CONSTRAINT `auditoria_usuario_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE
@@ -117,13 +109,13 @@ DROP TABLE IF EXISTS `cajero`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cajero` (
-  `id_cajero` int NOT NULL AUTO_INCREMENT,
-  `Usuario_idUsuario` int NOT NULL,
-  `caja_asignada` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_cajero` int(11) NOT NULL AUTO_INCREMENT,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `caja_asignada` varchar(45) NOT NULL,
   PRIMARY KEY (`id_cajero`),
   KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
   CONSTRAINT `cajero_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +124,7 @@ CREATE TABLE `cajero` (
 
 LOCK TABLES `cajero` WRITE;
 /*!40000 ALTER TABLE `cajero` DISABLE KEYS */;
-INSERT INTO `cajero` VALUES (1,2,'Caja 1');
+INSERT INTO `cajero` VALUES (1,2,'Caja 1'),(2,18,'Caja 2'),(3,20,'Caja 3');
 /*!40000 ALTER TABLE `cajero` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,10 +136,10 @@ DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cliente` (
-  `id_cliente` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Usuario_idUsuario` int NOT NULL,
-  `nivelCliente` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Estandar',
-  `estadoMembresia` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Activa',
+  `id_cliente` varchar(45) NOT NULL,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `nivelCliente` varchar(45) NOT NULL DEFAULT 'Estandar',
+  `estadoMembresia` varchar(45) NOT NULL DEFAULT 'Activa',
   PRIMARY KEY (`id_cliente`),
   KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
   CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE
@@ -160,7 +152,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES ('CLI-001',6,'Oro','Activa'),('CLI-002',7,'Plata','Activa'),('CLI-003',8,'Estandar','Activa'),('CLI-004',9,'Oro','Activa'),('CLI-005',10,'Plata','Activa'),('CLI-006',11,'Estandar','Activa'),('CLI-007',12,'Oro','Activa'),('CLI-008',13,'Plata','Activa'),('CLI-009',14,'Estandar','Inactiva'),('CLI-010',15,'Oro','Activa');
+INSERT INTO `cliente` VALUES ('CLI-001',6,'Oro','Activa'),('CLI-002',7,'Plata','Activa'),('CLI-003',8,'Estandar','Activa'),('CLI-004',9,'Oro','Activa'),('CLI-005',10,'Plata','Activa'),('CLI-006',11,'Estandar','Activa'),('CLI-007',12,'Oro','Activa'),('CLI-008',13,'Plata','Activa'),('CLI-009',14,'Estandar','Inactiva'),('CLI-010',15,'Oro','Activa'),('CLI-011',33,'Estandar','Inactiva');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,14 +164,14 @@ DROP TABLE IF EXISTS `cocinero`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cocinero` (
-  `id_cocinero` int NOT NULL AUTO_INCREMENT,
-  `Usuario_idUsuario` int NOT NULL,
-  `especialidad` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `turno` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_cocinero` int(11) NOT NULL AUTO_INCREMENT,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `especialidad` varchar(45) NOT NULL,
+  `turno` varchar(45) NOT NULL,
   PRIMARY KEY (`id_cocinero`),
   KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
   CONSTRAINT `cocinero_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +180,7 @@ CREATE TABLE `cocinero` (
 
 LOCK TABLES `cocinero` WRITE;
 /*!40000 ALTER TABLE `cocinero` DISABLE KEYS */;
-INSERT INTO `cocinero` VALUES (1,3,'Carnes','Mañana'),(2,4,'Postres','Tarde');
+INSERT INTO `cocinero` VALUES (1,3,'Carnes','Mañana'),(2,4,'Postres','Tarde'),(3,19,'Carnes','Tarde'),(4,21,'Postres','Mañana'),(5,22,'Carne','Mixta'),(6,23,'Carne','Mixta');
 /*!40000 ALTER TABLE `cocinero` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,12 +192,12 @@ DROP TABLE IF EXISTS `detalle_pedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_pedido` (
-  `idDetalle_Pedido` int NOT NULL AUTO_INCREMENT,
-  `Pedido_idPedido` int NOT NULL,
-  `Plato_idPlato` int NOT NULL,
-  `cantidad` int NOT NULL DEFAULT '1',
+  `idDetalle_Pedido` int(11) NOT NULL AUTO_INCREMENT,
+  `Pedido_idPedido` int(11) NOT NULL,
+  `Plato_idPlato` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL DEFAULT 1,
   `precio_unitario` decimal(10,2) NOT NULL,
-  `Observaciones` text COLLATE utf8mb4_unicode_ci,
+  `Observaciones` text DEFAULT NULL,
   PRIMARY KEY (`idDetalle_Pedido`),
   KEY `Plato_idPlato` (`Plato_idPlato`),
   KEY `idx_detalle_pedido` (`Pedido_idPedido`),
@@ -228,7 +220,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -257,7 +249,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -290,9 +282,9 @@ DROP TABLE IF EXISTS `detalle_receta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_receta` (
-  `idDetalle_Receta` int NOT NULL AUTO_INCREMENT,
-  `Receta_idReceta` int NOT NULL,
-  `Insumo_idInsumo` int NOT NULL,
+  `idDetalle_Receta` int(11) NOT NULL AUTO_INCREMENT,
+  `Receta_idReceta` int(11) NOT NULL,
+  `Insumo_idInsumo` int(11) NOT NULL,
   `cantidad` decimal(10,2) NOT NULL,
   PRIMARY KEY (`idDetalle_Receta`),
   KEY `Receta_idReceta` (`Receta_idReceta`),
@@ -320,11 +312,11 @@ DROP TABLE IF EXISTS `direccion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `direccion` (
-  `idDireccion` int NOT NULL AUTO_INCREMENT,
-  `Usuario_idUsuario` int NOT NULL,
-  `ciudad` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `calle` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `barrio` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idDireccion` int(11) NOT NULL AUTO_INCREMENT,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `ciudad` varchar(45) NOT NULL,
+  `calle` varchar(45) NOT NULL,
+  `barrio` varchar(45) NOT NULL,
   PRIMARY KEY (`idDireccion`),
   KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
   CONSTRAINT `direccion_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE
@@ -349,8 +341,8 @@ DROP TABLE IF EXISTS `estado_pedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `estado_pedido` (
-  `idEstado_Pedido` int NOT NULL AUTO_INCREMENT,
-  `nombre_estado` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idEstado_Pedido` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_estado` varchar(45) NOT NULL,
   PRIMARY KEY (`idEstado_Pedido`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -373,10 +365,10 @@ DROP TABLE IF EXISTS `insumo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `insumo` (
-  `idInsumo` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `unidad_medida` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `precio_unitario` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `idInsumo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `unidad_medida` varchar(45) NOT NULL,
+  `precio_unitario` decimal(10,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`idInsumo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -399,12 +391,12 @@ DROP TABLE IF EXISTS `inventario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `inventario` (
-  `idInventario` int NOT NULL AUTO_INCREMENT,
-  `Insumo_idInsumo` int NOT NULL,
-  `stock_actual` int NOT NULL DEFAULT '0',
-  `stock_minimo` int NOT NULL DEFAULT '5',
-  `Administrador_id_administrador` int NOT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `idInventario` int(11) NOT NULL AUTO_INCREMENT,
+  `Insumo_idInsumo` int(11) NOT NULL,
+  `stock_actual` int(11) NOT NULL DEFAULT 0,
+  `stock_minimo` int(11) NOT NULL DEFAULT 5,
+  `Administrador_id_administrador` int(11) NOT NULL,
+  `updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`idInventario`),
   KEY `Administrador_id_administrador` (`Administrador_id_administrador`),
   KEY `idx_inventario_insumo` (`Insumo_idInsumo`),
@@ -419,7 +411,7 @@ CREATE TABLE `inventario` (
 
 LOCK TABLES `inventario` WRITE;
 /*!40000 ALTER TABLE `inventario` DISABLE KEYS */;
-INSERT INTO `inventario` VALUES (1,1,50,10,1,'2026-09-16 20:56:25'),(2,2,30,8,1,'2026-09-16 20:56:25'),(3,3,20,5,1,'2026-09-16 20:56:25'),(4,4,1,3,1,'2026-09-17 14:25:06'),(5,5,99,20,1,'2026-09-17 14:32:39'),(6,6,79,15,1,'2026-09-17 14:32:39'),(7,7,59,10,1,'2026-09-17 14:32:39'),(8,8,25,5,1,'2026-09-16 20:56:25'),(9,9,10,2,1,'2026-09-16 20:56:25'),(10,10,40,10,1,'2026-09-16 20:56:25');
+INSERT INTO `inventario` VALUES (1,1,0,10,1,'2026-09-18 05:01:58'),(2,2,30,8,1,'2026-09-16 20:56:25'),(3,3,20,5,1,'2026-09-16 20:56:25'),(4,4,1,3,1,'2026-09-17 14:25:06'),(5,5,99,20,1,'2026-09-17 14:32:39'),(6,6,79,15,1,'2026-09-17 14:32:39'),(7,7,59,10,1,'2026-09-17 14:32:39'),(8,8,25,5,1,'2026-09-16 20:56:25'),(9,9,10,2,1,'2026-09-16 20:56:25'),(10,10,40,10,1,'2026-09-16 20:56:25');
 /*!40000 ALTER TABLE `inventario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -427,7 +419,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -453,15 +445,15 @@ DROP TABLE IF EXISTS `mesa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mesa` (
-  `idMesa` int NOT NULL AUTO_INCREMENT,
-  `capacidad` int NOT NULL,
-  `numero_mesa` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Mesero_id_mesero` int NOT NULL,
+  `idMesa` int(11) NOT NULL AUTO_INCREMENT,
+  `capacidad` int(11) NOT NULL,
+  `numero_mesa` varchar(10) NOT NULL,
+  `Mesero_id_mesero` int(11) NOT NULL,
   PRIMARY KEY (`idMesa`),
   UNIQUE KEY `numero_mesa` (`numero_mesa`),
   KEY `Mesero_id_mesero` (`Mesero_id_mesero`),
   CONSTRAINT `mesa_ibfk_1` FOREIGN KEY (`Mesero_id_mesero`) REFERENCES `mesero` (`id_mesero`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,7 +462,7 @@ CREATE TABLE `mesa` (
 
 LOCK TABLES `mesa` WRITE;
 /*!40000 ALTER TABLE `mesa` DISABLE KEYS */;
-INSERT INTO `mesa` VALUES (1,2,'Mesa 1',1),(2,4,'Mesa 2',1),(3,6,'Mesa 3',1),(4,8,'Mesa 4',1);
+INSERT INTO `mesa` VALUES (1,2,'Mesa 1',1),(2,4,'Mesa 2',1),(3,6,'Mesa 3',2),(4,8,'Mesa 4',5),(5,2,'Mesa 5',5),(6,4,'Mesa 6',5),(7,4,'Mesa 7',6),(8,6,'Mesa 8',6),(9,6,'Mesa 9',4),(10,8,'Mesa 10',4),(11,3,'Mesa 11',2),(12,8,'Mesa 12',1),(13,2,'Mesa 13',3),(14,4,'Mesa 14',5),(15,6,'Mesa 15',3),(16,10,'Mesa 16',10),(17,2,'Mesa 17',10),(18,10,'Mesa 18',8),(19,6,'Mesa 19',2),(20,4,'Mesa 20',7),(21,5,'Mesa 21',9);
 /*!40000 ALTER TABLE `mesa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -482,13 +474,13 @@ DROP TABLE IF EXISTS `mesero`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mesero` (
-  `id_mesero` int NOT NULL AUTO_INCREMENT,
-  `Usuario_idUsuario` int NOT NULL,
-  `zona_asignada` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_mesero` int(11) NOT NULL AUTO_INCREMENT,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `zona_asignada` varchar(45) NOT NULL,
   PRIMARY KEY (`id_mesero`),
   KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
   CONSTRAINT `mesero_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -497,7 +489,7 @@ CREATE TABLE `mesero` (
 
 LOCK TABLES `mesero` WRITE;
 /*!40000 ALTER TABLE `mesero` DISABLE KEYS */;
-INSERT INTO `mesero` VALUES (1,5,'Zona Norte');
+INSERT INTO `mesero` VALUES (0,0,''),(1,5,'Zona Norte'),(2,16,'Zona Sur'),(3,17,'Zona Norte'),(4,32,'Zona Sur'),(5,31,'Zona Sur'),(6,24,'Zona Oeste'),(7,25,'Zona Oeste'),(8,26,'Zona Oeste'),(9,27,'Zona Norte'),(10,30,'Zona Norte');
 /*!40000 ALTER TABLE `mesero` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -509,8 +501,8 @@ DROP TABLE IF EXISTS `metodopago`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `metodopago` (
-  `idMetodo_Pago` int NOT NULL AUTO_INCREMENT,
-  `metodo` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idMetodo_Pago` int(11) NOT NULL AUTO_INCREMENT,
+  `metodo` varchar(45) NOT NULL,
   PRIMARY KEY (`idMetodo_Pago`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -533,9 +525,9 @@ DROP TABLE IF EXISTS `modalidadpedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `modalidadpedido` (
-  `id_modalidad` int NOT NULL AUTO_INCREMENT,
-  `nombreModalidad` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` text COLLATE utf8mb4_unicode_ci,
+  `id_modalidad` int(11) NOT NULL AUTO_INCREMENT,
+  `nombreModalidad` varchar(45) NOT NULL,
+  `descripcion` text DEFAULT NULL,
   PRIMARY KEY (`id_modalidad`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -558,15 +550,15 @@ DROP TABLE IF EXISTS `pedido`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pedido` (
-  `idPedido` int NOT NULL AUTO_INCREMENT,
-  `fecha_hora` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tiempo_preparacion` int DEFAULT NULL COMMENT 'Tiempo en minutos',
+  `idPedido` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha_hora` datetime NOT NULL DEFAULT current_timestamp(),
+  `tiempo_preparacion` int(11) DEFAULT NULL COMMENT 'Tiempo en minutos',
   `hora_entrega` datetime DEFAULT NULL,
-  `Mesero_id_mesero` int NOT NULL,
-  `Mesa_idMesa` int DEFAULT NULL,
-  `Cliente_id_cliente` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `modalidadPedido_id_modalidad` int NOT NULL,
-  `Estado_Pedido_idEstado_Pedido` int NOT NULL,
+  `Mesero_id_mesero` int(11) NOT NULL,
+  `Mesa_idMesa` int(11) DEFAULT NULL,
+  `Cliente_id_cliente` varchar(45) NOT NULL,
+  `modalidadPedido_id_modalidad` int(11) NOT NULL,
+  `Estado_Pedido_idEstado_Pedido` int(11) NOT NULL,
   PRIMARY KEY (`idPedido`),
   KEY `Mesa_idMesa` (`Mesa_idMesa`),
   KEY `modalidadPedido_id_modalidad` (`modalidadPedido_id_modalidad`),
@@ -588,7 +580,7 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (1,'2026-09-16 14:23:48',25,'2026-09-16 14:48:48',1,1,'CLI-001',1,4),(2,'2026-09-16 13:23:48',30,'2026-09-16 13:53:48',1,2,'CLI-002',1,4),(3,'2026-09-16 12:23:48',45,'2026-09-16 13:08:48',1,NULL,'CLI-003',3,4),(4,'2026-09-16 11:23:48',15,'2026-09-16 11:38:48',1,3,'CLI-004',1,4),(5,'2026-09-16 10:23:48',20,'2026-09-16 10:43:48',1,NULL,'CLI-005',2,4),(6,'2026-09-16 09:23:48',55,'2026-09-16 10:18:48',1,4,'CLI-006',1,4),(7,'2026-09-16 08:23:48',35,'2026-09-16 08:58:48',1,1,'CLI-007',1,4),(8,'2026-09-16 07:23:48',40,'2026-09-16 08:03:48',1,NULL,'CLI-008',3,4),(9,'2026-09-16 06:23:48',10,'2026-09-16 06:33:48',1,2,'CLI-009',1,4),(10,'2026-09-16 05:23:48',50,'2026-09-16 06:13:48',1,3,'CLI-010',1,4),(11,'2026-09-16 04:23:48',28,'2026-09-16 04:51:48',1,NULL,'CLI-001',2,4),(12,'2026-09-16 03:23:48',32,'2026-09-16 03:55:48',1,4,'CLI-002',1,4),(13,'2026-09-16 15:53:48',NULL,NULL,1,1,'CLI-003',1,2),(14,'2026-09-16 14:25:20',25,'2026-09-16 14:50:20',1,1,'CLI-001',1,4),(15,'2026-09-16 13:25:20',30,'2026-09-16 13:55:20',1,2,'CLI-002',1,4),(16,'2026-09-16 12:25:20',45,'2026-09-16 13:10:20',1,NULL,'CLI-003',3,4),(17,'2026-09-16 11:25:20',15,'2026-09-16 11:40:20',1,3,'CLI-004',1,4),(18,'2026-09-16 10:25:20',20,'2026-09-16 10:45:20',1,NULL,'CLI-005',2,4),(19,'2026-09-16 09:25:20',55,'2026-09-16 10:20:20',1,4,'CLI-006',1,4),(20,'2026-09-16 08:25:20',35,'2026-09-16 09:00:20',1,1,'CLI-007',1,4),(21,'2026-09-16 07:25:20',40,'2026-09-16 08:05:20',1,NULL,'CLI-008',3,4),(22,'2026-09-16 06:25:20',10,'2026-09-16 06:35:20',1,2,'CLI-009',1,4),(23,'2026-09-16 05:25:20',50,'2026-09-16 06:15:20',1,3,'CLI-010',1,4),(24,'2026-09-16 04:25:20',28,'2026-09-16 04:53:20',1,NULL,'CLI-001',2,4),(25,'2026-09-16 03:25:20',32,'2026-09-16 03:57:20',1,4,'CLI-002',1,4),(26,'2026-09-16 15:55:20',NULL,NULL,1,1,'CLI-003',1,2),(27,'2026-09-16 16:25:20',NULL,NULL,1,2,'CLI-004',1,1),(28,'2026-09-16 02:25:20',42,'2026-09-16 03:07:20',1,NULL,'CLI-005',3,4);
+INSERT INTO `pedido` VALUES (1,'2026-09-16 14:23:48',25,'2026-09-16 14:48:48',1,1,'CLI-001',1,4),(2,'2026-09-16 13:23:48',30,'2026-09-16 13:53:48',2,3,'CLI-002',1,4),(3,'2026-09-16 12:23:48',45,'2026-09-16 13:08:48',5,4,'CLI-003',3,4),(4,'2026-09-16 11:23:48',15,'2026-09-16 11:38:48',1,2,'CLI-004',1,4),(5,'2026-09-16 10:23:48',20,'2026-09-16 10:43:48',2,11,'CLI-005',2,4),(6,'2026-09-16 09:23:48',55,'2026-09-16 10:18:48',1,12,'CLI-006',1,4),(7,'2026-09-16 08:23:48',35,'2026-09-16 08:58:48',3,13,'CLI-007',1,4),(8,'2026-09-16 07:23:48',40,'2026-09-16 08:03:48',5,5,'CLI-008',3,4),(9,'2026-09-16 06:23:48',10,'2026-09-16 06:33:48',2,19,'CLI-009',1,4),(10,'2026-09-16 05:23:48',50,'2026-09-16 06:13:48',5,6,'CLI-010',1,4),(11,'2026-09-16 04:23:48',28,'2026-09-16 04:51:48',3,15,'CLI-001',2,4),(12,'2026-09-16 03:23:48',32,'2026-09-16 03:55:48',4,9,'CLI-002',1,4),(13,'2026-09-16 15:53:48',NULL,NULL,5,14,'CLI-003',1,2),(14,'2026-09-16 14:25:20',25,'2026-09-16 14:50:20',4,10,'CLI-001',1,4),(15,'2026-09-16 13:25:20',30,'2026-09-16 13:55:20',6,8,'CLI-002',1,4),(16,'2026-09-16 12:25:20',45,'2026-09-16 13:10:20',7,20,'CLI-003',3,4),(17,'2026-09-16 11:25:20',15,'2026-09-16 11:40:20',6,7,'CLI-004',1,4),(18,'2026-09-16 10:25:20',20,'2026-09-16 10:45:20',7,20,'CLI-005',2,4),(19,'2026-09-16 09:25:20',55,'2026-09-16 10:20:20',6,7,'CLI-006',1,4),(20,'2026-09-16 08:25:20',35,'2026-09-16 09:00:20',8,18,'CLI-007',1,4),(21,'2026-09-16 07:25:20',40,'2026-09-16 08:05:20',9,21,'CLI-008',3,4),(22,'2026-09-16 06:25:20',10,'2026-09-16 06:35:20',1,1,'CLI-009',1,4),(23,'2026-09-16 05:25:20',50,'2026-09-16 06:15:20',8,18,'CLI-010',1,4),(24,'2026-09-16 04:25:20',28,'2026-09-16 04:53:20',9,21,'CLI-001',2,4),(25,'2026-09-16 03:25:20',32,'2026-09-16 03:57:20',8,18,'CLI-002',1,4),(26,'2026-09-16 15:55:20',NULL,NULL,10,16,'CLI-003',1,2),(27,'2026-09-16 16:25:20',NULL,NULL,10,16,'CLI-004',1,1),(28,'2026-09-16 02:25:20',42,'2026-09-16 03:07:20',4,9,'CLI-005',3,4);
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -600,12 +592,12 @@ DROP TABLE IF EXISTS `plato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `plato` (
-  `idPlato` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` text COLLATE utf8mb4_unicode_ci,
-  `precio` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `disponible` tinyint(1) DEFAULT '1',
-  `Tipo_Plato_idTipo_Plato` int NOT NULL,
+  `idPlato` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `descripcion` text DEFAULT NULL,
+  `precio` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `disponible` tinyint(1) DEFAULT 1,
+  `Tipo_Plato_idTipo_Plato` int(11) NOT NULL,
   PRIMARY KEY (`idPlato`),
   KEY `Tipo_Plato_idTipo_Plato` (`Tipo_Plato_idTipo_Plato`),
   CONSTRAINT `plato_ibfk_1` FOREIGN KEY (`Tipo_Plato_idTipo_Plato`) REFERENCES `tipo_plato` (`idTipo_Plato`)
@@ -630,9 +622,9 @@ DROP TABLE IF EXISTS `receta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `receta` (
-  `idReceta` int NOT NULL AUTO_INCREMENT,
-  `Plato_idPlato` int NOT NULL,
-  `descripcion` text COLLATE utf8mb4_unicode_ci,
+  `idReceta` int(11) NOT NULL AUTO_INCREMENT,
+  `Plato_idPlato` int(11) NOT NULL,
+  `descripcion` text DEFAULT NULL,
   PRIMARY KEY (`idReceta`),
   KEY `idx_receta_plato` (`Plato_idPlato`),
   CONSTRAINT `receta_ibfk_1` FOREIGN KEY (`Plato_idPlato`) REFERENCES `plato` (`idPlato`) ON DELETE CASCADE
@@ -657,15 +649,15 @@ DROP TABLE IF EXISTS `telefono`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `telefono` (
-  `idTelefono` int NOT NULL AUTO_INCREMENT,
-  `Usuario_idUsuario` int NOT NULL,
-  `telefono` char(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `operador` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idTelefono` int(11) NOT NULL AUTO_INCREMENT,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `telefono` char(15) NOT NULL,
+  `operador` varchar(45) NOT NULL,
   PRIMARY KEY (`idTelefono`),
   UNIQUE KEY `uq_telefono` (`telefono`),
   KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
   CONSTRAINT `telefono_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -674,7 +666,7 @@ CREATE TABLE `telefono` (
 
 LOCK TABLES `telefono` WRITE;
 /*!40000 ALTER TABLE `telefono` DISABLE KEYS */;
-INSERT INTO `telefono` VALUES (1,6,'+573001234567','Claro'),(2,7,'+573102345678','Movistar'),(3,8,'+573203456789','Claro'),(4,9,'+573304567890','Tigo'),(5,10,'+573405678901','Movistar'),(6,11,'+573506789012','Claro'),(7,12,'+573607890123','Tigo'),(8,13,'+573708901234','Movistar'),(9,14,'+573809012345','Claro'),(10,15,'+573901234567','Tigo');
+INSERT INTO `telefono` VALUES (1,16,'+573184726591','Claro'),(2,4,'+573057193824','Movistar'),(3,27,'+573217648305','Tigo'),(4,11,'+573106925743','WOM'),(5,33,'+573158374926','Claro'),(6,8,'+573027461859','Movistar'),(7,21,'+573214839672','Tigo'),(8,2,'+573176295408','WOM'),(9,30,'+573098514763','Claro'),(10,14,'+573156827394','Movistar'),(11,6,'+573204716583','Tigo'),(12,25,'+573107538249','WOM'),(13,19,'+573185294617','Claro'),(14,1,'+573018463725','Movistar'),(15,29,'+573217905438','Tigo'),(16,10,'+573163748205','WOM'),(17,23,'+573052681947','Claro'),(18,5,'+573109374826','Movistar'),(19,32,'+573187462930','Tigo'),(20,17,'+573014829657','WOM'),(21,9,'+573196735284','Claro'),(22,28,'+573228514769','Movistar'),(23,3,'+573071946528','Tigo'),(24,15,'+573138257904','WOM'),(25,31,'+573205481637','Claro'),(26,7,'+573164920753','Movistar'),(27,22,'+573112638495','Tigo'),(28,13,'+573098271546','WOM'),(29,26,'+573184635729','Claro'),(30,18,'+573016927483','Movistar'),(31,24,'+573215739604','Tigo'),(32,12,'+573157428961','WOM'),(33,20,'+573063815247','Claro');
 /*!40000 ALTER TABLE `telefono` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -686,8 +678,8 @@ DROP TABLE IF EXISTS `tipo_plato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tipo_plato` (
-  `idTipo_Plato` int NOT NULL AUTO_INCREMENT,
-  `nombre_tipo` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `idTipo_Plato` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_tipo` varchar(45) NOT NULL,
   PRIMARY KEY (`idTipo_Plato`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -710,19 +702,19 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `idUsuario` int NOT NULL AUTO_INCREMENT,
-  `primerNombre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `segundoNombre` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `primerApellido` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `segundoApellido` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password_hash` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password_salt` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `primerNombre` varchar(100) NOT NULL,
+  `segundoNombre` varchar(100) DEFAULT NULL,
+  `primerApellido` varchar(100) NOT NULL,
+  `segundoApellido` varchar(500) DEFAULT NULL,
+  `email` varchar(150) NOT NULL,
+  `password_hash` varchar(500) NOT NULL,
+  `password_salt` varchar(500) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `email` (`email`),
   KEY `idx_usuario_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -731,7 +723,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Juan','Carlos','Perez','Gomez','juan.perez@restaurante.com','a7f2cb6f01d2526da045dfb9c2c4a753595df73ae4f32f9aece5245a97fd6333','7bd522a5-b294-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(2,'Maria','Luisa','Rodriguez','Martinez','maria.r@restaurante.com','5d27f65f598775ea5a2053c467c7153212402622c180fb10877112000ea98ccd','8add08ea-b294-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(3,'Carlos','Andres','Lopez','Diaz','carlos.l@restaurante.com','7fa9c2c2056b2291b16248e6744f2c422adddab96ec193599b5b51cd213cde25','c7e6bdf1-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(4,'Ana','Maria','Torres','Garcia','ana.t@restaurante.com','d97e13a595c046f4a2552b6c7580f2961c2d9949e00f33466e22127006892aaf','d3a16f7e-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(5,'Pedro',NULL,'Ramirez','Cruz','pedro.r@restaurante.com','09e7c34ea4f2f187945cd7452b636db7438701cab1bb3d7f545b85375d9f365f','df42bebb-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(6,'Laura','Fernanda','Sanchez','Ortiz','laura.s@restaurante.com','348475fd07df3c8d237f767f66c19279c18e2fe6d657c84c7169f1a6f422f671','e6166445-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(7,'Miguel','Angel','Gonzalez','Ruiz','miguel.g@restaurante.com','6493722d780c31f713691909de7a79e99f63ef6e77066c909284668841d80ccf','f57d2efa-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(8,'Sofia',NULL,'Martinez','Lopez','sofia.m@restaurante.com','6005b167bf69ca18cd6bf4bbd7898ac0f8cf95ce2ea5eb861360243186b28b66','f9319d5c-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(9,'David','Alberto','Ramirez','Castro','david.r@restaurante.com','ef05ac8456ce32f608a394fb26d38c638e2fbaf47efb101ff51cd41123fbcd4d','0e5c0197-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(10,'Valentina','Isabel','Ortiz','Mora','valentina.o@restaurante.com','edee2ad622a0c2ffde36986ef82a7fd141f86e36a660dc16462108260b51cff5','169cd9d3-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(11,'Andres','Felipe','Mora','Sanchez','andres.m@restaurante.com','489fc38ebd8e933e6cd7944fbacffa8bacba2be24da022356353eabc4ddd8e7b','1f35261f-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(12,'Camila',NULL,'Rojas','Diaz','camila.r@restaurante.com','113849c6c73cd66d34ded840ceed10d37edc47d24f5c17176a9609d9f0e524de','265bc594-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(13,'Jorge','Enrique','Pineda','Orozco','jorge.p@restaurante.com','68cdd5302921dc6c7f77a7f1e7881887c88de177ec28ba9213e7b8326a51d8c8','2c6a2197-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(14,'Natalia','Jimena','Garcia','Perez','natalia.g@restaurante.com','cc5630dc7918945c819093d3606a180b02793e4acc654109bd26f6e3f1a94793','31b07d6c-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(15,'Luis','Fernando','Mejia','Vargas','luis.m@restaurante.com','d7e1bac6d640d4277b4c3a0f99656e9ac772f961d52c9e2f46188ac7900397c7','394810cf-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(16,'kely',NULL,'Gómez',NULL,'kely@gmail.com','2dc1a719ddee9608793a21fa0985d1b36c5428e097980e98f111f59ff5cca9be','afbe6c18-b29f-11f1-9aee-e8fb1c1e864c','2026-09-17 13:57:14'),(17,'Samuel',NULL,'Clavijo',NULL,'samuel@gmail.com','76cb2aaf63f6cd0c229d04606c458ab27111d44b65cbe9ceff144242735e50f1','4e9c9b85-b2a0-11f1-9aee-e8fb1c1e864c','2026-09-17 14:01:40');
+INSERT INTO `usuario` VALUES (1,'Juan','Carlos','Perez','Gomez','juan.perez@restaurante.com','a7f2cb6f01d2526da045dfb9c2c4a753595df73ae4f32f9aece5245a97fd6333','7bd522a5-b294-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(2,'Maria','Luisa','Rodriguez','Martinez','maria.r@restaurante.com','5d27f65f598775ea5a2053c467c7153212402622c180fb10877112000ea98ccd','8add08ea-b294-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(3,'Carlos','Andres','Lopez','Diaz','carlos.l@restaurante.com','7fa9c2c2056b2291b16248e6744f2c422adddab96ec193599b5b51cd213cde25','c7e6bdf1-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(4,'Ana','Maria','Torres','Garcia','ana.t@restaurante.com','d97e13a595c046f4a2552b6c7580f2961c2d9949e00f33466e22127006892aaf','d3a16f7e-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(5,'Pedro',NULL,'Ramirez','Cruz','pedro.r@restaurante.com','09e7c34ea4f2f187945cd7452b636db7438701cab1bb3d7f545b85375d9f365f','df42bebb-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(6,'Laura','Fernanda','Sanchez','Ortiz','laura.s@restaurante.com','348475fd07df3c8d237f767f66c19279c18e2fe6d657c84c7169f1a6f422f671','e6166445-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(7,'Miguel','Angel','Gonzalez','Ruiz','miguel.g@restaurante.com','6493722d780c31f713691909de7a79e99f63ef6e77066c909284668841d80ccf','f57d2efa-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(8,'Sofia',NULL,'Martinez','Lopez','sofia.m@restaurante.com','6005b167bf69ca18cd6bf4bbd7898ac0f8cf95ce2ea5eb861360243186b28b66','f9319d5c-b295-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(9,'David','Alberto','Ramirez','Castro','david.r@restaurante.com','ef05ac8456ce32f608a394fb26d38c638e2fbaf47efb101ff51cd41123fbcd4d','0e5c0197-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(10,'Valentina','Isabel','Ortiz','Mora','valentina.o@restaurante.com','edee2ad622a0c2ffde36986ef82a7fd141f86e36a660dc16462108260b51cff5','169cd9d3-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(11,'Andres','Felipe','Mora','Sanchez','andres.m@restaurante.com','489fc38ebd8e933e6cd7944fbacffa8bacba2be24da022356353eabc4ddd8e7b','1f35261f-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(12,'Camila',NULL,'Rojas','Diaz','camila.r@restaurante.com','113849c6c73cd66d34ded840ceed10d37edc47d24f5c17176a9609d9f0e524de','265bc594-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(13,'Jorge','Enrique','Pineda','Orozco','jorge.p@restaurante.com','68cdd5302921dc6c7f77a7f1e7881887c88de177ec28ba9213e7b8326a51d8c8','2c6a2197-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(14,'Natalia','Jimena','Garcia','Perez','natalia.g@restaurante.com','cc5630dc7918945c819093d3606a180b02793e4acc654109bd26f6e3f1a94793','31b07d6c-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(15,'Luis','Fernando','Mejia','Vargas','luis.m@restaurante.com','d7e1bac6d640d4277b4c3a0f99656e9ac772f961d52c9e2f46188ac7900397c7','394810cf-b296-11f1-9aee-e8fb1c1e864c','2026-09-16 20:56:25'),(16,'kely',NULL,'Gómez',NULL,'kely@gmail.com','2dc1a719ddee9608793a21fa0985d1b36c5428e097980e98f111f59ff5cca9be','afbe6c18-b29f-11f1-9aee-e8fb1c1e864c','2026-09-17 13:57:14'),(17,'Samuel',NULL,'Clavijo',NULL,'samuel@gmail.com','76cb2aaf63f6cd0c229d04606c458ab27111d44b65cbe9ceff144242735e50f1','4e9c9b85-b2a0-11f1-9aee-e8fb1c1e864c','2026-09-17 14:01:40'),(18,'Juan','Sebastian','Gomez','Aguirre','Juan@restaurante.com','b70c836c1f6e4cbdf69de403373897fa28de517dc85c4e4c2765b8d8873a61a7','185cf228-b2f7-11f1-a1d0-1c834124c12b','2026-09-18 00:22:56'),(19,'Andrew',NULL,'Aguirre',NULL,'Andrew@restaurante.com','cb88998a3ee82c024e57728c399538b96e8b9fcf6de1dc6a85c187ba46932730','aa88d7da-b2f7-11f1-a1d0-1c834124c12b','2026-09-18 00:27:01'),(20,'José','Karlin','Sambueza','Hortua','sambueza@restaurante.com','eb83bd007591ad089d53dd8e8fe322dafa13e3e851a37883b0950f4bf51b0f3e','cd22f9a8-b2f7-11f1-a1d0-1c834124c12b','2026-09-18 00:27:59'),(21,'Jeremy','Sebastian','Zapata','Castro','castro@restaurante.com','a361a0b75dd31abcfaa8446c705c7ac9b18050c3d67552d436ed190fbf45a6b1','e1f11b37-b2f7-11f1-a1d0-1c834124c12b','2026-09-18 00:28:34'),(22,'Kevin',NULL,'Rojas',NULL,'KevinR@restaurante.com','cf9d3f9f5daa82fc529b1470261fab693aa3df1427adb08e64464410b5460cf4','1b3b958f-b2f8-11f1-a1d0-1c834124c12b','2026-09-18 00:30:10'),(23,'Pedro',NULL,'Nandez',NULL,'Nandez@restaurante.com','afb2ee7c582ea53191eec913efefb79f08337b0b5c77eb4a1b4492e60d408bec','66b42cbc-b2f8-11f1-a1d0-1c834124c12b','2026-09-18 00:32:17'),(24,'Camila','Andrea','Suarez','Pardo','Camila@restaurante.com','d55114663de214772611b757d8cd2f81066ae6e6fb9f5f86441d324e43b84a2d','7ae227a4-b2f8-11f1-a1d0-1c834124c12b','2026-09-18 00:32:50'),(25,'Paola','Lorena','Suarez','Suarez','Lorena@restaurante.com','9418f56e623c0415891641265478b1ef486ff7fc66ca994149d5294ab691f7d0','a4b1a095-b2f8-11f1-a1d0-1c834124c12b','2026-09-18 00:34:01'),(26,'Karol','Lorena','Perez','Pardo','Karol@restaurante.com','d52779d4f2a4f6f49ef4cae421eaee2933031307b3ff8f312f816f3027663398','4058c844-b2f9-11f1-a1d0-1c834124c12b','2026-09-18 00:38:22'),(27,'Kelvin','Parada','Pineda','Manrique','Kelvin@restaurante.com','118e28498f8b069aabbd2f8e06e2578ea902fbcb5a4ae3b9483b76d1c1c2e341','545c4061-b2f9-11f1-a1d0-1c834124c12b','2026-09-18 00:38:55'),(30,'Juan','Esteban','Lopez','Tarneda','Juane@restaurante.com','169bc61ee2e9689a44dd1ac172f4c5ae44b38ba279c6a41c10acac766f86c741','79f08f8b-b2f9-11f1-a1d0-1c834124c12b','2026-09-18 00:39:58'),(31,'Joselu','Stiwar','Langor','Mayorga','Stiwar@restaurante.com','301791d188ecdc0f0ef86daa81fb9bac983181fa0bb54ab3850d6838f0ce9375','8d2fed15-b2f9-11f1-a1d0-1c834124c12b','2026-09-18 00:40:31'),(32,'Martha','Ruth','Quevedo','Rodriguez','Martha@restaurante.com','4c5ade313a3e937ba84d594799b474f0dfeef684cf41b68c0e10fb3d8e2d40a6','a693c66b-b2f9-11f1-a1d0-1c834124c12b','2026-09-18 00:41:13'),(33,'Angelica','Hanzel','Polo','Rodriguez','Angelica@restaurante.com','8dd85e609a0e1c7b25f0b0895634f447303653e1ecee42d81f9a8f38c9a2127f','c7d6111d-b2f9-11f1-a1d0-1c834124c12b','2026-09-18 00:42:09');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -739,7 +731,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -772,12 +764,12 @@ DROP TABLE IF EXISTS `venta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `venta` (
-  `idventa` int NOT NULL AUTO_INCREMENT,
-  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `total` decimal(12,2) NOT NULL DEFAULT '0.00',
-  `Pedido_idPedido` int NOT NULL,
-  `Metodo_Pago_idMetodo_Pago` int NOT NULL,
-  `Cajero_id_cajero` int NOT NULL,
+  `idventa` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL DEFAULT current_timestamp(),
+  `total` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `Pedido_idPedido` int(11) NOT NULL,
+  `Metodo_Pago_idMetodo_Pago` int(11) NOT NULL,
+  `Cajero_id_cajero` int(11) NOT NULL,
   PRIMARY KEY (`idventa`),
   KEY `Pedido_idPedido` (`Pedido_idPedido`),
   KEY `Metodo_Pago_idMetodo_Pago` (`Metodo_Pago_idMetodo_Pago`),
@@ -786,7 +778,7 @@ CREATE TABLE `venta` (
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`Pedido_idPedido`) REFERENCES `pedido` (`idPedido`),
   CONSTRAINT `venta_ibfk_2` FOREIGN KEY (`Metodo_Pago_idMetodo_Pago`) REFERENCES `metodopago` (`idMetodo_Pago`),
   CONSTRAINT `venta_ibfk_3` FOREIGN KEY (`Cajero_id_cajero`) REFERENCES `cajero` (`id_cajero`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -795,7 +787,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,'2026-09-16 14:25:20',62000.00,1,1,1),(2,'2026-09-16 13:25:20',56000.00,2,2,1),(3,'2026-09-16 12:25:20',103000.00,3,1,1),(4,'2026-09-16 11:25:20',72000.00,4,3,1),(5,'2026-09-16 10:25:20',44000.00,5,4,1),(6,'2026-09-16 09:25:20',120000.00,6,2,1),(7,'2026-09-16 08:25:20',67000.00,7,5,1),(8,'2026-09-16 07:25:20',90000.00,8,1,1),(9,'2026-09-16 06:25:20',85000.00,9,2,1),(10,'2026-09-16 05:25:20',92000.00,10,3,1),(11,'2026-09-16 04:25:20',72000.00,11,4,1),(12,'2026-09-16 03:25:20',132000.00,12,5,1),(13,'2026-09-16 02:25:20',46000.00,15,1,1);
+INSERT INTO `venta` VALUES (1,'2026-09-16 14:25:20',62000.00,1,1,1),(2,'2026-09-16 13:25:20',56000.00,2,2,2),(3,'2026-09-16 12:25:20',103000.00,3,1,2),(4,'2026-09-16 11:25:20',72000.00,4,3,1),(5,'2026-09-16 10:25:20',44000.00,5,4,3),(6,'2026-09-16 09:25:20',120000.00,6,2,3),(7,'2026-09-16 08:25:20',67000.00,7,5,1),(8,'2026-09-16 07:25:20',90000.00,8,1,2),(9,'2026-09-16 06:25:20',85000.00,9,2,2),(10,'2026-09-16 05:25:20',92000.00,10,3,3),(11,'2026-09-16 04:25:20',72000.00,11,4,3),(12,'2026-09-16 03:25:20',132000.00,12,5,1),(13,'2026-09-16 02:25:20',46000.00,15,1,2),(14,'2026-09-16 00:00:00',48500.00,14,2,1),(15,'2026-09-16 00:00:00',32700.00,15,1,2),(16,'2026-09-17 00:00:00',65200.00,16,4,3),(17,'2026-09-17 00:00:00',41800.00,17,3,1),(18,'2026-09-18 00:00:00',73500.00,18,5,2),(19,'2026-09-18 00:00:00',28900.00,19,2,3),(20,'2026-09-19 00:00:00',54100.00,20,1,1),(21,'2026-09-19 00:00:00',86700.00,21,4,2),(22,'2026-09-20 00:00:00',39200.00,22,3,3),(23,'2026-09-20 00:00:00',61400.00,23,5,1),(24,'2026-09-21 00:00:00',45800.00,24,2,2),(25,'2026-09-21 00:00:00',79300.00,25,1,3),(26,'2026-09-22 00:00:00',33600.00,26,4,1),(27,'2026-09-22 00:00:00',92800.00,27,3,2),(28,'2026-09-23 00:00:00',57400.00,28,5,3);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -812,7 +804,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -843,7 +835,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -863,7 +855,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -891,7 +883,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -917,7 +909,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -949,11 +941,11 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `plato_mas_vendido`() RETURNS int
+CREATE DEFINER=`root`@`localhost` FUNCTION `plato_mas_vendido`() RETURNS int(11)
     DETERMINISTIC
 BEGIN
     DECLARE v_idPlato INT;
@@ -969,7 +961,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -980,4 +971,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-17 15:57:59
+-- Dump completed on 2026-09-18  0:43:52
