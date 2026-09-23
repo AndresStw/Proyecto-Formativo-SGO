@@ -1,0 +1,99 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "nombre": "Laura Rodríguez",
+      "telefono": "3101234567",
+      "correo": "laura@gmail.com"
+    },
+    {
+      "id": 2,
+      "nombre": "Carlos Martínez",
+      "telefono": "3112345678",
+      "correo": "carlos@gmail.com"
+    },
+    {
+      "id": 3,
+      "nombre": "Daniela Gómez",
+      "telefono": "3123456789",
+      "correo": "daniela@gmail.com"
+    }
+  ],
+
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Administrador",
+      "usuario": "admin",
+      "rol": "Administrador"
+    },
+    {
+      "id": 2,
+      "nombre": "Mesero",
+      "usuario": "mesero1",
+      "rol": "Mesero"
+    }
+  ],
+
+  "products": [
+    {
+      "id": 1,
+      "nombre": "Sancocho de Gallina",
+      "categoria": "Plato fuerte",
+      "precio": 25000,
+      "disponible": true
+    },
+    {
+      "id": 2,
+      "nombre": "Arroz con Pollo",
+      "categoria": "Plato fuerte",
+      "precio": 22000,
+      "disponible": true
+    },
+    {
+      "id": 3,
+      "nombre": "Aborrajado",
+      "categoria": "Entrada",
+      "precio": 12000,
+      "disponible": true
+    },
+    {
+      "id": 4,
+      "nombre": "Lulada",
+      "categoria": "Bebida",
+      "precio": 8000,
+      "disponible": true
+    },
+    {
+      "id": 5,
+      "nombre": "Mazamorra",
+      "categoria": "Postre",
+      "precio": 7000,
+      "disponible": true
+    }
+  ],
+
+  "ordenes": [
+    {
+      "id": 1,
+      "clienteId": 1,
+      "fecha": "2026-09-13",
+      "estado": "Pendiente",
+      "total": 33000
+    },
+    {
+      "id": 2,
+      "clienteId": 2,
+      "fecha": "2026-09-13",
+      "estado": "Entregada",
+      "total": 30000
+    },
+    {
+      "id": 3,
+      "clienteId": 3,
+      "fecha": "2026-09-13",
+      "estado": "En preparación",
+      "total": 25000
+    }
+  ]
+}
