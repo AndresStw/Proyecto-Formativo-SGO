@@ -41,6 +41,20 @@
       "nombre": "Pepito Perez",
       "telefono": "1065113",
       "id": 7
+    },
+    {
+      "email": "juan23@gmail.com",
+      "password": "$2a$10$BrAZbfB3cLCMZV944m9wN.hvOGrUP.JyAvSWjhwxcipvEKzID6X3G",
+      "nombre": "Juan Patiño ",
+      "telefono": "21546120",
+      "id": 8
+    },
+    {
+      "email": "prueba1@gmail.com",
+      "password": "$2a$10$bxohN9.O5Qx9bNG9ipYuIOK83umoJn.XXwHy3Jk40FOdJU1shSv66",
+      "nombre": "Prueba ",
+      "telefono": "15615422",
+      "id": 9
     }
   ],
   "productos": [
