@@ -63,7 +63,7 @@
 }
 
 .placing-delivery {
-  background: white;
+  background: var(--bg-white);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
   padding: 2rem;
@@ -160,7 +160,7 @@
   border-radius: 8px;
   font-size: 0.9rem;
   transition: border-color 0.3s;
-  background: white;
+  background: var(--bg-white);
 }
 
 .form-group input:focus {
@@ -205,7 +205,7 @@
 }
 
 .placing-cart {
-  background: white;
+  background: var(--bg-white);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
   padding: 2rem;
@@ -276,7 +276,7 @@
 }
 
 .cart-option.active {
-  background: white;
+  background: var(--bg-white);
   color: var(--text-dark);
   box-shadow: var(--shadow-sm);
 }

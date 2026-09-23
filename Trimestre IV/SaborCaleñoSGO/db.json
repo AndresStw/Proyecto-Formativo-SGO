@@ -20,6 +20,13 @@
       "nombre": "Prueba23",
       "telefono": "32456774",
       "id": 3
+    },
+    {
+      "email": "prUEBba@gmail.com",
+      "password": "$2a$10$4sh7yvT5aLYsFEkOqX/34.FJe.1EnQZqa7YdmAUcW7FSpLUmrO0D6",
+      "nombre": "prueba 1",
+      "telefono": "455332",
+      "id": 4
     }
   ],
   "productos": [

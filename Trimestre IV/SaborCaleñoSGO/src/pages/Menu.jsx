@@ -1,18 +1,15 @@
 // src/pages/Menu.jsx
 
 /*
-ERROR: Curiosamente cuando se arrastra algo por ejemplo , inicio a menu se bloquea la pagina 14/09/2026 7:00pm.
-
-    - Muestra productos agrupados por categorías (Desayunos, Caldos, Bebidas, Platos)
-    - Filtro por categoria y orden por precio
-    - Carrito lateral con funcionalidad de minimizar/expandir
+    - Muestra productos agrupados por categorías
+    - Filtro por categoría y orden por precio
+    - Carrito lateral con toggle (minimizar/expandir)
     - Agregar productos al carrito (solo usuarios logueados)
-    - Actualizar cantidades y eliminar productos del carrito
-    - Carrito en localStorage
-  
+    - Persistencia del carrito en localStorage
 */
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import MenuCard from "../Components/MenuCard";
 import {
   menuData,
@@ -31,13 +28,15 @@ function Menu() {
   const [carrito, setCarrito] = useState([]);
   const [total, setTotal] = useState(0);
   const [cartMinimized, setCartMinimized] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const isLogged = !!token;
-    setIsLoggedIn(isLogged);
+    setIsLoggedIn(!!token);
+  }, []);
 
-    if (isLogged) {
+  useEffect(() => {
+    if (isLoggedIn) {
       const carritoGuardado = JSON.parse(
         localStorage.getItem("carrito") || "[]",
       );
@@ -47,46 +46,43 @@ function Menu() {
       setCarrito([]);
       setTotal(0);
     }
+  }, [isLoggedIn]);
 
+  //Consume API  Local +Backend
+  useEffect(() => {
     const productosLocales = getProductosByCategoria("todos");
-    const productosOrdenados = [...productosLocales].sort((a, b) => {
-      return orden === "asc" ? a.precio - b.precio : b.precio - a.precio;
-    });
-
-    setProductos(productosOrdenados);
-    setProductosFiltrados(productosOrdenados);
+    setProductos(productosLocales);
+    setProductosFiltrados(productosLocales);
     setCargando(false);
 
     fetch("http://localhost:3000/productos")
-      .then((res) => {
-        if (!res.ok) throw new Error("Error");
-        return res.json();
-      })
+      .then((res) => (res.ok ? res.json() : []))
       .then((data) => {
-        if (data && data.length > 0) {
-          const productosAPI = data.map((p) => ({
-            ...p,
-            rating: p.rating || "4.5",
-            tiempo: p.tiempo || "30min",
-            calorias: p.calorias || "300",
-            imagen:
-              menuData.productos.find(
-                (local) =>
-                  local.nombre.toLowerCase() === p.nombre.toLowerCase(),
-              )?.imagen || menuData.productos[0]?.imagen,
-          }));
+        if (!Array.isArray(data) || data.length === 0) return;
 
-          setProductos(productosAPI);
-          const filtrados =
-            categoriaActiva === "todos"
-              ? productosAPI
-              : productosAPI.filter((p) => p.categoria === categoriaActiva);
-          setProductosFiltrados(filtrados);
-        }
+        const productosAPI = data.map((p) => ({
+          ...p,
+          rating: p.rating || 4.5,
+          tiempo: p.tiempo || "30min",
+          calorias: p.calorias || "300",
+          imagen:
+            menuData.productos.find(
+              (local) => local.nombre.toLowerCase() === p.nombre.toLowerCase(),
+            )?.imagen || "",
+        }));
+
+        const nombresAPI = new Set(
+          productosAPI.map((p) => p.nombre.toLowerCase()),
+        );
+
+        // FIX: prefijo "local-" en el id
+        const localesExtra = productosLocales
+          .filter((p) => !nombresAPI.has(p.nombre.toLowerCase()))
+          .map((p) => ({ ...p, id: `local-${p.id}` }));
+
+        setProductos([...productosAPI, ...localesExtra]);
       })
-      .catch(() => {
-        console.log("Usando datos locales");
-      });
+      .catch(() => console.log("Usando datos locales (API no disponible)"));
   }, []);
 
   useEffect(() => {
@@ -124,7 +120,7 @@ function Menu() {
   const handleAgregar = (producto) => {
     if (!isLoggedIn) {
       alert("Debes iniciar sesión para agregar productos al carrito");
-      window.location.href = "/login";
+      navigate("/login");
       return;
     }
 
@@ -145,7 +141,7 @@ function Menu() {
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
     setCarrito(nuevoCarrito);
     calcularTotal(nuevoCarrito);
-    alert(` ${producto.nombre} agregado al carrito`);
+    alert(`${producto.nombre} agregado al carrito`);
   };
 
   const handleEliminar = (id) => {
@@ -323,9 +319,7 @@ function Menu() {
                         </div>
                         <button
                           className="btn-checkout"
-                          onClick={() =>
-                            (window.location.href = "/placing-order")
-                          }
+                          onClick={() => navigate("/placing-order")}
                           disabled={carrito.length === 0}
                         >
                           <i className="fa-solid fa-credit-card me-2"></i>

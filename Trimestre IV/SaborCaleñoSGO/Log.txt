@@ -1,9 +1,15 @@
-Errores que eh notado
+Errores vistos
 
- 14/09/2026 
-#1 Cuando se hace un cambio rapido de ruta se bloquea antes no estaba haci , verificar.
-#2 Similar al anterior error pero este es cuando se hace un desplazamiento o arratre de elemento.
+14/09/2026 
+#1 Cuando se hace un cambio rapido de ruta se bloquea antes no estaba haci , verificar. (Corregido)
+#2 Similar al anterior error pero este es cuando se hace un desplazamiento o arratre de elemento. (Corregido) 
 #3 Las tarjetas de menu se ve un re-orden. como un update cuandos se accede a ella
 
 
+
+
 # Se implemento la vista de pedido por whatsapp generado con AI
+
+obtener token de usuario especifico :
+
+fetch("http://localhost:3000/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:"cliente@saborcaleno.com",password:"123456"})}).then(async r=>console.log("Estado:",r.status,"Respuesta:",await r.text())).catch(console.error)

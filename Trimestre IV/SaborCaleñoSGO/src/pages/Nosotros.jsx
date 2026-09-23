@@ -1,4 +1,3 @@
-// src/pages/Nosotros.jsx
 import { useState } from "react";
 import "../assets/CSS/nosotros.css";
 
@@ -19,7 +18,6 @@ function Nosotros() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para enviar el mensaje
     console.log("Mensaje enviado:", formData);
     setEnviado(true);
     setTimeout(() => setEnviado(false), 5000);
@@ -40,7 +38,7 @@ function Nosotros() {
         <div className="col-md-6">
           <div className="nosotros-info">
             <h4 className="info-titulo">
-              <i className="fa-regular fa-clock me-2" style={{ color: 'var(--secondary)' }}></i>
+              <i className="fa-regular fa-clock me-2" style={{ color: 'var(--secondary, #10b981)' }}></i>
               Horarios de Atención
             </h4>
             <ul className="info-lista">
@@ -55,7 +53,7 @@ function Nosotros() {
             </ul>
 
             <h4 className="info-titulo mt-4">
-              <i className="fa-regular fa-heart me-2" style={{ color: 'var(--secondary)' }}></i>
+              <i className="fa-regular fa-heart me-2" style={{ color: 'var(--secondary, #10b981)' }}></i>
               Nuestra Misión
             </h4>
             <p className="info-mision">
@@ -65,7 +63,7 @@ function Nosotros() {
 
             <div className="info-ubicacion">
               <h4 className="info-titulo">
-                <i className="fa-solid fa-location-dot me-2" style={{ color: 'var(--secondary)' }}></i>
+                <i className="fa-solid fa-location-dot me-2" style={{ color: 'var(--secondary, #10b981)' }}></i>
                 Encuéntranos
               </h4>
               <p>
@@ -84,19 +82,19 @@ function Nosotros() {
             <h5 className="form-titulo">Déjanos un mensaje</h5>
             
             {enviado && (
-              <div className="alert alert-success">
+              <div className="alert alert-success mt-3 mb-3">
                 <i className="fa-solid fa-circle-check me-2"></i>
                 ¡Mensaje enviado con éxito! Te responderemos pronto.
               </div>
             )}
 
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
+            <form onSubmit={handleSubmit} className="nosotros-form-block">
+              <div className="form-group-custom">
                 <label className="form-label fw-semibold">Nombre</label>
                 <input
                   type="text"
                   name="nombre"
-                  className="form-control"
+                  className="form-control custom-input-field"
                   placeholder="Tu nombre"
                   value={formData.nombre}
                   onChange={handleChange}
@@ -104,12 +102,12 @@ function Nosotros() {
                 />
               </div>
 
-              <div className="mb-3">
+              <div className="form-group-custom">
                 <label className="form-label fw-semibold">Correo Electrónico</label>
                 <input
                   type="email"
                   name="correo"
-                  className="form-control"
+                  className="form-control custom-input-field"
                   placeholder="correo@ejemplo.com"
                   value={formData.correo}
                   onChange={handleChange}
@@ -117,12 +115,12 @@ function Nosotros() {
                 />
               </div>
 
-              <div className="mb-3">
+              <div className="form-group-custom">
                 <label className="form-label fw-semibold">Mensaje</label>
                 <textarea
                   name="mensaje"
-                  className="form-control"
-                  rows="4"
+                  className="form-control custom-input-field"
+                  rows={4}
                   placeholder="Cuéntanos tu experiencia o lo que necesites..."
                   value={formData.mensaje}
                   onChange={handleChange}

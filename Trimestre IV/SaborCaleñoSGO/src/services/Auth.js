@@ -1,28 +1,39 @@
-//Validacion del token,
-//src\services\Auth.js
+// src/services/Auth.js
 
-/* Este archivo gestiona todo lo relacionado con el token, en las antiguas subidas nunca estaba integrado. */
+/*
+  Gestiona todo lo relacionado con autenticaciin (token, usuario, login, registro).
+  Funciones:
+    - 1.getToken(): Obtiene el token del localStorage
+    - 2.getUser(): Obtiene el usuario del localStorage
+    - 3.isAuthenticated(): Verifica si el usuario esta autenticado y el token no expiro
+    - 4.saveAuth(): Guarda token y usuario en localStorage
+    - 5.clearAuth(): Limpia todos los datos de autenticación
+    - 6.authFetch(): Hace peticiones con el token en el header
+    - 7.login(): Inicia sesion
+    - 8.register(): Registra un nuevo usuario
+*/
 
-//hooks
+//Hooks
 const API_URL = "http://localhost:3000";
 const TOKEN_KEY = "token";
 const USER_KEY = "user";
 
+//#region Funciones
+
 export function getToken() {
   return localStorage.getItem(TOKEN_KEY);
 }
-//obtener usuario
 
 export function getUser() {
   try {
-    const user = localStorage - getItem(USER_KEY);
+    const user = localStorage.getItem(USER_KEY); //Tenia una letrica (-) "Corregido"
     return user ? JSON.parse(user) : null;
   } catch {
     clearAuth();
     return null;
   }
 }
-//expiracion
+
 function isExpired(token) {
   try {
     const payload = JSON.parse(
@@ -34,7 +45,6 @@ function isExpired(token) {
   }
 }
 
-//Autenticacion
 export function isAuthenticated() {
   const token = getToken();
   if (!token) return false;
@@ -42,10 +52,9 @@ export function isAuthenticated() {
     clearAuth();
     return false;
   }
-  return false;
+  return true; // Error estaba en false "Corregido"
 }
 
-//Guardado
 export function saveAuth(data, fallbackEmail = "") {
   const token = data?.accessToken || data?.token;
   if (!token) throw new Error("El servidor no devolvio un token de acceso");
@@ -56,7 +65,6 @@ export function saveAuth(data, fallbackEmail = "") {
   return token;
 }
 
-//Parte de limpieza
 export function clearAuth() {
   localStorage.removeItem(TOKEN_KEY);
   localStorage.removeItem(USER_KEY);
@@ -102,3 +110,5 @@ export async function register(userData) {
   if (data.accessToken || data.token) saveAuth(data, userData.email);
   return data;
 }
+
+//#endregion

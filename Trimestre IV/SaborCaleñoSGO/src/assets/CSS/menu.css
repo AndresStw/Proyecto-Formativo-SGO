@@ -5,7 +5,7 @@
    */
 
 .menu-layout {
-  background: var(--bg-light);
+  background: transparent;
   min-height: 100vh;
   padding: 1rem 0 3rem;
 }
@@ -162,7 +162,7 @@
 }
 
 .carrito-sidebar { /*Ventanita de orndenes*/
-  background: white;
+  background: var(--bg-white);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-md);
   padding: 1.25rem;
@@ -252,7 +252,7 @@
   height: 22px;
   border-radius: 50%;
   border: 1px solid #E5E7EB;
-  background: white;
+  background: var(--bg-white);
   font-size: 0.7rem;
   cursor: pointer;
   display: flex;

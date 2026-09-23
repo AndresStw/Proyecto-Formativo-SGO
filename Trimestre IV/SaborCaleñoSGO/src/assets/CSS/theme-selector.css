@@ -1,0 +1,188 @@
+/* 
+  theme-selector.css - Sabor Caleño
+  Estilos del panel de personalización de temas
+*/
+
+.theme-selector-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 12px;
+  width: 280px;
+  background: var(--bg-white);
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  z-index: 200;
+  animation: slideDown 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-welcome {
+  background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+  border-radius: 12px;
+  padding: 0.85rem;
+  margin-bottom: 0.85rem;
+  animation: pulseWelcome 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseWelcome {
+  from {
+    box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.4);
+  }
+  to {
+    box-shadow: 0 0 0 8px rgba(255, 107, 0, 0);
+  }
+}
+
+.theme-welcome-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: white;
+  position: relative;
+}
+
+.theme-welcome-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.theme-welcome-content strong {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.15rem;
+}
+
+.theme-welcome-content p {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.95;
+  line-height: 1.3;
+}
+
+.theme-welcome-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: background 0.2s ease;
+}
+
+.theme-welcome-close:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.theme-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.theme-header h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.theme-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-gray);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.theme-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-dark);
+  transform: rotate(90deg);
+}
+
+.theme-options {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.theme-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
+}
+
+.theme-btn.active {
+  border-color: var(--text-dark);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+  transform: scale(1.1);
+}
+
+.theme-check {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.theme-hint {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--text-gray);
+  text-align: center;
+  line-height: 1.3;
+}
+
+@media (max-width: 480px) {
+  .theme-selector-panel {
+    width: 240px;
+    right: -60px;
+  }
+
+  .theme-btn {
+    width: 38px;
+    height: 38px;
+  }
+}

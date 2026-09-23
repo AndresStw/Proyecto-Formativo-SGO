@@ -1,11 +1,12 @@
 // src/pages/DashboardAdmin.jsx
 
 /*
-  EEEEEEEEEEEEESTEEEE va en la aplicacion movil.requiere rol aadmin
+  va en la aplicacion movil.requiere rol admin
 */
 
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { clearAuth } from "../services/Auth";
 import "../assets/CSS/dashboard.css";
 
 function DashboardAdmin() {
@@ -19,6 +20,7 @@ function DashboardAdmin() {
   const [pedidosRecientes, setPedidosRecientes] = useState([]);
   const [cargando, setCargando] = useState(true);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const token = localStorage.getItem("token");

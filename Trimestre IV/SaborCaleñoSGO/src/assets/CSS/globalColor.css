@@ -1,17 +1,18 @@
 /* src/assets/CSS/globalColor.css */
 
-/*Este Css. tiene como funcion gestionar todos los cambios de color :v*/
+/*Sistema de temas para personalizar el color de los iconos.
+  Temas disponibles: default (verde), yellow, pink, blue.*/
 
-.root {
+:root {
 
-    /* -----------------DEFAUlT THEME---------*/
+    /* DEFAUlT THEME*/
     --icon-primary: rgba(7, 220, 7);
     --icon-sencondary: #39ff39;
     --icon-hover: rgba(7, 220, 7, 0.15);
     --bg-icon-hover: rgba(7, 220, 7, 0.15);
 }
 
-/* --------------------Tema #1 Yellow-Neon-------------*/
+/* Tema Amarillo Neon */
 html[data-theme="yellow"] {
     --icon-primary: #fff700;
     --icon-secondary: #ffed4e;
@@ -19,7 +20,7 @@ html[data-theme="yellow"] {
     --bg-icon-hover: rgba(255, 247, 0, 0.15);
 }
 
-/* --------------------Tema #2 pink -------------*/
+/* Tema Rosa */
 html[data-theme="pink"] {
     --icon-primary: #ff6699;
     --icon-secondary: #ff99bb;
@@ -27,7 +28,7 @@ html[data-theme="pink"] {
     --bg-icon-hover: rgba(255, 102, 153, 0.15);
 }
 
-/* --------------------Tema #3 Blue -------------*/
+/* Tema Azul */
 html[data-theme="blue"] {
     --icon-primary: #0000ff;
     --icon-secondary: #3232fb;
@@ -35,32 +36,27 @@ html[data-theme="blue"] {
     --bg-icon-hover: rgba(34, 0, 255, 0.106);
 }
 
-/*Clases goblaes para todos los iconos*/
-
+/* Clase global para iconos */
 .icon-accent {
     color: var(--icon-primary);
     transition: all 0.3s ease;
-    /*transcicion con acelerarcion */
     cursor: pointer;
 }
-/* Hovers */
+
 .icon-accent:hover {
     color: var(--icon-hover);
     transform: scale(1.1);
 }
 
-/*Botones*/
-
 .btn .icon-accent {
     margin-right: 0.5rem;
 }
 
-/*Header*/
+
 .header-nav .icon-accent {
     font-size: 1.2rem;
 }
 
-/* footer */
 .footer .icon-accent {
     font-size: 1.5rem;
     margin: 0 0.5rem;

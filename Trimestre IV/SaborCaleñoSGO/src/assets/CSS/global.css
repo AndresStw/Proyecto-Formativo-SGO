@@ -46,13 +46,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-/* HEADER NAV  */
+/* HEADER NAV */
 .header-nav {
   display: flex;
   justify-content: space-between;
@@ -67,14 +68,15 @@ body {
   margin-top: 20px;
 }
 /*Se realizara cambio por icono multicolor*/
+/* LOGO A LA IZQUIERDA */
 .header-logo {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex: 1;
 }
 
-
-.header-logo img { 
+.header-logo img {
   height: 80px;
   width: auto;
 }
@@ -85,14 +87,56 @@ body {
   color: var(--secondary);
 }
 /* ---------------------------FIN----------------------------------- */
-
-.header-nav-links  { /*Estos son solo los textos inicio,menu,nosotros*/
+/* ENLACES CENTRADOS */
+.header-nav-links {
   display: flex;
-  justify-content: center; 
-  align-items: center;    
+  justify-content: center;
+  align-items: center;
   gap: 1.5rem;
-  width: 100%; 
+  width: auto;
+  flex: 1;
 }
+
+/* BOTÓN A LA DERECHA */
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+  gap: 15px;
+}
+.header-actions a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-actions a svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+.header-actions .badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px !important;
+  line-height: 1;
+  border-radius: 50%;
+  color: var(--text-dark) !important;
+  background: transparent !important;
+  border: none;
+  font-weight: 500;
+}
+
+
 /* Mejora para centrar los textos Inicio,menu,nosotros 
 .header-nav-links {
   display: flex;
@@ -137,7 +181,7 @@ body {
   color: var(--secondary);
 }
 
-.header-nav-links .btn-login-nav {
+.header-actions .btn-login-nav {
   background: var(--btn);
   color: white;
   border: none;
@@ -149,28 +193,28 @@ body {
   transition: all 0.25s ease;
 }
 
-.header-nav-links .btn-login-nav:hover {
+.header-actions .btn-login-nav:hover {
   background: var(--secondary-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
-.header-nav-links .btn-logout-nav {
-  background: transparent;
-  color: var(--text-gray);
-  border: 1px solid var(--text-gray);
-  padding: 8px 18px;
-  border-radius: 30px;
-  font-weight: 500;
-  font-size: 0.9rem;
+.header-actions .btn-logout-nav {
+  background: var(--btn);
+  color: white;
+  border: none;
+  padding: 8px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
-.header-nav-links .btn-logout-nav:hover {
-  background: #fee2e2;
-  border-color: #ef4444;
-  color: #ef4444;
+.header-actions .btn-logout-nav:hover {
+  background: var(--secondary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /*  BADGES  */
@@ -277,4 +321,39 @@ body {
     padding: 6px 14px;
     font-size: 0.75rem;
   }
+}
+/* Botón para abrir ThemeSelector */
+.theme-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-theme-toggle {
+  background: transparent;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  font-size: 1.2rem;
+}
+
+.btn-theme-toggle:hover {
+  background: var(--bg-icon-hover, rgba(7, 220, 7, 0.15));
+  transform: scale(1.08);
+}
+
+/* Iconos que cambian con el tema */
+.icon-accent {
+  color: var(--icon-primary, #07dc07);
+  transition: color 0.3s ease, transform 0.25s ease;
+}
+
+.header-actions a:hover .icon-accent {
+  transform: scale(1.1);
 }

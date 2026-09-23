@@ -46,7 +46,7 @@ npm run server   # Levanta json-server (API con autenticación)
 npm run dev      # Levanta el frontend con Vite
 ```
 
-## 🔐 Probar la API con PowerShell
+##  Probar la API con PowerShell
 
 ### 1. Registrar usuario
 
@@ -138,20 +138,7 @@ Invoke-RestMethod -Method Post -Uri "http://localhost:3000/productos" -ContentTy
 Invoke-RestMethod -Method Get -Uri "http://localhost:3000/productos"
 ```
 
-## 🧩 Dependencias adicionales (opcional)
 
-Si en algún momento necesitas agregar una dependencia que no está en el `package.json` (por ejemplo `axios`), instálala con:
 
-```bash
-npm install axios
-```
 
-## 🌐 Ejecutar el proyecto desde otra máquina en la red local
 
-1. Consulta tu IP local:
-
-```bash
-ipconfig
-```
-
-2. Comparte esa IP con el compañero que se vaya a conectar (asegúrense de estar en la misma red).

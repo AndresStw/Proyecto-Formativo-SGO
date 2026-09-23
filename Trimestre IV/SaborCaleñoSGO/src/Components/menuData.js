@@ -1,6 +1,6 @@
 // src/Components/menuData.js
 
-// Importa todas las imágenes
+// Importa todas las imagenes
 import arepaPanela from "../assets/Img/Desayunos/Arepapanela-modified.png";
 import changua from "../assets/Img/Desayunos/Changua-modified.png";
 import chocolateCampesino from "../assets/Img/Desayunos/chocolate-campesino.png";

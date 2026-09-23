@@ -1,19 +1,21 @@
-/*
-   footer.css - Sabor Caleño
-   Estilos del pie de página
-    */
+/* 
+  footer.css - Sabor Caleño
+  Estilos del pie de página
+  Los iconos usan .icon-accent para cambiar de color con el tema
+*/
 
 .footer {
-  background: rgba(141, 115, 115, 0.22);
-  color: rgba(255,255,255,0.8);
+  background: var(--bg-white);
+  color: var(--text-dark);
   padding: 3rem 0 1rem;
   margin-top: 15px;
   border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .footer-titulo {
   font-weight: 600;
-  color: white;
+  color: var(--text-dark);
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
@@ -21,6 +23,7 @@
 .footer-desc {
   font-size: 0.9rem;
   line-height: 1.6;
+  color: var(--text-gray);
 }
 
 .footer-social {
@@ -35,15 +38,15 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 50%;
-  color: white;
   text-decoration: none;
   transition: all 0.3s ease;
+  font-size: 1.3rem;
 }
 
 .footer-social a:hover {
-  background: var(--secondary);
+  background: var(--bg-icon-hover, rgba(7, 220, 7, 0.15));
   transform: translateY(-3px);
 }
 
@@ -58,14 +61,14 @@
 }
 
 .footer-links a {
-  color: rgba(255,255,255,0.7);
+  color: var(--text-gray);
   text-decoration: none;
   transition: color 0.3s ease;
   font-size: 0.9rem;
 }
 
 .footer-links a:hover {
-  color: var(--secondary);
+  color: var(--icon-primary, #07dc07);
 }
 
 .footer-contact {
@@ -80,20 +83,21 @@
   gap: 0.75rem;
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
+  color: var(--text-gray);
 }
 
-.footer-contact i {
-  width: 20px;
-  color: var(--secondary);
+.footer-contact svg {
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 1.5rem;
   margin-top: 2rem;
   text-align: center;
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.5);
+  color: var(--text-gray);
 }
 
 @media (max-width: 768px) {

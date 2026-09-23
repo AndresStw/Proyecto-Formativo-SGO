@@ -1,14 +1,14 @@
 // src/components/CarruselPedidos.jsx
 
 /*
- ARchivo: CarruselPedidos
-  Que hace: Muestra los pedidos del usuario en un carrusel .
-    - pedidos: Array de objetos con los datos de los pedidos desde la db.son
-    - onSelect: Funcionn que se ejecuta al seleccionar un pedido
- 
+ Archivo: CarruselPedidos
+  Que hace: Muestra los pedidos del usuario en un carrusel.
+    - pedidos: Array de objetos con los datos de los pedidos desde la db.json
+    - onSelect: Funcion que se ejecuta al seleccionar un pedido
 */
 
 import { useState, useEffect } from "react";
+import { resolverImagen } from "../utils/imagenes"; // NUEVO
 import "../assets/CSS/carrusel-pedidos.css";
 
 function CarruselPedidos({ pedidos, onSelect }) {
@@ -57,10 +57,15 @@ function CarruselPedidos({ pedidos, onSelect }) {
             <div className="carrusel-card">
               <div className="carrusel-card-image">
                 <img
-                  src={pedido.imagen || "/assets/Img/platos/default.jpg"}
-                  alt={pedido.cliente}
+                  src={resolverImagen(pedido.imagen)}
+                  alt={pedido.items?.[0]?.nombre || `Pedido #${pedido.id}`}
+                  onError={(e) => {
+                    // Fallback si la imagen no existe
+                    e.currentTarget.src = "";
+                    e.currentTarget.style.display = "none";
+                  }}
                 />
-                <span className={`carrusel-badge bg-${pedido.estadoBadge || 'secondary'}`}>
+                <span className={`carrusel-badge bg-${pedido.estadoBadge || "secondary"}`}>
                   {pedido.estado}
                 </span>
               </div>
@@ -77,7 +82,9 @@ function CarruselPedidos({ pedidos, onSelect }) {
                     </span>
                   ))}
                   {pedido.items.length > 2 && (
-                    <span className="carrusel-more">+{pedido.items.length - 2} más</span>
+                    <span className="carrusel-more">
+                      +{pedido.items.length - 2} más
+                    </span>
                   )}
                 </div>
                 <div className="carrusel-footer">
@@ -109,7 +116,7 @@ function CarruselPedidos({ pedidos, onSelect }) {
             {Array.from({ length: totalPaginas }).map((_, idx) => (
               <button
                 key={idx}
-                className={`carrusel-dot ${indiceActual === idx ? 'active' : ''}`}
+                className={`carrusel-dot ${indiceActual === idx ? "active" : ""}`}
                 onClick={() => irAPagina(idx)}
               />
             ))}

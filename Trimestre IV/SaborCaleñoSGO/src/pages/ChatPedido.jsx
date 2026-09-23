@@ -1,11 +1,18 @@
 // src/pages/ChatPedido.jsx
 
-/* Codigo realizada  con AI con el fin de solo conocer la interfaz o dar una idea , no es un diseño oficial*/
+/*
+  Componente: ChatPedido
+  Descripcion: Mockup tipo WhatsApp para simular un chat de pedidos.
+  Funcionalidades:
+    - Chat simulado con respuestas automaticas
+    - Botones rapidos para agregar platos
+    - Carrito lateral con total
+*/
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaCheckDouble, FaPaperPlane, FaWhatsapp } from "react-icons/fa";
-import "../assets/CSS/chatPedido.css";
+import "../assets/CSS/chatpedido.css";
 
 const platos = [
   { id: 1, nombre: "Sancocho valluno", precio: 18000 },

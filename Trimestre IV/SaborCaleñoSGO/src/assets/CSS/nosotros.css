@@ -84,22 +84,66 @@
 
 .form-titulo {
   font-weight: 600;
+  font-size: 20px;
   margin-bottom: 1.5rem;
   color: var(--text-dark);
+  text-align: center;
 }
 
+.nosotros-formulario .mb-3 {
+display: flex !important;
+flex-direction: column !important;
+align-items: flex-start !important;
+width: 100% !important;
+margin-bottom: 1.25rem !important;
+text-align: left !important;
+}
+
+.nosotros-formulario .form-label {
+display: block !important;
+width: 100% !important;
+text-align: left !important;
+color: var(--text-dark, #f3f4f6) !important;
+font-size: 0.95rem;
+margin-bottom: 0.5rem !important;
+float: none !important;
+}
 .nosotros-formulario .form-control {
-  padding: 0.75rem 1rem;
-  border-radius: var(--border-radius-sm);
-  border: 2px solid #E5E7EB;
-  transition: border-color 0.3s ease;
+display: block ;
+width: 100% ;
+box-sizing: border-box ;
+padding: 0.75rem 1rem ;
+background-color: var(--bg-input, #1a1d21);
+border: 1px solid var(--border-color, #4b5563);
+color: #ffffff ;
+border-radius: var(--border-radius-sm, 8px) ;
+font-size: 0.95rem;
+float: none ;
+transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
 .nosotros-formulario .form-control:focus {
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+border-color: var(--secondary, #10b981) !important;
+box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+outline: none !important;
 }
-
+.nosotros-formulario .form-control::placeholder {
+color: #9ca3af !important;
+}
+.btn-primary-custom {
+color: #ffffff;
+border: none;
+padding: 0.85rem 1.5rem;
+font-size: 1rem;
+font-weight: 700;
+border-radius: 8px;
+cursor: pointer;
+transition: background-color 0.2s ease, transform 0.1s ease;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 0.5rem;
+width: 100%;
+}
 @media (max-width: 768px) {
   .nosotros-titulo {
     font-size: 1.5rem;

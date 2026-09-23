@@ -4,14 +4,14 @@
    */
 
 .menu-card {  
-  background: white;
+  background: var(--bg-white);
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
   overflow: hidden;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  border: 1px solid #F1F5F9;
+  border: 1px solid #c0c6cc33;
 }
 
 .menu-card:hover {

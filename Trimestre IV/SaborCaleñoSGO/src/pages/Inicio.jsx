@@ -1,6 +1,10 @@
 // src/pages/Inicio.jsx
 
 /*
+Pagina principal con hero section y features.
+  Estructura:
+    - Hero: titulo principal, subtitulo y botones de accion
+    - Features: 3 tarjetas destacando los valores del restaurante
 
  */
 
@@ -19,8 +23,8 @@ function Inicio() {
             La autenticidad del sabor valluno
           </h1>
           <p className="hero-subtitle">
-            Descubre los platos tradicionales del Valle del Cauca,
-            preparados con pasión y la mejor sazón.
+            Descubre los platos tradicionales del Valle del Cauca, preparados
+            con pasión y la mejor sazón.
           </p>
           <div className="hero-buttons">
             <Link to="/menu">
@@ -29,9 +33,7 @@ function Inicio() {
               </button>
             </Link>
             <Link to="/nosotros">
-              <button className="btn-outline-custom">
-                Conócenos
-              </button>
+              <button className="btn-outline-custom">Conócenos</button>
             </Link>
           </div>
         </div>
@@ -42,7 +44,8 @@ function Inicio() {
           <div className="col-md-4">
             <div className="feature-card">
               <i className="fa-solid fa-utensils feature-icon"></i>
-              <h4>Platos Auténticos</h4> {/*Eror de tamañooooo usar  de h4 / h2*/}
+              <h4>Platos Auténticos</h4>{" "}
+              {/*Eror de tamañooooo usar  de h4 / h2*/}
               <p>Recetas tradicionales del Valle del Cauca</p>
             </div>
           </div>

@@ -1,21 +1,24 @@
 // src/Components/Footer.jsx
 
 /*
-  
-  Que hace: Pie de pagina de la aplicacion.
-    - Informacion del restaurante nombre, descripcion
-    - Redes sociales Instagram, Facebook, WhatsApp
-    - Enlaces rapidos a secciones importantes
-    - Datos de contacto , email, direccion, horarios
-    - Estatico
+  Componente: Footer
+  Descripción: Pie de página de la aplicación.
+  Contiene:
+    - Información del restaurante (nombre, descripción)
+    - Redes sociales (Instagram, Facebook, WhatsApp)
+    - Enlaces rápidos a secciones
+    - Datos de contacto
+  Los iconos usan la clase "icon-accent" para cambiar de color según el tema elegido.
 */
 
 import "../assets/CSS/footer.css";
-import { FaPhoneAlt } from "react-icons/fa";
+import {
+  FaPhoneAlt,
+  FaFacebook,
+  FaCalendar,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 import { MdMarkEmailRead } from "react-icons/md";
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaCalendar } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { AiFillInstagram } from "react-icons/ai";
 
@@ -32,19 +35,13 @@ function Footer() {
             </p>
             <div className="footer-social">
               <a href="#" aria-label="Instagram">
-                <i className="fa-brands fa-instagram">
-                  <AiFillInstagram />
-                </i>
+                <AiFillInstagram className="icon-accent" />
               </a>
               <a href="#" aria-label="Facebook">
-                <i className="fa-brands fa-facebook">
-                  <FaFacebook />
-                </i>
+                <FaFacebook className="icon-accent" />
               </a>
               <a href="#" aria-label="WhatsApp">
-                <i className="fa-brands fa-whatsapp">
-                  <IoLogoWhatsapp />
-                </i>
+                <IoLogoWhatsapp className="icon-accent" />
               </a>
             </div>
           </div>
@@ -68,34 +65,23 @@ function Footer() {
           </div>
 
           <div className="col-md-4">
-            <h5 className="footer-titulo"></h5> {/* Falta orregirlo esta centrado*/}
+            <h5 className="footer-titulo">Contacto</h5>
             <ul className="footer-contact">
               <li>
-                <i className="fa-solid fa-phone"></i>
-                <span>
-                  <FaPhoneAlt /> +57 300 123 4567
-                </span>
+                <FaPhoneAlt className="icon-accent" />
+                <span>+57 300 123 4567</span>
               </li>
               <li>
-                <i className="fa-regular fa-envelope"></i>
-                <span>
-                  <MdMarkEmailRead />
-                  saborcaleno@gmail.com
-                </span>
+                <MdMarkEmailRead className="icon-accent" />
+                <span>saborcaleno@gmail.com</span>
               </li>
               <li>
-                <i className="fa-solid fa-location-dot"></i>
-                <span>
-                  <FaMapMarkerAlt />
-                  Santa Lucía, Colombia
-                </span>
+                <FaMapMarkerAlt className="icon-accent" />
+                <span>Bogotá D.C / Cali, Colombia</span>
               </li>
               <li>
-                <i className="fa-regular fa-clock"></i>
-                <span>
-                  <FaCalendar />
-                  Lun-Dom: 11:30 AM - 10:00 PM
-                </span>
+                <FaCalendar className="icon-accent" />
+                <span>Lun-Dom: 11:30 AM - 10:00 PM</span>
               </li>
             </ul>
           </div>
@@ -103,7 +89,8 @@ function Footer() {
 
         <div className="footer-bottom">
           <p className="mb-0">
-            &copy; {new Date().getFullYear()} Sabor Caleño.
+            &copy; {new Date().getFullYear()} Sabor Caleño. Todos los derechos
+            reservados.
           </p>
         </div>
       </div>
