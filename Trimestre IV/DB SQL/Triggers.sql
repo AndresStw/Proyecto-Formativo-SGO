@@ -60,20 +60,28 @@ BEGIN
     FROM plato
     WHERE idPlato = NEW.Plato_idPlato;
 
-    IF p_disponible IS NULL THEN
+    IF p_disponible IS NULL OR p_disponible = 0  THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: El plato no existe.';
-    ELSEIF p_disponible = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: El plato no esta disponible para la venta.';
+        SET MESSAGE_TEXT = 'Error: El plato no existe / No hay cantidad suficiente.';
+	ELSE
+	UPDATE plato SET disponible = disponible - new.cantidad where idPlato = new.plato_idPlato;
     END IF;
 END$$
-DELIMITER ;
+
+-- PRUEBA 
+
+INSERT INTO detalle_pedido(Pedido_idPedido,Plato_idPlato,cantidad,precio_unitario)VALUES(24,2,2,25000); -- da
+INSERT INTO detalle_pedido(Pedido_idPedido,Plato_idPlato,cantidad,precio_unitario)VALUES(24,2,1,25000); -- 0
+ -- 
+
+DROP TRIGGER trg_bloquear_plato_no_disponible;
 -- PRUEBA
 INSERT INTO detalle_pedido 
 (Pedido_idPedido, Plato_idPlato, cantidad, precio_unitario)
 VALUES 
 (29, 1, 1, 25000);
+
+
 
 -- -- -- -- -- -- -- -- -- -- -- --- -- --- --- --- - - -- - - -- -- - 
 -- TRIGGER 4
