@@ -203,7 +203,7 @@ CREATE TABLE `detalle_pedido` (
   KEY `idx_detalle_pedido` (`Pedido_idPedido`),
   CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`Pedido_idPedido`) REFERENCES `pedido` (`idPedido`) ON DELETE CASCADE,
   CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`Plato_idPlato`) REFERENCES `plato` (`idPlato`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +212,7 @@ CREATE TABLE `detalle_pedido` (
 
 LOCK TABLES `detalle_pedido` WRITE;
 /*!40000 ALTER TABLE `detalle_pedido` DISABLE KEYS */;
-INSERT INTO `detalle_pedido` VALUES (1,1,1,2,25000.00,'Sin chicharron'),(2,1,4,2,6000.00,'Con hielo'),(3,2,2,1,22000.00,'Sin yuca'),(4,2,5,2,10000.00,NULL),(5,2,8,2,7000.00,NULL),(6,3,7,2,35000.00,'Termino medio'),(7,3,3,3,8000.00,NULL),(8,3,9,1,9000.00,NULL),(9,4,6,1,32000.00,NULL),(10,4,10,1,28000.00,NULL),(11,4,4,2,6000.00,NULL),(12,5,3,4,8000.00,'Queso extra'),(13,5,4,2,6000.00,NULL),(14,6,6,2,32000.00,NULL),(15,6,7,1,35000.00,NULL),(16,6,8,3,7000.00,'Sin hielo'),(17,7,1,1,25000.00,NULL),(18,7,2,1,22000.00,NULL),(19,7,5,2,10000.00,NULL),(20,8,10,2,28000.00,NULL),(21,8,3,2,8000.00,NULL),(22,8,4,3,6000.00,NULL),(23,9,7,1,35000.00,NULL),(24,9,6,1,32000.00,NULL),(25,9,9,2,9000.00,NULL),(26,10,1,2,25000.00,NULL),(27,10,10,1,28000.00,NULL),(28,10,8,2,7000.00,NULL),(29,11,2,2,22000.00,NULL),(30,11,3,2,8000.00,NULL),(31,11,4,2,6000.00,NULL),(32,12,6,1,32000.00,NULL),(33,12,7,2,35000.00,NULL),(34,12,5,3,10000.00,NULL),(35,13,1,1,25000.00,NULL),(36,13,4,1,6000.00,NULL),(37,14,10,1,28000.00,NULL),(38,14,8,2,7000.00,NULL),(39,15,2,1,22000.00,NULL),(40,15,9,2,9000.00,NULL),(41,15,4,1,6000.00,NULL),(42,1,1,1,15000.00,NULL);
+INSERT INTO `detalle_pedido` VALUES (1,1,1,2,25000.00,'Sin chicharron'),(2,1,4,2,6000.00,'Con hielo'),(3,2,2,1,22000.00,'Sin yuca'),(4,2,5,2,10000.00,NULL),(5,2,8,2,7000.00,NULL),(6,3,7,2,35000.00,'Termino medio'),(7,3,3,3,8000.00,NULL),(8,3,9,1,9000.00,NULL),(9,4,6,1,32000.00,NULL),(10,4,10,1,28000.00,NULL),(11,4,4,2,6000.00,NULL),(12,5,3,4,8000.00,'Queso extra'),(13,5,4,2,6000.00,NULL),(14,6,6,2,32000.00,NULL),(15,6,7,1,35000.00,NULL),(16,6,8,3,7000.00,'Sin hielo'),(17,7,1,1,25000.00,NULL),(18,7,2,1,22000.00,NULL),(19,7,5,2,10000.00,NULL),(20,8,10,2,28000.00,NULL),(21,8,3,2,8000.00,NULL),(22,8,4,3,6000.00,NULL),(23,9,7,1,35000.00,NULL),(24,9,6,1,32000.00,NULL),(25,9,9,2,9000.00,NULL),(26,10,1,2,25000.00,NULL),(27,10,10,1,28000.00,NULL),(28,10,8,2,7000.00,NULL),(29,11,2,2,22000.00,NULL),(30,11,3,2,8000.00,NULL),(31,11,4,2,6000.00,NULL),(32,12,6,1,32000.00,NULL),(33,12,7,2,35000.00,NULL),(34,12,5,3,10000.00,NULL),(35,13,1,1,25000.00,NULL),(36,13,4,1,6000.00,NULL),(37,14,10,1,28000.00,NULL),(38,14,8,2,7000.00,NULL),(39,15,2,1,22000.00,NULL),(40,15,9,2,9000.00,NULL),(41,15,4,1,6000.00,NULL),(42,1,1,1,15000.00,NULL),(45,24,2,2,25000.00,NULL);
 /*!40000 ALTER TABLE `detalle_pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -220,23 +220,25 @@ UNLOCK TABLES;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_bloquear_plato_no_disponible` BEFORE INSERT ON `detalle_pedido` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER trg_bloquear_plato_no_disponible
+BEFORE INSERT ON detalle_pedido
+FOR EACH ROW
+BEGIN
     DECLARE p_disponible TINYINT;
 
     SELECT disponible INTO p_disponible
     FROM plato
     WHERE idPlato = NEW.Plato_idPlato;
 
-    IF p_disponible IS NULL THEN
+    IF p_disponible IS NULL OR p_disponible = 0  THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: El plato no existe.';
-    ELSEIF p_disponible = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: El plato no esta disponible para la venta.';
+        SET MESSAGE_TEXT = 'Error: El plato no existe / No hay cantidad suficiente.';
+	ELSE
+	UPDATE plato SET disponible = disponible - new.cantidad where idPlato = new.plato_idPlato;
     END IF;
 END */;;
 DELIMITER ;
@@ -610,7 +612,7 @@ CREATE TABLE `plato` (
 
 LOCK TABLES `plato` WRITE;
 /*!40000 ALTER TABLE `plato` DISABLE KEYS */;
-INSERT INTO `plato` VALUES (1,'Bandeja Paisa','Arroz, frijoles, carne molida, chicharron, huevo, platano, arepa',25000.00,0,2),(2,'Sancocho de Gallina','Sopa tradicional con gallina, yuca, platano, papa',22000.00,1,2),(3,'Arepa con Queso','Arepa de maiz blanco con queso costeno',8000.00,1,1),(4,'Limonada','Limonada natural con hierbabuena',6000.00,1,4),(5,'Tres Leches','Postre de tres leches con merengue',10000.00,1,3),(6,'Cazuela de Mariscos','Sopa de mariscos con arroz y patacones',32000.00,1,2),(7,'Churrasco','Carne de res a la parrilla con papas y ensalada',35000.00,1,2),(8,'Jugo de Lulo','Jugo natural de lulo',7000.00,1,4),(9,'Flan de Caramelo','Flan casero con caramelo',9000.00,1,3),(10,'Pescado Frito','Pescado frito con arroz y ensalada',28000.00,1,2);
+INSERT INTO `plato` VALUES (1,'Bandeja Paisa','Arroz, frijoles, carne molida, chicharron, huevo, platano, arepa',25000.00,0,2),(2,'Sancocho de Gallina','Sopa tradicional con gallina, yuca, platano, papa',22000.00,2,2),(3,'Arepa con Queso','Arepa de maiz blanco con queso costeno',8000.00,4,1),(4,'Limonada','Limonada natural con hierbabuena',6000.00,5,4),(5,'Tres Leches','Postre de tres leches con merengue',10000.00,6,3),(6,'Cazuela de Mariscos','Sopa de mariscos con arroz y patacones',32000.00,50,2),(7,'Churrasco','Carne de res a la parrilla con papas y ensalada',35000.00,32,2),(8,'Jugo de Lulo','Jugo natural de lulo',7000.00,11,4),(9,'Flan de Caramelo','Flan casero con caramelo',9000.00,44,3),(10,'Pescado Frito','Pescado frito con arroz y ensalada',28000.00,12,2);
 /*!40000 ALTER TABLE `plato` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -787,7 +789,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,'2026-09-16 14:25:20',62000.00,1,1,1),(2,'2026-09-16 13:25:20',56000.00,2,2,2),(3,'2026-09-16 12:25:20',103000.00,3,1,2),(4,'2026-09-16 11:25:20',72000.00,4,3,1),(5,'2026-09-16 10:25:20',44000.00,5,4,3),(6,'2026-09-16 09:25:20',120000.00,6,2,3),(7,'2026-09-16 08:25:20',67000.00,7,5,1),(8,'2026-09-16 07:25:20',90000.00,8,1,2),(9,'2026-09-16 06:25:20',85000.00,9,2,2),(10,'2026-09-16 05:25:20',92000.00,10,3,3),(11,'2026-09-16 04:25:20',72000.00,11,4,3),(12,'2026-09-16 03:25:20',132000.00,12,5,1),(13,'2026-09-16 02:25:20',46000.00,15,1,2),(14,'2026-09-16 00:00:00',48500.00,14,2,1),(15,'2026-09-16 00:00:00',32700.00,15,1,2),(16,'2026-09-17 00:00:00',65200.00,16,4,3),(17,'2026-09-17 00:00:00',41800.00,17,3,1),(18,'2026-09-18 00:00:00',73500.00,18,5,2),(19,'2026-09-18 00:00:00',28900.00,19,2,3),(20,'2026-09-19 00:00:00',54100.00,20,1,1),(21,'2026-09-19 00:00:00',86700.00,21,4,2),(22,'2026-09-20 00:00:00',39200.00,22,3,3),(23,'2026-09-20 00:00:00',61400.00,23,5,1),(24,'2026-09-21 00:00:00',45800.00,24,2,2),(25,'2026-09-21 00:00:00',79300.00,25,1,3),(26,'2026-09-22 00:00:00',33600.00,26,4,1),(27,'2026-09-22 00:00:00',92800.00,27,3,2),(28,'2026-09-23 00:00:00',57400.00,28,5,3);
+INSERT INTO `venta` VALUES (1,'2026-09-16 14:25:20',62000.00,1,1,1),(2,'2026-09-16 13:25:20',14000.00,2,2,2),(3,'2026-09-16 12:25:20',25750.00,3,1,2),(4,'2026-09-16 11:25:20',72000.00,4,3,1),(5,'2026-09-16 10:25:20',44000.00,5,4,3),(6,'2026-09-16 09:25:20',120000.00,6,2,3),(7,'2026-09-16 08:25:20',67000.00,7,5,1),(8,'2026-09-16 07:25:20',90000.00,8,1,2),(9,'2026-09-16 06:25:20',85000.00,9,2,2),(10,'2026-09-16 05:25:20',92000.00,10,3,3),(11,'2026-09-16 04:25:20',72000.00,11,4,3),(12,'2026-09-16 03:25:20',132000.00,12,5,1),(13,'2026-09-16 02:25:20',46000.00,15,1,2),(14,'2026-09-16 00:00:00',48500.00,14,2,1),(15,'2026-09-16 00:00:00',32700.00,15,1,2),(16,'2026-09-17 00:00:00',65200.00,16,4,3),(17,'2026-09-17 00:00:00',41800.00,17,3,1),(18,'2026-09-18 00:00:00',73500.00,18,5,2),(19,'2026-09-18 00:00:00',28900.00,19,2,3),(20,'2026-09-19 00:00:00',54100.00,20,1,1),(21,'2026-09-19 00:00:00',86700.00,21,4,2),(22,'2026-09-20 00:00:00',39200.00,22,3,3),(23,'2026-09-20 00:00:00',61400.00,23,5,1),(24,'2026-09-21 00:00:00',45800.00,24,2,2),(25,'2026-09-21 00:00:00',79300.00,25,1,3),(26,'2026-09-22 00:00:00',33600.00,26,4,1),(27,'2026-09-22 00:00:00',92800.00,27,3,2),(28,'2026-09-23 00:00:00',57400.00,28,5,3);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -961,6 +963,77 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ActualizarTotalDescuento` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarTotalDescuento`(IN p_idventa int,  in nivelC varchar(50))
+BEGIN
+UPDATE venta SET total =
+	CASE 
+	WHEN nivelC = 'Oro' then 
+		total - (total * 75 /100)
+	WHEN nivelC = 'Plata' then 
+		total - (total * 50 /100)
+	ELSE
+		total - (total * 20 /100)
+END
+    WHERE idventa  = p_idventa;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `cantidadPedidosCliente` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cantidadPedidosCliente`(IN p_idCliente varchar(500), out p_cantidad int)
+BEGIN
+select count(cliente_id_cliente) into p_cantidad
+    from pedido p where p.cliente_id_cliente = p_idCliente;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `totalGastadoCliente` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `totalGastadoCliente`(IN id_codigo VARCHAR(100), OUT total int)
+BEGIN
+
+SELECT COALESCE(SUM(v.total), 0) into total from venta v  
+    INNER JOIN pedido p ON v.pedido_idpedido = p.idpedido
+    where p.cliente_id_cliente = id_codigo;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -971,4 +1044,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-18  0:43:52
+-- Dump completed on 2026-09-23 19:25:22
