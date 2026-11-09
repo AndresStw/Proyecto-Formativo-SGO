@@ -31,13 +31,11 @@ Consulta las carpetas [`Trimestre I`](./Trimestre%20I/), [`Trimestre II`](./Trim
 Estadísticas de los lenguajes detectados por GitHub en este repositorio. La tabla se actualiza mediante un workflow de GitHub Actions.
 
 <!-- languages:start -->
-
-| Lenguaje   |  Tamaño | Proporción |
-| ---------- | ------: | ---------: |
-| HTML       | 57.3 KB |     48.0 % |
-| CSS        | 40.4 KB |     33.9 % |
-| JavaScript | 21.6 KB |     18.1 % |
-
+| Lenguaje | Tamaño | Proporción |
+| --- | ---: | ---: |
+| HTML | 57.3 KB | 48.0 % |
+| CSS | 40.4 KB | 33.9 % |
+| JavaScript | 21.6 KB | 18.1 % |
 <!-- languages:end -->
 
 El workflow actualiza la tabla cuando hay cambios en `main`, semanalmente y cuando se ejecuta manualmente desde la pestaña **Actions**.
