@@ -1,0 +1,96 @@
+name: Actualizar lenguajes del README
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-language-stats-main
+  cancel-in-progress: false
+
+jobs:
+  update-language-table:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Actualizar la tabla con los datos de GitHub
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const { owner, repo } = context.repo;
+
+            const { data: languages } = await github.rest.repos.listLanguages({
+              owner,
+              repo,
+            });
+
+            const entries = Object.entries(languages)
+              .sort((a, b) => b[1] - a[1]);
+
+            const totalBytes = entries.reduce(
+              (total, [, bytes]) => total + bytes,
+              0
+            );
+
+            const rows = entries.map(([language, bytes]) => {
+              const sizeKb = (bytes / 1024).toFixed(1);
+              const percentage = totalBytes
+                ? ((bytes / totalBytes) * 100).toFixed(1)
+                : '0.0';
+
+              return `| ${language} | ${sizeKb} KB | ${percentage} % |`;
+            });
+
+            const table = [
+              '| Lenguaje | Tamaño | Proporción |',
+              '| --- | ---: | ---: |',
+              ...rows,
+            ].join('\n');
+
+            const readmePath = 'README.md';
+            const readme = fs.readFileSync(readmePath, 'utf8');
+            const startMarker = '<!-- languages:start -->';
+            const endMarker = '<!-- languages:end -->';
+            const start = readme.indexOf(startMarker);
+            const end = readme.indexOf(endMarker);
+
+            if (start === -1 || end === -1 || end < start) {
+              throw new Error(
+                'No se encontraron correctamente los marcadores de lenguajes en README.md'
+              );
+            }
+
+            const tableStart = start + startMarker.length;
+            const updatedReadme =
+              readme.slice(0, tableStart) +
+              '\n' +
+              table +
+              '\n' +
+              readme.slice(end);
+
+            fs.writeFileSync(readmePath, updatedReadme);
+
+      - name: Guardar los cambios si la tabla se actualizó
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+
+          if git diff --cached --quiet; then
+            echo "La tabla de lenguajes ya está actualizada."
+            exit 0
+          fi
+
+          git commit -s -m "docs: actualizar estadísticas de lenguajes"
+          git push origin HEAD:main
