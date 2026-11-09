@@ -1,78 +1,35 @@
-# 📚 Proyecto Formativo SGO
+# Proyecto Formativo SGO — Sabor Caleño
 
-## Descripción General
+## Descripción
 
-Este repositorio contiene la documentación y los entregables del Proyecto Formativo SGO, organizado por trimestres académicos. Incluye requisitos, diagramas, presentaciones, análisis y formatos de cotización y costos relacionados con el desarrollo del proyecto.
+Este repositorio reúne los documentos del proyecto formativo SGO de Sabor Caleño. La rama `documetation` está dedicada exclusivamente a organizar y mantener la documentación del proyecto; no requiere instalar dependencias ni ejecutar una aplicación.
 
----
+## Documentación disponible
 
-## 📋 Contenido del Repositorio
+Los documentos del proyecto se encuentran en [`Documentation/`](./Documentation/).
 
-El contenido principal está organizado en dos períodos académicos:
+| Documento                                                                                                         | Descripción                                                             |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [`Document-RF-RNF-EP_SGO-SaborCaleño.docx.pdf`](./Documentation/Document-RF-RNF-EP_SGO-SaborCale%C3%B1o.docx.pdf) | Especificación de requisitos funcionales y no funcionales del proyecto. |
 
-### Trimestre I
-Documentación y archivos iniciales del proyecto, incluyendo:
-- Requisitos funcionales y no funcionales (RF/RNF)
-- Presentaciones iniciales del proyecto
-- Diagramas BPMN (v1)
-- Especificaciones y análisis preliminares
+## Organización
 
-Carpeta base: `Trimestre I/`
+```text
+.
+├── Documentation/     # Documentos y entregables del proyecto
+├── .gitignore         # Archivos locales o generados que Git debe ignorar
+└── README.md          # Descripción e índice de esta rama
+```
 
-### Trimestre II
-Documentación y desarrollo del segundo período, incluyendo:
-- Extensiones del proyecto
-- Presentaciones actualizadas
-- Cotizaciones y análisis de proveedores
-- Formatos de informe de costos
-- SRS (Especificaciones) actualizados
+## Cómo colaborar con la documentación
 
-Carpeta base: `Trimestre II/`
+1. Añade los documentos del proyecto en `Documentation/`, agrupándolos en subcarpetas si el volumen lo requiere.
+2. Usa nombres claros y conserva los formatos fuente y de consulta cuando ambos sean necesarios.
+3. Actualiza la tabla de documentación de este README cuando agregues, renombres o retires un documento.
+4. No incluyas credenciales, archivos temporales ni copias de respaldo generadas por las herramientas de edición.
 
----
+## Obtener esta rama
 
-## 🎯 Objetivos del Proyecto
-
-1. Mejorar la experiencia del usuario en procesos de gestión organizacional.
-2. Consolidar la documentación y los artefactos del proyecto.
-3. Facilitar la colaboración entre integrantes del equipo.
-4. Mantener un registro claro de requisitos, análisis y decisiones de diseño.
-
----
-
-## 📁 Estructura del Proyecto (resumen)
-
-Proyecto-Formativo-SGO/
-├── Trimestre I/  
-├── Trimestre II/  
-└── Documentación general/
-
-Cada carpeta contiene subdocumentos (RF/RNF, presentaciones, BPMN, cotizaciones, SRS, etc.).
-
----
-
-## 🔑 Archivos Clave
-
-- Formato SRS — Especificación de Requisitos de Software  
-- Requisitos (RF/RNF) — Requisitos Funcionales y No Funcionales  
-- Presentaciones — Material de presentación del proyecto  
-- Cotizaciones (Excel/Word) — Presupuestos y análisis económico  
-- BPMN v1-v3 — Diagramas de procesos de negocio
-
----
-
-## 👥 Contribuyentes
-
-- AndresStw — Coordinación general y actualizaciones principales  
-- davidvillanuevapotosi — Cotizaciones y presentaciones  
-- brandonxrojas — Diagramas BPMN y análisis de procesos  
-- sclavijo291-dot — Documentación y especificaciones
-
----
-
-## 🚀 Cómo usar este repositorio
-
-Clonar el repositorio (rama por defecto):
 ```bash
-git clone https://github.com/AndresStw/Proyecto-Formativo-SGO.git
-cd Proyecto-Formativo-SGO
+git clone --branch documentation --single-branch https://github.com/AndresStw/Proyecto-Formativo-SGO.git
+```
