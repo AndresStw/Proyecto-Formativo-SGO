@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../Assets/CSS/index.css">
+    <link rel="stylesheet" href="../Assets/CSS/menu.css">
+    <link rel="icon" href="../Assets/Img/logos/logo_sabor caleño2026.png">
+    <title>Sabor Caleño - Nuestro Menú</title>
+</head>
+<body>
+
+    <header>
+        <nav class="d-flex justify-content-around align-items-center gap-4 p-3 navegacion">
+            <img src="../Assets/Img/logos/logo_sabor caleño2026.png" alt="Logo" class="logo">
+            <p class="m-0 text-white fw-bold fs-3" style="font-style: italic;">Sabor Caleño</p>
+
+            <div class="d-flex justify-content-end gap-4 align-items-center">
+                <a class="text-white text-decoration-none fw-bold" href="../index.html">Inicio</a>
+                <a class="text-white text-decoration-none fw-bold" href="contacto.html">Nosotros</a>
+                <a class="text-white text-decoration-none fw-bold" href="menu.html">Menú</a>
+                <a class="text-white position-relative text-decoration-none fs-5" href="carrito.html">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span id="contador-carrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="font-size: 10px;">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container py-5">
+        <h2 class="text-center fw-bold mb-4" style="color: #ff6b00;">Nuestro Menú Auténtico</h2>
+        <p class="text-center text-muted mb-5">Elige tus platos vallunos favoritos y recíbelos en tu mesa o domicilio.</p>
+
+        <div class="d-flex justify-content-center gap-3 mb-5">
+            <button class="btn btn-outline-dark active btn-filtro" data-categoria="todos">Todos</button>
+            <button class="btn btn-outline-dark btn-filtro" data-categoria="platos">Platos Fuertes</button>
+            <button class="btn btn-outline-dark btn-filtro" data-categoria="bebidas">Bebidas</button>
+            <button class="btn btn-outline-dark btn-filtro" data-categoria="postres">Postres</button>
+        </div>
+        
+
+        <div class="row g-4" id="contenedor-menu">
+            <div class="col-md-4 item-menu" data-categoria="platos">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="../Assets/Img/platos/Caldo_Costilla.png" class="card-img-top" alt="Sancocho" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column justify-content-between text-center">
+                        <div>
+                            <h5 class="card-title fw-bold">Caldo de costilla</h5>
+                            <p class="card-text text-muted small">Acompañado de arroz, aguacate y banano con presa de pollo.</p>
+                        </div>
+                        <div class="mt-3">
+                            <span class="fs-5 fw-bold d-block mb-2" style="color: #ff8c00;">$9.000</span>
+                            <button class="btn btn-dark btn-agregar w-100" data-id="1" data-nombre="Sancocho Valluno" data-precio="25000">
+                                <i class="fa-solid fa-plus me-1"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 item-menu" data-categoria="platos">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="../Assets/Img/platos/chuleta valluna.jpg" class="card-img-top" alt="Chuleta" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column justify-content-between text-center">
+                        <div>
+                            <h5 class="card-title fw-bold">Chuleta Valluna</h5>
+                            <p class="card-text text-muted small">Filete de cerdo apanado crujiente, papas fritas y ensalada.</p>
+                        </div>
+                        <div class="mt-3">
+                            <span class="fs-5 fw-bold d-block mb-2" style="color: #ff8c00;">$22.000</span>
+                            <button class="btn btn-dark btn-agregar w-100" data-id="2" data-nombre="Chuleta Valluna" data-precio="22000">
+                                <i class="fa-solid fa-plus me-1"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 item-menu" data-categoria="bebidas">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="../Assets/Img/platos/champucaleño.png" class="card-img-top" alt="Champús" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column justify-content-between text-center">
+                        <div>
+                            <h5 class="card-title fw-bold">Champús Caleño</h5>
+                            <p class="card-text text-muted small">Bebida tradicional a base de maíz, lulo, piña y hojas de naranjo.</p>
+                        </div>
+                        <div class="mt-3">
+                            <span class="fs-5 fw-bold d-block mb-2" style="color: #ff8c00;">$8.000</span>
+                            <button class="btn btn-dark btn-agregar w-100" data-id="3" data-nombre="Champús Caleño" data-precio="8000">
+                                <i class="fa-solid fa-plus me-1"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bundle.min.js"></script>
+    <script src="../Assets/JavaScript/menu.js"></script>
+</body>
+</html>
