@@ -30,13 +30,11 @@ Explora las carpetas [`Trimestre I`](./Trimestre%20I/), [`Trimestre II`](./Trime
 Composición del código detectada por GitHub para este repositorio. La tabla se actualiza con GitHub Actions.
 
 <!-- languages:start -->
-
-| Lenguaje   |  Tamaño | Proporción |
-| ---------- | ------: | ---------: |
-| HTML       | 57.3 KB |     48.0 % |
-| CSS        | 40.4 KB |     33.9 % |
-| JavaScript | 21.6 KB |     18.1 % |
-
+| Lenguaje | Tamaño | Proporción |
+| --- | ---: | ---: |
+| HTML | 57.3 KB | 48.0 % |
+| CSS | 40.4 KB | 33.9 % |
+| JavaScript | 21.6 KB | 18.1 % |
 <!-- languages:end -->
 
 [Ver ejecuciones de actualización de lenguajes](https://github.com/AndresStw/Proyecto-Formativo-SGO/actions/workflows/update-language-stats.yml).
