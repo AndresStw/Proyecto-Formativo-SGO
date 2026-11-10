@@ -25,3 +25,10 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+.env.backup
+.phpunit.result.cache
