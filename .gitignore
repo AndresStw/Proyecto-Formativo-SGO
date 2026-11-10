@@ -28,6 +28,8 @@ MANIFEST
 
 # Virtual environments
 .env
+.env.*
+!.env.example
 .venv
 env/
 venv/
@@ -54,3 +56,21 @@ Thumbs.db
 htmlcov/
 .pytest_cache/
 .tox/
+
+# Vercel
+.vercel/
+
+# Archivos de auditoría/exportación
+Proyecto_SGO_completo_*.txt
+check_tables_output.txt
+
+
+# Already covered
+.env
+venv/
+__pycache__/
+
+# Add if missing
+*.pyc
+.pytest_cache/
+.vercel/
