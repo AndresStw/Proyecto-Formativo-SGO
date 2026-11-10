@@ -1,76 +1,27 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-.env
-.env.*
-!.env.example
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# IDEs y Editores (VS Code, PyCharm, etc.)
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Archivos del sistema operativo
-.DS_Store
-Thumbs.db
-
-# Logs y bases de datos locales
 *.log
-*.sqlite3
-
-# Pruebas y cobertura
-.coverage
-htmlcov/
-.pytest_cache/
-.tox/
-
-# Vercel
-.vercel/
-
-# Archivos de auditoría/exportación
-Proyecto_SGO_completo_*.txt
-check_tables_output.txt
-
-
-# Already covered
+.DS_Store
 .env
-venv/
-__pycache__/
-
-# Add if missing
-*.pyc
-.pytest_cache/
-.vercel/
+.env.backup
+.env.production
+.phpactor.json
+.phpunit.result.cache
+/.codex
+/.cursor/
+/.idea
+/.nova
+/.phpunit.cache
+/.vscode
+/.zed
+/auth.json
+/node_modules
+/public/build
+/public/fonts-manifest.dev.json
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+/vendor
+_ide_helper.php
+Homestead.json
+Homestead.yaml
+Thumbs.db
