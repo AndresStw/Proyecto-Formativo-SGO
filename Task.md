@@ -22,22 +22,31 @@ Example workflow for your task:
 
 ---
 
-## 🔴 EP-01 — Authentication & Accounts (BLOCKING)
+## 🔴 EP-01 — Authentication & Accounts (BLOCKING) - ✅ COMPLETED
 
 **Assignee:** Lead
+**Framework:** Laravel 11 + Laravel Sanctum
 
-**Model Tasks (Create in `app/models/`):**
+_Architecture Note: Implemented using "Single Table Inheritance" (a single `Usuario` table with a `rol` column) instead of separate tables for Cliente, Mesero, etc. This simplifies queries and maintenance._
 
-- [ ] `usuario.py` (id, email, password_hash, names)
-- [ ] `cliente.py` (fk to Usuario)
-- [ ] `roles.py` (`Administrador`, `Mesero`, `Cocinero`, `Cajero` - all with fk to Usuario)
-- [ ] `ubicacion.py` (`Direccion`, `Telefono`)
+**Model Tasks (Laravel - `app/Models/`):**
 
-**Endpoint Tasks:**
+- [x] `Usuario.php` (idUsuario, names, email, password_hash, telefono, direccion, rol, estado) implementing `HasApiTokens`.
 
-- [ ] `POST /register` (creates Usuario + Cliente)
-- [ ] `POST /login` (returns JWT)
-- [ ] `@require_auth` middleware decorator
+**Endpoint Tasks (`routes/api.php`):**
+
+- [x] `POST /api/register` (Creates user with 'cliente' role by default and returns Token).
+- [x] `POST /api/login` (Validates Bcrypt credentials and returns Token).
+- [x] `GET /api/me` (Protected route to view profile).
+- [x] `PUT /api/me` (Protected route to update profile).
+- [x] `POST /api/logout` (Destroys the current token).
+- [x] `POST /api/forgot-password` (Sends a simulated reset link to the log file).
+- [x] `POST /api/reset-password` (Resets the password using the token).
+
+**Middlewares:**
+
+- [x] `auth:sanctum` (Replaces the old Python `@require_auth` decorator, protects private routes).
+- [x] `AdminMiddleware` (Created and registered to protect admin-only routes).
 
 ---
 
