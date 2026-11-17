@@ -4,7 +4,7 @@
   "description": "Backend de Sabor Caleno SGO con Node.js, Express y MySQL",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test tests/productos.test.js",
     "start": "node app.js",
     "dev": "node --watch app.js",
     "seed": "node scripts/seedPlatos.js"
