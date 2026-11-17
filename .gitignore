@@ -76,3 +76,6 @@ __pycache__/
 .vercel/node_modules/
 
 node_modules/
+
+/imagenes-menu.zip
+/imagenes-menu/

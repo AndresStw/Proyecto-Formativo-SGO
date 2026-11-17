@@ -1,0 +1,274 @@
+{
+  "categorias": [
+    {
+      "idTipo_Plato": 1,
+      "nombre_tipo": "Desayunos"
+    },
+    {
+      "idTipo_Plato": 2,
+      "nombre_tipo": "Caldos"
+    },
+    {
+      "idTipo_Plato": 3,
+      "nombre_tipo": "Bebidas"
+    },
+    {
+      "idTipo_Plato": 4,
+      "nombre_tipo": "Platos Fuertes"
+    }
+  ],
+  "platos": [
+    {
+      "idPlato": 1,
+      "nombre": "Arepa con Panela",
+      "descripcion": "Arepa recién hecha acompañada de panela con queso y mantequilla.",
+      "precio": "8000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/Desayunos/Arepapanela-modified.png",
+      "calorias": 280,
+      "rating": "4.7",
+      "tiempo": "15min",
+      "Tipo_Plato_idTipo_Plato": 1
+    },
+    {
+      "idPlato": 2,
+      "nombre": "Changua",
+      "descripcion": "Sopa tradicional de leche, huevo y cebolla, perfecta para empezar el día.",
+      "precio": "10000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/Desayunos/Changua-modified.png",
+      "calorias": 320,
+      "rating": "4.5",
+      "tiempo": "20min",
+      "Tipo_Plato_idTipo_Plato": 1
+    },
+    {
+      "idPlato": 3,
+      "nombre": "Chocolate Campesino",
+      "descripcion": "Chocolate caliente con queso y pan, energía para toda la mañana.",
+      "precio": "9000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/Desayunos/chocolate-campesino.png",
+      "calorias": 350,
+      "rating": "4.8",
+      "tiempo": "10min",
+      "Tipo_Plato_idTipo_Plato": 1
+    },
+    {
+      "idPlato": 4,
+      "nombre": "Pandebonos",
+      "descripcion": "Deliciosos pandebonos recién horneados, esponjosos y llenos de sabor.",
+      "precio": "6000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/Desayunos/pandebonos-modified.png",
+      "calorias": 200,
+      "rating": "4.6",
+      "tiempo": "10min",
+      "Tipo_Plato_idTipo_Plato": 1
+    },
+    {
+      "idPlato": 5,
+      "nombre": "Pasabocas Caleños",
+      "descripcion": "Selección de pasabocas típicos para acompañar el desayuno.",
+      "precio": "12000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/Desayunos/pasabocas-calenos-modified.png",
+      "calorias": 400,
+      "rating": "4.4",
+      "tiempo": "15min",
+      "Tipo_Plato_idTipo_Plato": 1
+    },
+    {
+      "idPlato": 6,
+      "nombre": "Ajiaco",
+      "descripcion": "Sopa tradicional con pollo, papas, mazorca y guasca, acompañada de arroz y aguacate.",
+      "precio": "18000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/caldos/ajiaco.png",
+      "calorias": 450,
+      "rating": "4.9",
+      "tiempo": "35min",
+      "Tipo_Plato_idTipo_Plato": 2
+    },
+    {
+      "idPlato": 7,
+      "nombre": "Changua (Caldos)",
+      "descripcion": "Changua caliente con huevo, cebolla y cilantro, acompañada de pan.",
+      "precio": "12000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/caldos/Changua.jpg",
+      "calorias": 300,
+      "rating": "4.3",
+      "tiempo": "20min",
+      "Tipo_Plato_idTipo_Plato": 2
+    },
+    {
+      "idPlato": 8,
+      "nombre": "Mondongo",
+      "descripcion": "Sopa de mondongo con verduras, acompañada de arroz y aguacate.",
+      "precio": "22000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/caldos/mondongo-modified.png",
+      "calorias": 500,
+      "rating": "4.7",
+      "tiempo": "40min",
+      "Tipo_Plato_idTipo_Plato": 2
+    },
+    {
+      "idPlato": 9,
+      "nombre": "Sancocho de Gallina",
+      "descripcion": "Sancocho tradicional con gallina criolla, plátano, yuca y mazorca.",
+      "precio": "25000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/caldos/sancocho-gallina-modified.png",
+      "calorias": 520,
+      "rating": "4.8",
+      "tiempo": "45min",
+      "Tipo_Plato_idTipo_Plato": 2
+    },
+    {
+      "idPlato": 10,
+      "nombre": "Sancocho de Pescado",
+      "descripcion": "Sancocho de pescado fresco con verduras y arroz, el favorito de la costa.",
+      "precio": "23000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/caldos/sancocho-pescado-modified.png",
+      "calorias": 400,
+      "rating": "4.6",
+      "tiempo": "35min",
+      "Tipo_Plato_idTipo_Plato": 2
+    },
+    {
+      "idPlato": 11,
+      "nombre": "Champús Caleño",
+      "descripcion": "Bebida tradicional a base de maíz, lulo, piña y hojas de naranjo.",
+      "precio": "8000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/Bebida/champus-valluno-modified.png",
+      "calorias": 180,
+      "rating": "4.5",
+      "tiempo": "5min",
+      "Tipo_Plato_idTipo_Plato": 3
+    },
+    {
+      "idPlato": 12,
+      "nombre": "Lulada",
+      "descripcion": "Refrescante bebida de lulo con hielo y limón, la favorita de los caleños.",
+      "precio": "7000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/Bebida/lulada-individual-modified.png",
+      "calorias": 150,
+      "rating": "4.4",
+      "tiempo": "5min",
+      "Tipo_Plato_idTipo_Plato": 3
+    },
+    {
+      "idPlato": 13,
+      "nombre": "Arroz Atollado",
+      "descripcion": "Arroz con carnes, verduras y especias, el sabor tradicional del Valle.",
+      "precio": "28000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/arroz-atollado-modified.png",
+      "calorias": 600,
+      "rating": "4.9",
+      "tiempo": "35min",
+      "Tipo_Plato_idTipo_Plato": 4
+    },
+    {
+      "idPlato": 14,
+      "nombre": "Carne Bistec",
+      "descripcion": "Bistec de res a la plancha, acompañado de papas, ensalada y arroz.",
+      "precio": "26000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/carne-bistec-modified.png",
+      "calorias": 550,
+      "rating": "4.6",
+      "tiempo": "30min",
+      "Tipo_Plato_idTipo_Plato": 4
+    },
+    {
+      "idPlato": 15,
+      "nombre": "Cazuela de Mariscos",
+      "descripcion": "Exquisita cazuela con mariscos frescos, verduras y un toque especial.",
+      "precio": "35000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/cazuela-mariscos-modified.png",
+      "calorias": 580,
+      "rating": "4.8",
+      "tiempo": "40min",
+      "Tipo_Plato_idTipo_Plato": 4
+    },
+    {
+      "idPlato": 16,
+      "nombre": "Chuleta Almuerzo",
+      "descripcion": "Chuleta de cerdo empanizada, papas fritas y ensalada fresca.",
+      "precio": "24000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/chuleta-almuerzo-modified.png",
+      "calorias": 520,
+      "rating": "4.5",
+      "tiempo": "25min",
+      "Tipo_Plato_idTipo_Plato": 4
+    },
+    {
+      "idPlato": 17,
+      "nombre": "Chuleta Valluna",
+      "descripcion": "Filete de cerdo apanado crujiente, papas fritas, ensalada y arroz.",
+      "precio": "22000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/chuleta-valluna-modified.png",
+      "calorias": 500,
+      "rating": "4.9",
+      "tiempo": "25min",
+      "Tipo_Plato_idTipo_Plato": 4
+    },
+    {
+      "idPlato": 18,
+      "nombre": "Costillas con Guayaba",
+      "descripcion": "Costillas de cerdo bañadas en salsa de guayaba, acompañadas de arroz y papas.",
+      "precio": "32000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/costillas-guayaba-modified.png",
+      "calorias": 620,
+      "rating": "4.7",
+      "tiempo": "35min",
+      "Tipo_Plato_idTipo_Plato": 4
+    },
+    {
+      "idPlato": 19,
+      "nombre": "Mojarra Frita",
+      "descripcion": "Mojarra frita acompañada de arroz, ensalada y patacones.",
+      "precio": "27000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/Mojarra-frita-modified.png",
+      "calorias": 480,
+      "rating": "4.4",
+      "tiempo": "30min",
+      "Tipo_Plato_idTipo_Plato": 4
+    },
+    {
+      "idPlato": 20,
+      "nombre": "Pasta Casera",
+      "descripcion": "Pasta hecha en casa con salsa de la casa y queso parmesano.",
+      "precio": "20000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/pasta-casera.png",
+      "calorias": 450,
+      "rating": "4.3",
+      "tiempo": "25min",
+      "Tipo_Plato_idTipo_Plato": 4
+    },
+    {
+      "idPlato": 21,
+      "nombre": "Sobrebarriga con Hogao",
+      "descripcion": "Sobrebarriga cocinada lentamente con hogao criollo, arroz y papas.",
+      "precio": "30000.00",
+      "disponible": 1,
+      "imagen": "/imagenes/platos/sobrebarriga-hogao-modified.png",
+      "calorias": 560,
+      "rating": "4.8",
+      "tiempo": "40min",
+      "Tipo_Plato_idTipo_Plato": 4
+    }
+  ]
+}

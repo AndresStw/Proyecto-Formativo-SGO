@@ -1,17 +1,26 @@
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+
 require("dotenv").config();
 
 const productosRoutes = require("./routes/productosRoutes");
+const categoriasRoutes = require("./routes/categoriasRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Rutas de productos
+// Configuracion de imagenes
+app.use("/imagenes", express.static(
+    path.join(__dirname, "public", "imagenes")
+));
+
+// Rutas del sistema
 app.use("/productos", productosRoutes);
+app.use("/categorias", categoriasRoutes);
 
 // Ruta principal
 app.get("/", (req, res) => {
@@ -22,7 +31,7 @@ app.get("/", (req, res) => {
     });
 });
 
-// Comprobar servidor
+// Estado del servidor
 app.get("/health", (req, res) => {
     res.json({
         status: "ok",
@@ -30,11 +39,9 @@ app.get("/health", (req, res) => {
     });
 });
 
-// Iniciar servidor
+// Puerto del servidor
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
-    console.log(
-        `Servidor Sabor Caleño funcionando en http://localhost:${PORT}`
-    );
+    console.log(`Servidor Sabor Caleño funcionando en http://localhost:${PORT}`);
 });
