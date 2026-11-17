@@ -2,7 +2,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 
-const API = "http://localhost:8000";
+const API = process.env.API_URL || "http://localhost:8000";
 
 // Prueba 1: servidor funcionando
 test("Servidor funcionando", async () => {
