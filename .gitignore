@@ -73,4 +73,6 @@ __pycache__/
 # Add if missing
 *.pyc
 .pytest_cache/
-.vercel/
+.vercel/node_modules/
+
+node_modules/
