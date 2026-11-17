@@ -1,110 +1,153 @@
 
-# Sabor Caleño SGO - Backend
+# Sabor Caleño SGO - Backend Node.js
 
-## Descripción del proyecto
+## EP-02 - Menú y Catálogo
 
-Sabor Caleño SGO es un sistema de gestión para restaurantes
-que permite administrar los procesos operativos del negocio.
-
-Actualmente se está realizando la migración del backend
-de Python a Node.js, utilizando Express y MySQL.
-
-## Módulo: Menú y Catálogo
-
-Este módulo permite administrar los productos del restaurante,
-consultar el menú, registrar nuevos productos, actualizar
-información, eliminar productos y controlar su disponibilidad.
+Este módulo permite gestionar el menú digital del restaurante
+Sabor Caleño, facilitando la consulta, creación, actualización,
+eliminación y disponibilidad de los platos.
 
 ## Tecnologías utilizadas
 
 - Node.js
 - Express
-- MySQL
+- MySQL / MariaDB
 - XAMPP
-- mysql2
-- dotenv
+- MySQL2
+- Dotenv
 - CORS
 - Git y GitHub
 
-## Estructura del backend
+## Estructura del proyecto
 
 backend-node/
     config/
         database.js
     controllers/
         productosController.js
+        categoriasController.js
+    database/
+        schema.sql
+    public/
+        imagenes/
     routes/
         productosRoutes.js
+        categoriasRoutes.js
+    scripts/
+        menuData.json
+        seedPlatos.js
+    tests/
+        productos.test.js
     .env.example
     app.js
     package.json
-    package-lock.json
     README.md
 
 ## Instalación
 
-1. Instalar Node.js y XAMPP.
-2. Iniciar MySQL desde XAMPP.
-3. Abrir una terminal en la carpeta backend-node.
-4. Ejecutar:
+Ingresar a la carpeta del backend:
+
+    cd backend-node
+
+Instalar las dependencias:
 
     npm install
 
-5. Crear un archivo .env utilizando .env.example.
-6. Configurar los datos de conexión a MySQL.
-
 ## Configuración de la base de datos
 
-PORT=8000
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=
-DB_NAME=sabor_caleno_sgo
-DB_PORT=3306
+Iniciar MySQL desde XAMPP.
 
-La base de datos debe existir y contener la tabla productos
-antes de utilizar los endpoints.
+Crear un archivo .env tomando como referencia .env.example.
+
+Variables de entorno:
+
+    PORT=8000
+    DB_HOST=localhost
+    DB_USER=root
+    DB_PASSWORD=
+    DB_NAME=sabor_caleno_sgo
+    DB_PORT=3306
+
+Configurar las credenciales según el entorno local.
+
+Ejecutar el archivo database/schema.sql desde MySQL Workbench
+o MariaDB para crear las tablas necesarias.
+
+## Tablas del módulo
+
+### tipo_plato
+
+- idTipo_Plato
+- nombre_tipo
+
+### plato
+
+- idPlato
+- nombre
+- descripcion
+- precio
+- disponible
+- imagen
+- calorias
+- rating
+- tiempo
+- Tipo_Plato_idTipo_Plato
+
+## Carga inicial del menú
+
+Ejecutar:
+
+    npm run seed
+
+Este comando permite cargar las cuatro categorías y los
+21 platos originales del restaurante.
+
+## Categorías disponibles
+
+- Desayunos: 5 productos.
+- Caldos: 5 productos.
+- Bebidas: 2 productos.
+- Platos fuertes: 9 productos.
+
+Total: 21 productos.
 
 ## Ejecutar el servidor
-
-Modo normal:
-
-    npm start
 
 Modo desarrollo:
 
     npm run dev
 
-Servidor local:
+Modo normal:
 
-http://localhost:8000
+    npm start
 
-## Endpoints de productos
+URL del servidor:
+
+    http://localhost:8000
+
+## Endpoints disponibles
 
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| GET | /productos | Consultar todos los productos |
-| GET | /productos/:id | Consultar un producto |
-| POST | /productos | Registrar un producto |
-| PUT | /productos/:id | Actualizar un producto |
-| DELETE | /productos/:id | Eliminar un producto |
+| GET | /health | Estado del servidor |
+| GET | /productos | Consultar todos los platos |
+| GET | /productos/:id | Consultar un plato específico |
+| GET | /categorias | Consultar categorías |
+| GET | /productos?categoria=desayunos | Filtrar productos |
+| POST | /productos | Registrar un plato |
+| PUT | /productos/:id | Actualizar un plato |
 | PATCH | /productos/:id/disponibilidad | Cambiar disponibilidad |
+| DELETE | /productos/:id | Eliminar un plato |
 
-## Ejemplo de registro de producto
+## Ejemplo de registro de un producto
 
-{
-    "nombre": "Sancocho de Gallina",
-    "descripcion": "Plato típico colombiano",
-    "precio": 25000,
-    "categoria": "Plato fuerte",
-    "disponible": true
-}
-
-## Ejemplo de cambio de disponibilidad
-
-{
-    "disponible": false
-}
+    {
+        "nombre": "Plato de ejemplo",
+        "descripcion": "Descripción del plato",
+        "precio": 15000,
+        "id_categoria": 4,
+        "disponible": true
+    }
 
 ## Códigos de respuesta HTTP
 
@@ -112,28 +155,84 @@ http://localhost:8000
 - 201: Producto creado correctamente.
 - 400: Datos incorrectos.
 - 404: Producto no encontrado.
+- 409: Conflicto con registros relacionados.
 - 500: Error interno del servidor.
+
+## Imágenes
+
+Las imágenes se encuentran en public/imagenes.
+
+Ejemplo de acceso:
+
+    http://localhost:8000/imagenes/Desayunos/Arepapanela-modified.png
+
+El frontend debe agregar la URL del servidor a la ruta
+de imagen recibida desde la API.
+
+## Pruebas automatizadas
+
+Mantener MySQL y el servidor funcionando.
+
+Desde otra terminal ejecutar:
+
+    npm test
+
+Las pruebas verifican:
+
+1. Estado del servidor.
+2. Listado de productos.
+3. Consulta por identificador.
+4. Productos inexistentes.
+5. Listado de categorías.
+6. Filtro de desayunos.
+7. Filtro de caldos.
+8. Filtro de bebidas.
+9. Filtro de platos fuertes.
+10. Disponibilidad de imágenes.
+11. CRUD completo.
+12. Validación de nombre.
+13. Validación de precio.
+14. Validación de categoría.
+15. Validación de disponibilidad.
+
+Último resultado local:
+
+- Pruebas ejecutadas: 15.
+- Pruebas exitosas: 15.
+- Pruebas fallidas: 0.
+
+Ejecutar las pruebas únicamente en el entorno local de
+desarrollo con el menú original cargado.
 
 ## Seguridad
 
-Las credenciales de conexión se administran mediante
-variables de entorno.
+Las credenciales se administran mediante variables de entorno.
 
-Los archivos .env y node_modules no deben subirse
-al repositorio de GitHub.
+El archivo .env y la carpeta node_modules no deben
+subirse al repositorio.
+
+La autenticación y autorización de las operaciones
+administrativas están pendientes de integración con EP-01.
 
 ## Estado del desarrollo
 
-- Conexión con MySQL implementada.
-- Controlador de productos implementado.
-- Rutas de productos implementadas.
-- Seis endpoints probados manualmente.
-- Migración de los demás módulos pendiente.
-- Pruebas automatizadas pendientes.
-- Autenticación y autorización pendientes.
+- Migración del módulo a Node.js: completada.
+- Conexión con MySQL: completada.
+- CRUD de productos: completado.
+- Categorías e imágenes: completadas.
+- Carga inicial del menú: verificada localmente.
+- Pruebas automatizadas: completadas.
+- Instalación desde una base de datos vacía: pendiente.
+- Autenticación administrativa: pendiente.
+- Integración con frontend: pendiente.
+- Integración con otros módulos: pendiente.
 
 ## Proyecto formativo
 
 Servicio Nacional de Aprendizaje - SENA.
-Análisis y Desarrollo de Software.
-Proyecto Sabor Caleño SGO.
+
+Programa: Análisis y Desarrollo de Software.
+
+Proyecto: Sabor Caleño SGO.
+
+Épica: EP-02 - Menú y Catálogo.
