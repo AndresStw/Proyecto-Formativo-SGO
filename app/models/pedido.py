@@ -34,6 +34,18 @@ class Detalle_Pedido(Base):
     id_pedido = Column(Integer, ForeignKey("pedido.id_pedido"), nullable=False)
 
 
+class modalidadPedido(Base):
+    __tablename__ = "modalidad_pedido"
+
+    id_modalidad = Column(Integer, primary_key=True)
+    nombre_modalidad = Column(String(50), unique=True, nullable=False)
+
+class Estado_Pedido(Base):
+    __tablename__ = "estado_pedido"
+
+    id_estado = Column(Integer, primary_key=True)
+    nombre_estado = Column(String(50), unique=True, nullable=False)
+
 # =========================================================
 # MODELO: VENTA
 # =========================================================

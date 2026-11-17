@@ -1,6 +1,9 @@
-from sqlalchemy import Column, Integer, String
+
+from sqlalchemy import Column, Integer, String, Text, DECIMAL, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
-from app.infrastructure.database.base import Base
+
+from app.infrastructure.database import Base
+
 
 class TipoPlato(Base):
     __tablename__ = "tipo_plato"
@@ -8,17 +11,30 @@ class TipoPlato(Base):
     idTipo_Plato = Column(Integer, primary_key=True, autoincrement=True)
     nombre_tipo = Column(String(45), nullable=False)
 
-    # Relación con Plato
-    platos = relationship("Plato", back_populates="tipo_plato")
+    # !Relación con Plato
+    platos = relationship(
+        "Plato",
+        back_populates="tipo_plato"
+    )
 
-class modalidadPedido(Base):
-    __tablename__ = "modalidad_pedido"
 
-    id_modalidad = Column(Integer, primary_key=True)
-    nombre_modalidad = Column(String(50), unique=True, nullable=False)
+class Plato(Base):
+    __tablename__ = "plato"
 
-class Estado_Pedido(Base):
-    __tablename__ = "estado_pedido"
+    idPlato = Column(Integer, primary_key=True, autoincrement=True)
+    nombre = Column(String(45), nullable=False)
+    descripcion = Column(Text, nullable=True)
+    precio = Column(DECIMAL(10, 2), nullable=False)
+    disponible = Column(Boolean, nullable=True, default=True)
 
-    id_estado = Column(Integer, primary_key=True)
-    nombre_estado = Column(String(50), unique=True, nullable=False)
+    Tipo_Plato_idTipo_Plato = Column(
+        Integer,
+        ForeignKey("tipo_plato.idTipo_Plato"),
+        nullable=False
+    )
+
+    # ! Relación con TipoPlato
+    tipo_plato = relationship(
+        "TipoPlato",
+        back_populates="platos"
+    )
