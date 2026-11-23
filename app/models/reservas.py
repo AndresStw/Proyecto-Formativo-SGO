@@ -1,8 +1,7 @@
 
 from sqlalchemy import Integer, String, ForeignKey, Date, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
-from app.core.database import Base
+from app.infrastructure.database.base import Base
 
 
 class Reserva(Base):

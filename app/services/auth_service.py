@@ -17,7 +17,8 @@ from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
-from app.core.config import settings
+from app.core.config import get_settings
+settings = get_settings()
 from app.core.security import verify_password
 from app.models.user import User
 from app.models.user_session import UserSession

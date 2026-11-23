@@ -17,7 +17,8 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.core.config import settings
+from app.core.config import get_settings
+settings = get_settings()
 from app.infrastructure.database.session import get_db
 from app.models.user import User
 from app.models.user_session import UserSession

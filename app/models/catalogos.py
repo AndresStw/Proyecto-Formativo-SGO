@@ -2,7 +2,7 @@
 from sqlalchemy import Column, Integer, String, Text, DECIMAL, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 
-from app.infrastructure.database import Base
+from app.infrastructure.database.base import Base
 
 
 class TipoPlato(Base):
