@@ -11,10 +11,10 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
 )
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column, relationship, synonym
 
 from app.domain.enums.user_role import UserRole
-from app.infrastructure.database.base import Base
+from app.infrastructure.database.auth_base import AuthBase
 
 
 def utc_now_naive() -> datetime:
@@ -26,7 +26,7 @@ def utc_now_naive() -> datetime:
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
-class User(Base):
+class User(AuthBase):
 
     __tablename__ = "users"
 
@@ -34,6 +34,11 @@ class User(Base):
         UniqueConstraint(
             "super_admin_slot",
             name="uq_users_single_super_admin"
+        ),
+        Index(
+            "uq_users_phone",
+            "phone",
+            unique=True,
         ),
         Index(
             "ix_users_role_active",
@@ -55,9 +60,19 @@ class User(Base):
         nullable=False
     )
 
+    second_name: Mapped[str | None] = mapped_column(
+        String(45),
+        nullable=True
+    )
+
     last_name: Mapped[str] = mapped_column(
         String(100),
         nullable=False
+    )
+
+    second_last_name: Mapped[str | None] = mapped_column(
+        String(45),
+        nullable=True
     )
 
     email: Mapped[str] = mapped_column(
@@ -68,6 +83,11 @@ class User(Base):
 
     phone: Mapped[str | None] = mapped_column(
         String(30),
+        nullable=True
+    )
+
+    address: Mapped[str | None] = mapped_column(
+        String(255),
         nullable=True
     )
 
@@ -131,3 +151,15 @@ class User(Base):
         cascade="all, delete-orphan",
         passive_deletes=True
     )
+
+    # Alias ORM para que los módulos que migran desde Laravel puedan seguir
+    # usando los nombres del contrato sin duplicar columnas en `users`.
+    idUsuario = synonym("id")
+    primerNombre = synonym("first_name")
+    segundoNombre = synonym("second_name")
+    primerApellido = synonym("last_name")
+    segundoApellido = synonym("second_last_name")
+    telefono = synonym("phone")
+    direccion = synonym("address")
+    rol = synonym("role")
+    estado = synonym("is_active")

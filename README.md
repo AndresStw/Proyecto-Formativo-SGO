@@ -1,172 +1,278 @@
-# Backend — Sabor Caleño SGO
+# Backend API — Sabor Caleño SGO
 
-<<<<<<< HEAD
-<p align="center">
-  <img src="https://img.shields.io/badge/Estado-En%20desarrollo-blue" alt="Estado: en desarrollo">
-  <img src="https://img.shields.io/github/last-commit/AndresStw/Proyecto-Formativo-SGO/main?label=%C3%BAltimo%20commit" alt="Último commit">
-  <img src="https://img.shields.io/github/contributors/AndresStw/Proyecto-Formativo-SGO?label=contribuyentes" alt="Contribuyentes">
-  <img src="https://img.shields.io/github/stars/AndresStw/Proyecto-Formativo-SGO?style=social" alt="Estrellas">
-</p>
+En este README explico los cambios que se hicieron para pasar la parte de **usuarios e inicio de sesión (EP-01)** de Laravel a Python con FastAPI.
 
-Repositorio académico del Proyecto Formativo SGO, enfocado en el análisis, la documentación y el desarrollo del sistema de gestión de operaciones de **Sabor Caleño**.
-=======
-REST API for the **Sabor Caleño** project. Built with Flask, SQLAlchemy 2, MySQL (XAMPP local), and Alembic.
+El código de Laravel está en la rama `Laravel_Code_Adapted(PHP)` y el de Python en `Backend`.
 
-## 📋 Prerequisites
+## ¿Qué se cambió?
 
-- Python 3.11+
-- **XAMPP** (with MySQL running)
-- **TablePlus** or **DBeaver** (optional, to view the database)
+| Parte                       | Antes (Laravel)        | Ahora (Python)                               |
+| --------------------------- | ---------------------- | -------------------------------------------- |
+| Framework                   | Laravel 11             | FastAPI                                      |
+| Inicio de sesión            | Laravel Sanctum        | JWT y sesiones guardadas en la base de datos |
+| Usuarios                    | Tabla `usuario`        | Tabla `users`                                |
+| Cambios en la base de datos | Migraciones de Laravel | SQLAlchemy y Alembic                         |
 
-## 🚀 First-time setup
+La idea fue pasar las funciones de EP-01 a Python sin crear otra tabla de usuarios ni cambiar toda la estructura que ya tenía el backend.
 
-### 1. Clone the repo and enter the folder
+## ¿Cómo se hizo?
 
-```powershell
-git checkout Backend
-git pull origin Backend
-cd Proyecto-Formativo-SGO/Proyecto-Formativo-SGO
+1. Revisé el controlador, el modelo `Usuario`, las rutas y las migraciones que tenía Laravel.
+2. Comparé eso con lo que ya estaba hecho en Python.
+3. Pasé los 5 usuarios de `usuario` a `users`, manteniendo sus IDs, contraseñas cifradas, roles y demás datos. La tabla original de Laravel quedó guardada.
+4. Agregué las rutas para registro, inicio y cierre de sesión, recuperación de contraseña y consulta de usuarios. También se configuró CORS.
+5. Ajusté los campos y roles para que funcionaran en Python. El teléfono no se puede repetir y se sigue usando `password_reset_tokens`.
+6. Ajusté las dependencias y la configuración para ejecutar FastAPI de forma local y en Vercel.
+
+Los archivos de migración están en [`migrations/versions/`](./migrations/versions/). En la base de datos local se aplicaron hasta la versión `c9a7d2e84110`.
+
+## Usuarios y base de datos
+
+Se sigue usando una sola tabla de usuarios. Algunos campos tienen nombres distintos en Python, pero la API acepta los nombres que se usaban en Laravel.
+
+| Campo en Laravel  | Campo en Python (`users`) | Para qué sirve                  |
+| ----------------- | ------------------------- | ------------------------------- |
+| `idUsuario`       | `id`                      | ID del usuario                  |
+| `primerNombre`    | `first_name`              | Primer nombre                   |
+| `segundoNombre`   | `second_name`             | Segundo nombre (opcional)       |
+| `primerApellido`  | `last_name`               | Primer apellido                 |
+| `segundoApellido` | `second_last_name`        | Segundo apellido (opcional)     |
+| `email`           | `email`                   | Correo, no se puede repetir     |
+| `telefono`        | `phone`                   | Teléfono, no se puede repetir   |
+| `direccion`       | `address`                 | Dirección (opcional)            |
+| `password_hash`   | `password_hash`           | Contraseña cifrada              |
+| `rol`             | `role`                    | Rol del usuario                 |
+| `estado`          | `is_active`               | Indica si la cuenta está activa |
+
+Cuando alguien se registra, recibe el rol `CLIENTE`. Se mantuvieron los roles que ya tenía Python, como `SUPER_ADMIN`, y se agregaron `MESERO` y `CAJERO`. En las respuestas de la API los roles aparecen en minúsculas, como en Laravel.
+
+## Rutas de EP-01
+
+Se mantuvo `/api` al principio de las rutas para poder seguir usando las solicitudes que ya teníamos en Postman.
+
+| Método | Ruta                   | Quién puede usarla      | Qué hace                                              |
+| ------ | ---------------------- | ----------------------- | ----------------------------------------------------- |
+| `POST` | `/api/register`        | Cualquiera              | Registra un cliente y devuelve `accessToken` y `user` |
+| `POST` | `/api/login`           | Cualquiera              | Inicia sesión y devuelve `accessToken` y `user`       |
+| `GET`  | `/api/me`              | Usuario con token       | Muestra su perfil                                     |
+| `PUT`  | `/api/me`              | Usuario con token       | Actualiza su perfil                                   |
+| `POST` | `/api/logout`          | Usuario con token       | Cierra la sesión actual                               |
+| `POST` | `/api/forgot-password` | Cualquiera              | Genera el enlace para recuperar la contraseña         |
+| `POST` | `/api/reset-password`  | Cualquiera              | Cambia la contraseña usando el token de recuperación  |
+| `GET`  | `/api/users`           | `ADMIN` o `SUPER_ADMIN` | Muestra la lista de usuarios sin sus contraseñas      |
+| `POST` | `/api/users`           | `ADMIN` o `SUPER_ADMIN` | Crea cuentas de personal                              |
+
+## Probar la API con Postman
+
+Primero inicia el servidor. Estas son las direcciones locales:
+
+- API: `http://127.0.0.1:8000`
+- Documentación de FastAPI: `http://127.0.0.1:8000/docs`
+
+En las solicitudes que llevan datos, usa **Body → raw → JSON** y el encabezado `Content-Type: application/json`.
+
+Cuando te registres o inicies sesión, copia el `accessToken`. Para usar las rutas protegidas, entra a **Authorization → Bearer Token** y pega ese token. Para consultar todos los usuarios necesitas iniciar sesión como `ADMIN` o `SUPER_ADMIN`.
+
+### Registrar usuario — `POST /api/register`
+
+```json
+{
+  "nombre": "Usuario de Prueba",
+  "email": "prueba.usuario01@example.com",
+  "telefono": "+573001112233",
+  "direccion": "Cali",
+  "password": "Clave123"
+}
 ```
 
-### 2. Create and activate the virtual environment
+Si el correo o el teléfono ya existen, usa otros. La respuesta devuelve el token y los datos del usuario.
 
-```powershell
-python -m venv venv
-.\venv\Scripts\Activate.ps1
+### Iniciar sesión — `POST /api/login`
+
+```json
+{
+  "email": "admin@example.com",
+  "password": "contraseña_de_la_cuenta"
+}
 ```
 
-_(If PowerShell blocks scripts, run `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`)_
+Usa el correo y la contraseña de una cuenta que ya exista. Si quieres probar la lista de usuarios, entra con una cuenta administradora.
+En entornos `local`, `development` y `testing` también se aceptan correos locales terminados en `.test`, como `admin@local.test`; en `production` se mantiene la validación normal de correo.
 
-### 3. Install dependencies
+### Ver mi perfil — `GET /api/me`
+
+No necesita datos en el Body, pero sí el Bearer Token.
+
+### Actualizar mi perfil — `PUT /api/me`
+
+Necesita Bearer Token. Envía solo los datos que quieras cambiar:
+
+```json
+{
+  "primerNombre": "Usuario",
+  "segundoNombre": "Prueba",
+  "primerApellido": "Actualizado",
+  "telefono": "+573001112244",
+  "direccion": "Nueva dirección"
+}
+```
+
+### Cerrar sesión — `POST /api/logout`
+
+No necesita Body. Debes enviar el Bearer Token. Después de cerrar sesión, ese token deja de funcionar.
+
+### Pedir recuperación de contraseña — `POST /api/forgot-password`
+
+```json
+{
+  "email": "correo.existente@example.com"
+}
+```
+
+Por ahora, el enlace de recuperación aparece en la terminal donde está corriendo FastAPI.
+
+### Cambiar contraseña — `POST /api/reset-password`
+
+Copia el token que aparece en el enlace de recuperación y envíalo así:
+
+```json
+{
+  "email": "correo.existente@example.com",
+  "token": "token_recibido",
+  "password": "NuevaClave123",
+  "password_confirmation": "NuevaClave123"
+}
+```
+
+### Ver todos los usuarios — `GET /api/users`
+
+No necesita Body. Solo funciona con el token de un `ADMIN` o `SUPER_ADMIN`. Devuelve los datos de los usuarios, pero no sus contraseñas cifradas. Si entras con una cuenta `CLIENTE`, devuelve el error `403`.
+
+### Crear cuenta de personal — `POST /api/users`
+
+Necesita Bearer Token de `ADMIN` o `SUPER_ADMIN`. El registro público `/api/register` crea solo cuentas `CLIENTE`; para crear personal usa esta ruta y envía un rol permitido:
+
+```json
+{
+  "primerNombre": "Mesero",
+  "primerApellido": "Prueba",
+  "email": "mesero.prueba@example.com",
+  "telefono": "+573001112255",
+  "direccion": "Cali",
+  "rol": "MESERO",
+  "password": "Clave123"
+}
+```
+
+Puedes cambiar `rol` por `COCINERO`, `CAJERO` o `ADMIN`. La respuesta `201 Created` contiene el perfil creado y no expone el hash de contraseña. El correo y el teléfono deben ser únicos.
+
+**Otros detalles:** el registro acepta tanto `nombre` como los campos separados de nombre y apellido. El correo, teléfono y contraseña siguen teniendo sus validaciones. Desde la actualización del perfil no se puede cambiar el rol ni el estado de la cuenta.
+
+Las rutas anteriores de Python, como `/api/v1/auth/...`, siguen funcionando.
+
+## Inicio de sesión y seguridad
+
+- Las contraseñas nuevas se guardan con **Argon2id**.
+- Si una cuenta venía de Laravel con **Bcrypt**, puede iniciar sesión normalmente. Después de entrar, su contraseña se actualiza a Argon2id.
+- Para iniciar sesión, Python usa tokens **JWT**. Las sesiones se guardan en `user_sessions` y al cerrar sesión solo se desactiva la sesión actual.
+- Los tokens para recuperar contraseñas se guardan cifrados, tienen fecha de vencimiento y solo se pueden usar una vez.
+- La función `require_admin` revisa que el usuario tenga rol `ADMIN` o `SUPER_ADMIN`.
+
+Los tokens viejos de Laravel Sanctum no funcionan con JWT. Por eso, aunque se conservó la tabla `personal_access_tokens`, cada usuario debe iniciar sesión otra vez en Python. Las 5 sesiones anteriores quedaron guardadas en `user_sessions_legacy` y sus copias en `user_sessions` quedaron desactivadas.
+
+## CORS
+
+CORS se configuró en FastAPI para las rutas `/api` y `/api/v1`. Los orígenes, métodos y encabezados permitidos se manejan desde variables de entorno.
+
+Para trabajar en local están incluidos `localhost` y `127.0.0.1` en los puertos `5173` y `3000`. También se permite el encabezado `Authorization`.
+
+Cuando se publique el frontend, hay que agregar su dirección exacta a `CORS_ORIGINS` en Vercel. No se debe usar `*` junto con credenciales.
+
+## Base de datos local
+
+Estos son los datos de la conexión que se usó:
+
+| Dato          | Valor                  |
+| ------------- | ---------------------- |
+| Motor         | MySQL 8.0.46           |
+| Host          | `127.0.0.1`            |
+| Base de datos | `sabor_caleno_sgo_end` |
+| Usuario       | `root`                 |
+| Puerto        | `3306`                 |
+
+El ejemplo de configuración está en [`.env.example`](./.env.example). Los datos reales de conexión van en `.env` y no se suben al repositorio.
+
+En la base ya existían tablas de Laravel como `usuario`, `personal_access_tokens` y `migrations`. Se conservaron. La tabla de sesiones anterior pasó a llamarse `user_sessions_legacy` para que Python pudiera usar `user_sessions`.
+
+Se comprobó que los 5 usuarios quedaron en `users`, con estos roles: 2 `CLIENTE`, 1 `MESERO`, 1 `ADMIN` y 1 `SUPER_ADMIN`. Las sesiones anteriores quedaron desactivadas.
+
+## Ejecutar el proyecto en local
+
+Si es la primera vez que lo ejecutas, abre PowerShell en la carpeta del backend y escribe:
 
 ```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 ```
 
-### 4. Setup the local database (XAMPP)
+Esto crea el entorno virtual, instala las dependencias y crea `.env` si todavía no existe. **Si ya tienes un `.env` configurado, no lo reemplaces.**
 
-1. Open XAMPP Control Panel and **Start MySQL**.
-2. Open TablePlus or DBeaver and connect to `127.0.0.1:3306` (User: `root`, Password: empty).
-3. Run this SQL query to create the empty database:
-
-```sql
-CREATE DATABASE sabor_caleno_sgo CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-
-### 5. Configure environment variables
+Revisa `DATABASE_URL` y `CORS_ORIGINS` en `.env`. Después inicia el servidor:
 
 ```powershell
-copy .env.example .env
+uvicorn app.main:app --reload --port 8000
 ```
 
-Ensure your `.env` has the local MySQL URL:
+Puedes entrar a `http://127.0.0.1:8000/docs` para ver y probar las rutas.
 
-```env
-DATABASE_URL=mysql+pymysql://root:@localhost:3306/sabor_caleno_sgo
+### Si ya instalaste todo
+
+Solo necesitas activar el entorno y levantar la API:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+uvicorn app.main:app --reload --port 8000
 ```
 
-### 6. Run database migrations (Create tables)
+Deja la terminal abierta mientras pruebas con Postman. Para detener el servidor, presiona `Ctrl+C`.
 
-This reads the Python models in `app/models/` and creates the tables in XAMPP.
-_(Only the Lead runs `upgrade head` on the `Backend` branch once models are merged)._
+Para ejecutar las pruebas automáticas:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+pytest -q
+```
+
+Si vas a preparar otra base de datos que todavía tiene la estructura de Laravel, configura primero `DATABASE_URL` y luego ejecuta:
 
 ```powershell
 alembic upgrade head
 ```
 
-### 7. Verify connection
+En Vercel se usa [`api/index.py`](./api/index.py) para ejecutar la misma aplicación FastAPI.
 
-```powershell
-python check_db.py
-```
+## ¿Por qué algunos nombres están en inglés?
 
-You should see: `✅ ¡Conexión a MySQL (XAMPP) exitosa!` and the list of tables.
+En Python se dejaron nombres como `first_name`, `password_hash`, `User` y `get_current_user` porque son fáciles de reconocer y van con la forma en que está organizado el código.
 
-### 8. Start the server
+De todas formas, la API sigue aceptando nombres en español como `primerNombre` para que las partes del proyecto que ya los usan no tengan problemas. Los mensajes que ve el usuario también pueden estar en español.
 
-```powershell
-flask --app "app:create_app" --debug run --port 8000
-```
->>>>>>> origin/Backend
+## ¿Qué se revisó al terminar?
 
-## 📋 Contenido
+- Se aplicaron las migraciones con Alembic hasta `c9a7d2e84110`.
+- Se comprobó que hay 5 usuarios en `usuario` y 5 en `users`.
+- Se revisaron los 4 roles, las contraseñas cifradas y que no se puedan repetir los teléfonos.
+- Las 5 sesiones antiguas quedaron guardadas en `user_sessions_legacy` y desactivadas en Python.
+- Se conservaron las tablas `usuario`, `migrations`, `personal_access_tokens` y `password_reset_tokens`.
+- También se probó la migración con una base SQLite temporal y datos de ejemplo.
+- Las pruebas automáticas de Python habían dado **5 pruebas aprobadas** en SQLite.
 
-<<<<<<< HEAD
-- **Trimestre I:** requisitos funcionales y no funcionales, presentaciones iniciales, diagramas BPMN y análisis preliminares.
-- **Trimestre II:** extensiones del proyecto, presentaciones, cotizaciones, análisis de proveedores y SRS.
-- **Trimestre III:** avances y entregables del proyecto.
-- **Trimestre IV:** desarrollo del sistema Sabor Caleño SGO.
+**Nota:** las pruebas hechas en Postman con Laravel no comprueban que Python funcione. Para eso hay que probar las rutas con el servidor FastAPI encendido.
 
-Explora las carpetas [`Trimestre I`](./Trimestre%20I/), [`Trimestre II`](./Trimestre%20II/), [`Trimestre III`](./Trimestre%20III/) y [`Trimestre IV`](./Trimestre%20IV/).
+## Errores que note y tenemos que corregir
 
-## 🎯 Objetivos
+Tenemos dos tablas users y usuarios, cual es el tema tenemos que usar solo una actualmente esta apunta a **users**, tenemos que descartar una.
 
-1. Mejorar la experiencia de usuario en los procesos de gestión organizacional.
-2. Consolidar la documentación y los artefactos del proyecto.
-3. Facilitar la colaboración entre los integrantes del equipo.
-4. Mantener un registro claro de requisitos, análisis y decisiones de diseño.
-
-## 📊 Lenguajes
-
-Composición del código detectada por GitHub para este repositorio. La tabla se actualiza con GitHub Actions.
-
-<!-- languages:start -->
-| Lenguaje | Tamaño | Proporción |
-| --- | ---: | ---: |
-| HTML | 57.3 KB | 48.0 % |
-| CSS | 40.4 KB | 33.9 % |
-| JavaScript | 21.6 KB | 18.1 % |
-<!-- languages:end -->
-
-[Ver ejecuciones de actualización de lenguajes](https://github.com/AndresStw/Proyecto-Formativo-SGO/actions/workflows/update-language-stats.yml).
-
-## 📈 Commits por colaborador
-
-La animación muestra los commits que GitHub atribuye a los colaboradores de este repositorio. Se actualiza automáticamente con cada cambio en `main` y semanalmente.
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/AndresStw/Proyecto-Formativo-SGO/main/stats/contributors.gif" alt="Gráfico animado de commits por colaborador en Proyecto Formativo SGO">
-</p>
-
-Consulta también la [página de contribuidores](https://github.com/AndresStw/Proyecto-Formativo-SGO/graphs/contributors), el [historial de commits](https://github.com/AndresStw/Proyecto-Formativo-SGO/commits/main/) y la [actividad de commits](https://github.com/AndresStw/Proyecto-Formativo-SGO/graphs/commit-activity).
-
-## 🌿 Ramas
-
-La rama predeterminada es [`main`](https://github.com/AndresStw/Proyecto-Formativo-SGO/tree/main). Revisa [todas las ramas](https://github.com/AndresStw/Proyecto-Formativo-SGO/branches) para ver las ramas de trabajo disponibles.
-
-## 📁 Estructura
-
-```text
-Proyecto-Formativo-SGO/
-├── .github/
-│   ├── scripts/
-│   │   └── generate-contributor-chart.py
-│   └── workflows/
-│       ├── update-language-stats.yml
-│       └── update-contributor-stats.yml
-├── stats/
-│   └── contributors.gif  (generado por GitHub Actions)
-├── Trimestre I/
-├── Trimestre II/
-├── Trimestre III/
-├── Trimestre IV/
-└── README.md
-```
-=======
-## 🛑 Git & Database Rules
-
-1. **NEVER** push to `main` or `Backend` directly. Use `feature/epXX-name` branches.
-2. **NEVER** edit tables manually in TablePlus/DBeaver. All schema changes go through Python Models + Alembic.
-3. **ONLY** the Lead runs `alembic revision` and `alembic upgrade` on the `Backend` branch to avoid merge conflicts.
-
----
-
-## 🩺 Troubleshooting
-
-| Error                                           | Cause                          | Fix                                                                              |
-| ----------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------- |
-| `Import "flask" could not be resolved`          | VS Code uses wrong interpreter | `Ctrl+Shift+P` → **Python: Select Interpreter** → pick `venv\Scripts\python.exe` |
-| `Access denied for user 'root'@'localhost'`     | Wrong MySQL password           | Check XAMPP MySQL config or `.env` URL                                           |
-| `Unknown database 'sabor_caleno_sgo'`           | Database not created           | Run the `CREATE DATABASE...` SQL in TablePlus                                    |
-| `Can't load plugin: sqlalchemy.dialects:driver` | `alembic.ini` has a dummy URL  | Comment out `sqlalchemy.url = driver://...` in `alembic.ini`                     |
->>>>>>> origin/Backend
+![Referencia](image.png)

@@ -1,4 +1,3 @@
-"""Entrypoint WSGI para Vercel. Vercel busca la variable `app`."""
-from app import create_app
+"""Entrada ASGI para Vercel: expone la aplicación FastAPI."""
 
-app = create_app()
+from app.main import app

@@ -1,4 +1,4 @@
-"""Excepciones de negocio. Flask las convierte en JSON."""
+"""Excepciones de negocio serializadas por la API."""
 
 
 class AppException(Exception):

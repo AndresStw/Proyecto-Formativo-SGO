@@ -18,7 +18,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.config import get_settings
-settings = get_settings()
+from app.domain.enums.user_role import UserRole
 from app.infrastructure.database.session import get_db
 from app.models.user import User
 from app.models.user_session import UserSession
@@ -45,13 +45,14 @@ def get_current_user(
         raise unauthorized
 
     token = credentials.credentials
+    settings = get_settings()
 
     try:
         # 2. Verificar la firma y el vencimiento del JWT.
         payload = jwt.decode(
             token,
-            settings.JWT_SECRET_KEY,
-            algorithms=[settings.JWT_ALGORITHM],
+            settings.jwt_secret_key,
+            algorithms=[settings.jwt_algorithm],
             options={"require": ["sub", "jti", "iat", "exp"]},
         )
 
@@ -97,7 +98,7 @@ def get_current_user(
 
     # 8. Comprobar inactividad.
     inactivity_limit = timedelta(
-        minutes=settings.SESSION_INACTIVITY_MINUTES
+        minutes=settings.session_inactivity_minutes
     )
 
     if now - session_record.last_activity_at >= inactivity_limit:
@@ -112,3 +113,15 @@ def get_current_user(
         db.commit()
 
     return user
+
+
+def require_admin(
+    current_user: User = Depends(get_current_user),
+) -> User:
+    """Dependencia equivalente al middleware admin de Laravel."""
+    if current_user.role not in (UserRole.ADMIN, UserRole.SUPER_ADMIN):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="No tienes permisos para acceder a este recurso.",
+        )
+    return current_user

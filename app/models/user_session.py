@@ -11,11 +11,11 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.infrastructure.database.base import Base
+from app.infrastructure.database.auth_base import AuthBase
 from app.models.user import utc_now_naive
 
 
-class UserSession(Base):
+class UserSession(AuthBase):
 
     __tablename__ = "user_sessions"
 
@@ -46,7 +46,7 @@ class UserSession(Base):
 
     # Identificador único asociado al JWT (claim jti)
     jti: Mapped[str] = mapped_column(
-        String(36),
+        String(255),
         nullable=False,
         unique=True
     )

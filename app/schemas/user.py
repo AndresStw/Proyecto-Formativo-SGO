@@ -7,9 +7,10 @@ sin exponer datos privados.
 
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict
 
 from app.domain.enums.user_role import UserRole
+from app.schemas.email import EmailAddress
 
 
 class UserResponse(BaseModel):
@@ -24,7 +25,7 @@ class UserResponse(BaseModel):
     id: int
     first_name: str
     last_name: str
-    email: EmailStr
+    email: EmailAddress
     phone: str | None
     role: UserRole
     is_active: bool

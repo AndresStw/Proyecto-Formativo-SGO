@@ -1,16 +1,15 @@
 from app import create_app
+from fastapi.testclient import TestClient
 
 
 def test_health():
-    app = create_app()
-    client = app.test_client()
-    r = client.get("/health")
-    assert r.status_code == 200
-    assert r.get_json()["status"] == "ok"
+    client = TestClient(create_app())
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json()["status"] == "ok"
 
 
 def test_404():
-    app = create_app()
-    client = app.test_client()
-    r = client.get("/ruta-que-no-existe")
-    assert r.status_code == 404
+    client = TestClient(create_app())
+    response = client.get("/ruta-que-no-existe")
+    assert response.status_code == 404
