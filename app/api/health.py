@@ -1,22 +1,37 @@
+# ! Se actualizo el archivo debido a que estaba utilizando FLASK en vez de fastAPI
+# ! Debido a que el resto esta utilizando FAST
+
 """Health checks: servidor vivo + conexión a DB."""
-from flask import Blueprint, jsonify
+
+from fastapi import APIRouter
 from sqlalchemy import text
 
 from app.infrastructure.database.connection import get_session
 
-health_bp = Blueprint("health", __name__)
+router = APIRouter(tags=["Health"])
 
 
-@health_bp.get("/health")
+@router.get("/health")
 def health():
-    return jsonify({"status": "ok", "service": "Sabor Caleño SGO"})
+    return {
+        "status": "ok",
+        "service": "Sabor Caleño SGO"
+    }
 
 
-@health_bp.get("/health/db")
+@router.get("/health/db")
 def health_db():
     try:
         with get_session() as db:
             db.execute(text("SELECT 1"))
-        return jsonify({"status": "ok", "database": "connected"})
-    except Exception as exc:
-        return jsonify({"status": "error", "database": str(exc)}), 500
+
+        return {
+            "status": "ok",
+            "database": "connected"
+        }
+
+    except Exception:
+        return {
+            "status": "error",
+            "database": "disconnected"
+        }
