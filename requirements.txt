@@ -14,5 +14,4 @@ email-validator
 PyJWT
 pwdlib[argon2]
 bcrypt>=4.2
-guinicorn==23.0.0
-bcrypt
+gunicorn==27.0.1
