@@ -60,9 +60,9 @@ def _register(
     try:
         user, access_token, _ = register_user(
             db=db,
-            first_name=data.first_name or "",
+            first_name=data.first_name,
             second_name=data.second_name,
-            last_name=data.last_name or "-",
+            last_name=data.last_name,
             second_last_name=data.second_last_name,
             email=str(data.email),
             phone=data.phone,

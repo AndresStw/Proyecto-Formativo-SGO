@@ -77,7 +77,10 @@ Cuando te registres o inicies sesión, copia el `accessToken`. Para usar las rut
 
 ```json
 {
-  "nombre": "Usuario de Prueba",
+  "primerNombre": "Usuario",
+  "segundoNombre": "De Prueba",
+  "primerApellido": "Ejemplo",
+  "segundoApellido": "Lopez",
   "email": "prueba.usuario01@example.com",
   "telefono": "+573001112233",
   "direccion": "Cali",
@@ -166,7 +169,7 @@ Necesita Bearer Token de `ADMIN` o `SUPER_ADMIN`. El registro público `/api/reg
 
 Puedes cambiar `rol` por `COCINERO`, `CAJERO` o `ADMIN`. La respuesta `201 Created` contiene el perfil creado y no expone el hash de contraseña. El correo y el teléfono deben ser únicos.
 
-**Otros detalles:** el registro acepta tanto `nombre` como los campos separados de nombre y apellido. El correo, teléfono y contraseña siguen teniendo sus validaciones. Desde la actualización del perfil no se puede cambiar el rol ni el estado de la cuenta.
+**Otros detalles:** el registro requiere `primerNombre` y `primerApellido`; `segundoNombre` y `segundoApellido` son opcionales. No se acepta un campo combinado `nombre`. También se validan el correo, el teléfono y la contraseña. Desde la actualización del perfil no se puede cambiar el rol ni el estado de la cuenta.
 
 Las rutas anteriores de Python, como `/api/v1/auth/...`, siguen funcionando.
 

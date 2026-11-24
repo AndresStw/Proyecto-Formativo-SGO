@@ -10,11 +10,26 @@ from app.domain.enums.user_role import UserRole
 from app.models.user import User
 
 
+def test_registration_requires_separate_name_fields(client):
+    response = client.post(
+        "/api/register",
+        json={
+            "nombre": "Nombre Completo",
+            "email": "nombre-completo@example.com",
+            "telefono": "3000000030",
+            "password": "Clave123",
+        },
+    )
+    assert response.status_code == 422
+
+
 def test_ep01_authentication_flow(client, caplog):
     registration = client.post(
         "/api/register",
         json={
-            "nombre": "Ana Torres",
+            "primerNombre": "Ana",
+            "segundoNombre": "María",
+            "primerApellido": "Torres",
             "email": "ana@example.com",
             "telefono": "+573001234567",
             "direccion": "Cali",
@@ -211,7 +226,8 @@ def test_client_cannot_create_staff_account(client):
     registration = client.post(
         "/api/register",
         json={
-            "nombre": "Cliente Prueba",
+            "primerNombre": "Cliente",
+            "primerApellido": "Prueba",
             "email": "cliente-rf07@example.com",
             "telefono": "3000000020",
             "password": "Clave123",

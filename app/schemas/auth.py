@@ -37,12 +37,11 @@ class TokenResponse(BaseModel):
 class RegisterRequest(BaseModel):
     """Datos de registro compatibles con el contrato de Laravel."""
 
-    model_config = ConfigDict(populate_by_name=True)
+    model_config = ConfigDict(populate_by_name=True, extra="forbid")
 
-    full_name: str | None = Field(default=None, alias="nombre", max_length=200)
-    first_name: str | None = Field(default=None, alias="primerNombre", max_length=45)
+    first_name: str = Field(alias="primerNombre", min_length=1, max_length=45)
     second_name: str | None = Field(default=None, alias="segundoNombre", max_length=45)
-    last_name: str | None = Field(default=None, alias="primerApellido", max_length=45)
+    last_name: str = Field(alias="primerApellido", min_length=1, max_length=45)
     second_last_name: str | None = Field(default=None, alias="segundoApellido", max_length=45)
     email: EmailAddress = Field(max_length=150)
     phone: str = Field(alias="telefono", min_length=1, max_length=15)
@@ -51,35 +50,20 @@ class RegisterRequest(BaseModel):
 
     @model_validator(mode="before")
     @classmethod
-    def split_laravel_full_name(cls, values):
+    def strip_registration_strings(cls, values):
         if not isinstance(values, dict):
             return values
 
         values = dict(values)
         for field_name in (
-            "nombre", "full_name", "primerNombre", "first_name",
+            "primerNombre", "first_name",
             "segundoNombre", "second_name", "primerApellido", "last_name",
             "segundoApellido", "second_last_name", "telefono", "phone",
         ):
             if isinstance(values.get(field_name), str):
                 values[field_name] = values[field_name].strip()
 
-        full_name = values.get("nombre", values.get("full_name"))
-        first_name = values.get("primerNombre", values.get("first_name"))
-        last_name = values.get("primerApellido", values.get("last_name"))
-        if full_name and not first_name:
-            name_parts = full_name.strip().split()
-            if name_parts:
-                values["primerNombre"] = name_parts[0]
-                if not last_name:
-                    values["primerApellido"] = " ".join(name_parts[1:]) or "-"
         return values
-
-    @model_validator(mode="after")
-    def require_first_and_last_name(self):
-        if not self.first_name or not self.last_name:
-            raise ValueError("Debes ingresar nombre y apellido.")
-        return self
 
 
 class StaffUserCreateRequest(BaseModel):

@@ -121,13 +121,13 @@ class Venta(Base):
         back_populates="venta"
     )
 
-    cajero: Mapped["Cajero"] = relationship(
-        "Cajero",
-        back_populates="ventas"
-    )
+    # cajero: Mapped["Cajero"] = relationship(
+    #     "Cajero",
+    #     back_populates="ventas"
+    # )
 
-    metodoPago: Mapped["MetodoPago"] = relationship(
-        "MetodoPago",
-        back_populates="ventas"
-    )
+    # metodoPago: Mapped["MetodoPago"] = relationship(
+    #     "MetodoPago",
+    #     back_populates="ventas"
+    # )
 

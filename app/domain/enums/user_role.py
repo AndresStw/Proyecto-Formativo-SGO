@@ -7,6 +7,4 @@ class UserRole(str, Enum):
     MESERO = "MESERO"
     COCINERO = "COCINERO"
     CAJERO = "CAJERO"
-
-#stash samuel
-#     CLIENTE = "CLIENTE"
+    CLIENTE = "CLIENTE"
