@@ -3,7 +3,7 @@ from datetime import date, time
 
 from pydantic import BaseModel, ConfigDict, Field
 
-
+from typing import Literal
 # Datos que recibe el Backend para crear una reserva
 class ReservaCreate(BaseModel):
 
@@ -36,3 +36,12 @@ class ReservaResponse(BaseModel):
     estado: str
 
     model_config = ConfigDict(from_attributes=True)
+
+class ReservaEstadoUpdate(BaseModel):
+    estado: Literal[
+        "Pendiente",
+        "Confirmada",
+        "Cancelada",
+        "Finalizada",
+        "No asistió"
+    ]

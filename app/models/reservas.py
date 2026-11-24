@@ -1,11 +1,15 @@
 
+from datetime import date, time
+
 from sqlalchemy import Integer, String, ForeignKey, Date, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.infrastructure.database.base import Base
 
+from app.infrastructure.database.base import Base
+ # Estados de reserva son Pendiente, Confirmada
+ # Cancelada, Finalizada y No asistió
 
 class Reserva(Base):
-    __tablename__ = "reserva"
+    __tablename__ = "reservas"
 
     id_reserva: Mapped[int] = mapped_column(
         Integer,
@@ -17,20 +21,21 @@ class Reserva(Base):
         String(20),
         ForeignKey("cliente.id_cliente"),
         nullable=False
-    )
+    ) 
+
 
     mesa_id_mesa: Mapped[int] = mapped_column(
         Integer,
-        ForeignKey("mesa.id_mesa"),
+        ForeignKey("mesa.idMesa"),
         nullable=False
     )
 
-    fecha: Mapped[Date] = mapped_column(
+    fecha: Mapped[date] = mapped_column(
         Date,
         nullable=False
     )
 
-    hora: Mapped[Time] = mapped_column(
+    hora: Mapped[time] = mapped_column(
         Time,
         nullable=False
     )
@@ -46,12 +51,12 @@ class Reserva(Base):
         default="Pendiente"
     )
 
-    # cliente = relationship(
-    #     "Cliente",
-    #     back_populates="reservas"
-    # )
+    cliente = relationship(
+        "Cliente",
+        back_populates="reservas"
+    )
 
-    # mesa = relationship(
-    #     "Mesa",
-    #     back_populates="reservas"
-    # )
+    mesa = relationship(
+        "Mesa",
+        back_populates="reservas"
+    )

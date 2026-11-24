@@ -30,9 +30,9 @@ class Pedido(Base):
         nullable=False,
     )
 
-    # mesero = relationship("Mesero")
-    # mesa = relationship("Mesa")
-    # cliente = relationship("Cliente")
+    mesero = relationship("Mesero")
+    mesa = relationship("Mesa")
+    cliente = relationship("Cliente")
     estado = relationship("Estado_Pedido")
     modalidad = relationship("modalidadPedido")
 
@@ -42,11 +42,11 @@ class Pedido(Base):
         cascade="all, delete-orphan",
     )
 
-    # venta: Mapped["Venta"] = relationship(
-    #     "Venta",
-    #     back_populates="pedido",
-    #     uselist=False
-    # )
+    venta: Mapped["Venta"] = relationship(
+        "Venta",
+        back_populates="pedido",
+        uselist=False
+    )
 
 
 class Detalle_Pedido(Base):
@@ -116,17 +116,18 @@ class Venta(Base):
         comment="Método utilizado para realizar el pago.",
     )
 
-    # pedido: Mapped["Pedido"] = relationship(
-    #     "Pedido",
-    #     back_populates="venta"
-    # )
+    pedido: Mapped["Pedido"] = relationship(
+        "Pedido",
+        back_populates="venta"
+    )
 
-    # cajero: Mapped["Cajero"] = relationship(
-    #     "Cajero",
-    #     back_populates="ventas"
-    # )
+    cajero: Mapped["Cajero"] = relationship(
+        "Cajero",
+        back_populates="ventas"
+    )
 
-    # metodoPago: Mapped["MetodoPago"] = relationship(
-    #     "MetodoPago",
-    #     back_populates="ventas"
-    # )
+    metodoPago: Mapped["MetodoPago"] = relationship(
+        "MetodoPago",
+        back_populates="ventas"
+    )
+

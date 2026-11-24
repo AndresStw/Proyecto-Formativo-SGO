@@ -111,10 +111,10 @@ class Receta(Base):
         comment="Plato al que pertenece la receta"
     )
 
-    # plato: Mapped["Plato"] = relationship(
-    #     "Plato",
-    #     back_populates="receta"
-    # )
+    plato: Mapped["Plato"] = relationship(
+        "Plato",
+        back_populates="receta"
+    )
 
     detalles: Mapped[list["DetalleReceta"]] = relationship(
         "DetalleReceta",
