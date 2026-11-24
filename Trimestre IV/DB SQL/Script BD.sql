@@ -451,6 +451,7 @@ CREATE TABLE `mesa` (
   `capacidad` int(11) NOT NULL,
   `numero_mesa` varchar(10) NOT NULL,
   `Mesero_id_mesero` int(11) NOT NULL,
+  `estado` varchar(30) NOT NULL DEFAULT 'Libre',
   PRIMARY KEY (`idMesa`),
   UNIQUE KEY `numero_mesa` (`numero_mesa`),
   KEY `Mesero_id_mesero` (`Mesero_id_mesero`),
@@ -464,7 +465,7 @@ CREATE TABLE `mesa` (
 
 LOCK TABLES `mesa` WRITE;
 /*!40000 ALTER TABLE `mesa` DISABLE KEYS */;
-INSERT INTO `mesa` VALUES (1,2,'Mesa 1',1),(2,4,'Mesa 2',1),(3,6,'Mesa 3',2),(4,8,'Mesa 4',5),(5,2,'Mesa 5',5),(6,4,'Mesa 6',5),(7,4,'Mesa 7',6),(8,6,'Mesa 8',6),(9,6,'Mesa 9',4),(10,8,'Mesa 10',4),(11,3,'Mesa 11',2),(12,8,'Mesa 12',1),(13,2,'Mesa 13',3),(14,4,'Mesa 14',5),(15,6,'Mesa 15',3),(16,10,'Mesa 16',10),(17,2,'Mesa 17',10),(18,10,'Mesa 18',8),(19,6,'Mesa 19',2),(20,4,'Mesa 20',7),(21,5,'Mesa 21',9);
+INSERT INTO `mesa` VALUES (1,2,'Mesa 1',1,'Libre'),(2,4,'Mesa 2',1,'Libre'),(3,6,'Mesa 3',2,'Libre'),(4,8,'Mesa 4',5,'Libre'),(5,2,'Mesa 5',5,'Libre'),(6,4,'Mesa 6',5,'Libre'),(7,4,'Mesa 7',6,'Libre'),(8,6,'Mesa 8',6,'Libre'),(9,6,'Mesa 9',4,'Libre'),(10,8,'Mesa 10',4,'Libre'),(11,3,'Mesa 11',2,'Libre'),(12,8,'Mesa 12',1,'Libre'),(13,2,'Mesa 13',3,'Libre'),(14,4,'Mesa 14',5,'Fuera de servicio'),(15,6,'Mesa 15',3,'Libre'),(16,10,'Mesa 16',10,'Libre'),(17,2,'Mesa 17',10,'Libre'),(18,10,'Mesa 18',8,'Libre'),(19,6,'Mesa 19',2,'Libre'),(20,4,'Mesa 20',7,'Libre'),(21,5,'Mesa 21',9,'Libre');
 /*!40000 ALTER TABLE `mesa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -641,6 +642,39 @@ LOCK TABLES `receta` WRITE;
 /*!40000 ALTER TABLE `receta` DISABLE KEYS */;
 INSERT INTO `receta` VALUES (1,1,'Receta tradicional bandeja paisa');
 /*!40000 ALTER TABLE `receta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reservas`
+--
+
+DROP TABLE IF EXISTS `reservas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reservas` (
+  `id_reserva` int(11) NOT NULL AUTO_INCREMENT,
+  `cliente_id_cliente` varchar(45) NOT NULL,
+  `mesa_id_mesa` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `cantidad_personas` int(11) NOT NULL,
+  `estado` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_reserva`),
+  KEY `reservas_ibfk_1` (`cliente_id_cliente`),
+  KEY `reservas_ibfk_2` (`mesa_id_mesa`),
+  CONSTRAINT `reservas_ibfk_1` FOREIGN KEY (`cliente_id_cliente`) REFERENCES `cliente` (`id_cliente`),
+  CONSTRAINT `reservas_ibfk_2` FOREIGN KEY (`mesa_id_mesa`) REFERENCES `mesa` (`idMesa`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservas`
+--
+
+LOCK TABLES `reservas` WRITE;
+/*!40000 ALTER TABLE `reservas` DISABLE KEYS */;
+INSERT INTO `reservas` VALUES (1,'CLI-001',2,'2026-02-16','05:30:00',3,'Activo'),(2,'CLI-005',1,'2026-11-25','12:00:00',2,'Pendiente'),(3,'CLI-004',3,'2026-11-25','12:00:00',2,'Pendiente'),(4,'CLI-004',2,'2026-11-25','12:00:00',3,'Pendiente'),(5,'CLI-004',14,'2026-11-25','12:00:00',3,'Cancelada'),(6,'CLI-006',14,'2026-11-25','14:35:43',1,'Pendiente'),(7,'CLI-006',14,'2026-11-25','18:35:43',1,'Pendiente');
+/*!40000 ALTER TABLE `reservas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1044,4 +1078,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-23 19:25:22
+-- Dump completed on 2026-11-24  7:53:14
