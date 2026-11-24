@@ -91,7 +91,7 @@ def obtener_historial_reservas(db: Session):
     return reserva_repository.obtener_historial_reservas(db)
 
 #! Filtrar por id
-def obtener_historial_por_cliente(db: Session, cliente_id: str):
+def obtener_historial_por_cliente(db: Session, cliente_id: int):
     return reserva_repository.obtener_historial_por_cliente(
         db, cliente_id
     )

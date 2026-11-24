@@ -46,7 +46,7 @@ class PedidoCreate(BaseModel):
     modalidad: ModalidadPedidoNombre   # RF-CAR-05: Domicilio / Mesa / Para llevar
     metodo_pago: MetodoPagoPedido | None = None   # RF-CAR-10: Efectivo / Nequi etc
     direccion_entrega: str | None = Field(default=None, max_length=255)  # RF-CAR-11
-    id_cliente: str = Field(min_length=1, max_length=45)
+    id_cliente: int = Field(gt=0)
     id_mesero: int = Field(gt=0)
     id_mesa: int | None = Field(default=None, gt=0)
     items: list[DetallePedidoCreate] = Field(min_length=1, max_length=50)
@@ -86,7 +86,7 @@ class PedidoResponse(BaseModel):
     fecha_hora: datetime | None
     estado: str
     modalidad: str
-    id_cliente: str
+    id_cliente: int
     id_mesero: int
     id_mesa: int | None
     total: float

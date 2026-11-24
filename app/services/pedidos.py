@@ -149,7 +149,7 @@ def listar_pedidos_usuario(db: Session, user: User) -> list[Pedido]:
     es_staff = user.role in ROLES_STAFF
     if es_staff:
         return repo.listar_todos_los_pedidos(db)
-    return repo.listar_pedidos_por_cliente(db, str(user.id))
+    return repo.listar_pedidos_por_cliente(db, user.id)
 
 
 # ---------- Cambio de estado (PATCH /pedidos/{id}/status) ----------
@@ -190,7 +190,7 @@ def cambiar_estado(
 
     # 2. Un cliente solo puede tocar sus propios pedidos.
     #    Se responde "no encontrado" para no revelar que el pedido existe.
-    if not es_staff and pedido.id_cliente != str(user.id):
+    if not es_staff and pedido.id_cliente != user.id:
         raise PedidoNoEncontradoError("Pedido no encontrado.")
 
     # 3. Leer el estado actual como enum.

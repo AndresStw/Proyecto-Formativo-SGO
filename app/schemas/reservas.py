@@ -7,7 +7,7 @@ from typing import Literal
 # Datos que recibe el Backend para crear una reserva
 class ReservaCreate(BaseModel):
 
-    cliente_id_cliente: str
+    cliente_id_cliente: int = Field(gt=0)
 
     mesa_id_mesa: int = Field(gt=0) # Mayor que 0
 
@@ -23,7 +23,7 @@ class ReservaResponse(BaseModel):
 
     id_reserva: int
 
-    cliente_id_cliente: str
+    cliente_id_cliente: int
 
     mesa_id_mesa: int
 

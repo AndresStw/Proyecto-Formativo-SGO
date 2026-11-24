@@ -28,6 +28,25 @@ if config.config_file_name is not None:
 target_metadata = Base.metadata
 
 
+def include_object(object_, name, type_, reflected, compare_to):
+    """Ignore database-only tables so autogenerate never drops Laravel tables."""
+    if type_ == "table" and reflected and compare_to is None:
+        return False
+    return True
+
+
+def compare_type(context_, inspected_column, metadata_column, inspected_type, metadata_type):
+    """Treat Laravel TIMESTAMP and SQLAlchemy DateTime as compatible for reset tokens."""
+    if (
+        metadata_column.table.name == "password_reset_tokens"
+        and metadata_column.name == "created_at"
+        and inspected_type.__class__.__name__ == "TIMESTAMP"
+        and metadata_type.__class__.__name__ == "DateTime"
+    ):
+        return False
+    return None
+
+
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""
     url = config.get_main_option("sqlalchemy.url")
@@ -36,6 +55,8 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        include_object=include_object,
+        compare_type=compare_type,
     )
 
     with context.begin_transaction():
@@ -53,7 +74,9 @@ def run_migrations_online() -> None:
     with connectable.connect() as connection:
         context.configure(
             connection=connection, 
-            target_metadata=target_metadata
+            target_metadata=target_metadata,
+            include_object=include_object,
+            compare_type=compare_type,
         )
 
         with context.begin_transaction():

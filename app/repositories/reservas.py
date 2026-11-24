@@ -1,26 +1,17 @@
 
 from sqlalchemy.orm import Session
 from datetime import timedelta
+from app.domain.enums.user_role import UserRole
 from app.models.reservas import Reserva
 from app.models.mesa import Mesa
-from sqlalchemy import text # Mientras se crea el ORM de cliente despues eliminarlo
-
-# from app.models.cliente import Cliente
+from app.models.user import User
 
 
-# def obtener_cliente(db: Session, cliente_id: str):
-#     return db.query(Cliente).filter( # ! Establece una condición para buscar en este caso por id_cliente
-#         Cliente.id_cliente == cliente_id
-#     ).first()
-
-def obtener_cliente(db: Session, cliente_id: str):
-    return db.execute(
-        text("""
-            SELECT id_cliente
-            FROM cliente
-            WHERE id_cliente = :cliente_id
-        """),
-        {"cliente_id": cliente_id}
+def obtener_cliente(db: Session, cliente_id: int):
+    return db.query(User).filter(
+        User.id == cliente_id,
+        User.role == UserRole.CLIENTE,
+        User.is_active.is_(True),
     ).first()
 
 def obtener_mesa(db: Session, mesa_id: int):
@@ -63,7 +54,7 @@ def obtener_historial_reservas(db: Session):
     ).all()
 
 
-def obtener_historial_por_cliente(db: Session, cliente_id: str):
+def obtener_historial_por_cliente(db: Session, cliente_id: int):
     return db.query(Reserva).filter(
         Reserva.cliente_id_cliente == cliente_id
     ).order_by(

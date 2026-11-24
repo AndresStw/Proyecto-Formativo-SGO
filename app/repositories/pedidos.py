@@ -62,7 +62,7 @@ def get_pedido_por_id(db: Session, pedido_id: int) -> Pedido | None:
 
 # -- RF-CAR-08: historial del cliente / pedidos -----
 
-def listar_pedidos_por_cliente(db: Session, id_cliente: str) -> list[Pedido]:
+def listar_pedidos_por_cliente(db: Session, id_cliente: int) -> list[Pedido]:
     """Historial de un cliente, del más reciente al más antiguo."""
     return list(
         db.scalars(

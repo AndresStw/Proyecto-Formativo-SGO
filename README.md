@@ -21,10 +21,10 @@ La idea fue pasar las funciones de EP-01 a Python sin crear otra tabla de usuari
 2. Comparé eso con lo que ya estaba hecho en Python.
 3. Pasé los 5 usuarios de `usuario` a `users`, manteniendo sus IDs, contraseñas cifradas, roles y demás datos. La tabla original de Laravel quedó guardada.
 4. Agregué las rutas para registro, inicio y cierre de sesión, recuperación de contraseña y consulta de usuarios. También se configuró CORS.
-5. Ajusté los campos y roles para que funcionaran en Python. El teléfono no se puede repetir y se sigue usando `password_reset_tokens`.
-6. Ajusté las dependencias y la configuración para ejecutar FastAPI de forma local y en Vercel.
+5. Alineé las relaciones de pedidos, reservas, mesas, inventario y ventas con la tabla única `users`, en vez de apuntarlas a tablas de roles que no existen.
+6. Preparé las migraciones para los modelos de negocio y la tabla de métodos de pago, y ajusté las dependencias y la configuración local/Vercel.
 
-Los archivos de migración están en [`migrations/versions/`](./migrations/versions/). En la base de datos local se aplicaron hasta la versión `c9a7d2e84110`.
+Los archivos están en [`migrations/versions/`](./migrations/versions/). La migración de negocio [e09827dd3b4d](./migrations/versions/e09827dd3b4d_create_business_tables.py) crea las 14 tablas de los modelos actuales. La base MySQL local quedó en `e09827dd3b4d`.
 
 ## Usuarios y base de datos
 
@@ -207,7 +207,9 @@ El ejemplo de configuración está en [`.env.example`](./.env.example). Los dato
 
 En la base ya existían tablas de Laravel como `usuario`, `personal_access_tokens` y `migrations`. Se conservaron. La tabla de sesiones anterior pasó a llamarse `user_sessions_legacy` para que Python pudiera usar `user_sessions`.
 
-Se comprobó que los 5 usuarios quedaron en `users`, con estos roles: 2 `CLIENTE`, 1 `MESERO`, 1 `ADMIN` y 1 `SUPER_ADMIN`. Las sesiones anteriores quedaron desactivadas.
+Las cuentas Laravel originales se copiaron a `users`; `usuario` se conserva sin cambios como tabla de origen. Python usa `users` para autenticación y para las claves foráneas de las tablas de negocio. Las sesiones Laravel antiguas se conservaron y se revocaron para Python.
+
+La migración crea las tablas de negocio vacías. Para cargar los catálogos de modalidades y estados de pedidos después de migrar, ejecuta `python -m scripts.seed_pedidos`.
 
 ## Ejecutar el proyecto en local
 
@@ -262,20 +264,17 @@ En Python se dejaron nombres como `first_name`, `password_hash`, `User` y `get_c
 
 De todas formas, la API sigue aceptando nombres en español como `primerNombre` para que las partes del proyecto que ya los usan no tengan problemas. Los mensajes que ve el usuario también pueden estar en español.
 
-## ¿Qué se revisó al terminar?
+## Estado de migraciones y validación
 
-- Se aplicaron las migraciones con Alembic hasta `c9a7d2e84110`.
-- Se comprobó que hay 5 usuarios en `usuario` y 5 en `users`.
-- Se revisaron los 4 roles, las contraseñas cifradas y que no se puedan repetir los teléfonos.
-- Las 5 sesiones antiguas quedaron guardadas en `user_sessions_legacy` y desactivadas en Python.
-- Se conservaron las tablas `usuario`, `migrations`, `personal_access_tokens` y `password_reset_tokens`.
-- También se probó la migración con una base SQLite temporal y datos de ejemplo.
-- Las pruebas automáticas de Python habían dado **5 pruebas aprobadas** en SQLite.
+- `alembic current` en MySQL muestra `e09827dd3b4d (head)`.
+- Las 14 tablas de negocio están creadas; estaban vacías al aplicar la migración.
+- Se conservaron `usuario`, `migrations`, `personal_access_tokens`, `password_reset_tokens` y las tablas de autenticación.
+- Se ensayó la cadena completa de migraciones en una base SQLite temporal.
+- `alembic check` reportó que no hay cambios de esquema pendientes.
+- La suite automatizada reportó **9 pruebas aprobadas** en SQLite.
 
 **Nota:** las pruebas hechas en Postman con Laravel no comprueban que Python funcione. Para eso hay que probar las rutas con el servidor FastAPI encendido.
 
-## Errores que note y tenemos que corregir
+## Por qué se conservan `usuario` y `users`
 
-Tenemos dos tablas users y usuarios, cual es el tema tenemos que usar solo una actualmente esta apunta a **users**, tenemos que descartar una.
-
-![Referencia](image.png)
+`users` es la tabla que utiliza el backend Python. `usuario` se conserva como tabla original de Laravel para no eliminar ni alterar sus datos; no es una segunda tabla activa de autenticación en Python.

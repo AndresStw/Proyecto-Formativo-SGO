@@ -32,7 +32,7 @@ def consultar_historial(db: Session = Depends(get_db)):
     response_model=list[ReservaResponse]
 )
 def consultar_historial_cliente(
-    cliente_id: str,
+    cliente_id: int,
     db: Session = Depends(get_db)
 ):
     return obtener_historial_por_cliente(db, cliente_id)

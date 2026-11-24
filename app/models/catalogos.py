@@ -52,3 +52,10 @@ class Estado_Pedido(Base):
 
     id_estado = Column("idEstado_Pedido", Integer, primary_key=True, autoincrement=True)
     nombre_estado = Column(String(45), unique=True, nullable=False)
+
+
+class MetodoPago(Base):
+    __tablename__ = "metodospago"
+
+    idMetodoPago = Column(Integer, primary_key=True, autoincrement=True)
+    metodo = Column(String(45), nullable=False)

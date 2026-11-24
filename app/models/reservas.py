@@ -17,9 +17,9 @@ class Reserva(Base):
         autoincrement=True
     )
 
-    cliente_id_cliente: Mapped[str] = mapped_column(
-        String(20),
-        ForeignKey("cliente.id_cliente"),
+    cliente_id_cliente: Mapped[int] = mapped_column(
+        Integer,
+        ForeignKey("users.id"),
         nullable=False
     ) 
 
@@ -49,11 +49,6 @@ class Reserva(Base):
         String(45),
         nullable=False,
         default="Pendiente"
-    )
-
-    cliente = relationship(
-        "Cliente",
-        back_populates="reservas"
     )
 
     mesa = relationship(

@@ -14,9 +14,9 @@ class Pedido(Base):
     tiempo_preparacion = Column(Integer, nullable=True)
     hora_entrega = Column(DateTime, nullable=True)
 
-    id_mesero = Column("Mesero_id_mesero", Integer, ForeignKey("mesero.id_mesero"), nullable=False, index=True)
+    id_mesero = Column("Mesero_id_mesero", Integer, ForeignKey("users.id"), nullable=False, index=True)
     id_mesa = Column("Mesa_idMesa", Integer, ForeignKey("mesa.idMesa", ondelete="SET NULL"), nullable=True)
-    id_cliente = Column("Cliente_id_cliente", String(45), ForeignKey("cliente.id_cliente"), nullable=False, index=True)
+    id_cliente = Column("Cliente_id_cliente", Integer, ForeignKey("users.id"), nullable=False, index=True)
     id_modalidad = Column(
         "modalidadPedido_id_modalidad",
         Integer,
@@ -30,9 +30,7 @@ class Pedido(Base):
         nullable=False,
     )
 
-    mesero = relationship("Mesero")
     mesa = relationship("Mesa")
-    cliente = relationship("Cliente")
     estado = relationship("Estado_Pedido")
     modalidad = relationship("modalidadPedido")
 
@@ -104,14 +102,14 @@ class Venta(Base):
 
     idCajero: Mapped[int] = mapped_column(
         Integer,
-        ForeignKey("TABLA_CAJERO.ID_CAJERO"),
+        ForeignKey("users.id"),
         nullable=False,
         comment="Cajero que registra la venta.",
     )
 
     idMetodoPago: Mapped[int] = mapped_column(
         Integer,
-        ForeignKey("metodosPago.idMetodoPago"),
+        ForeignKey("metodospago.idMetodoPago"),
         nullable=False,
         comment="Método utilizado para realizar el pago.",
     )

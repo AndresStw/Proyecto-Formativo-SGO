@@ -31,7 +31,7 @@ class Inventario(Base):
 
     idAdministrador: Mapped[int] = mapped_column(
         Integer,
-        ForeignKey("administradores.idAdministrador"),
+        ForeignKey("users.id"),
         nullable=False,
         comment="Administrador responsable del inventario"
     )
@@ -125,7 +125,7 @@ class Receta(Base):
 
 
 class DetalleReceta(Base):
-    __tablename__ = "detalleRecetas"
+    __tablename__ = "detallerecetas"
 
     idDetalleReceta: Mapped[int] = mapped_column(
         Integer,

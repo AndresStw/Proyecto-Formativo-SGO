@@ -31,7 +31,7 @@ class Mesa(Base):
     mesero_id_mesero: Mapped[int] = mapped_column(
     "Mesero_id_mesero",
     Integer,
-    ForeignKey("mesero.id_mesero"),
+    ForeignKey("users.id"),
     nullable=False
 )
 
@@ -39,11 +39,6 @@ class Mesa(Base):
         String(30),
         nullable=False,
         default="libre"
-    )
-
-    mesero = relationship(
-        "Mesero",
-        back_populates="mesas"
     )
 
     reservas = relationship(
