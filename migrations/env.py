@@ -29,14 +29,14 @@ target_metadata = Base.metadata
 
 
 def include_object(object_, name, type_, reflected, compare_to):
-    """Ignore database-only tables so autogenerate never drops Laravel tables."""
+    """Ignore database-only tables so autogenerate never drops existing data."""
     if type_ == "table" and reflected and compare_to is None:
         return False
     return True
 
 
 def compare_type(context_, inspected_column, metadata_column, inspected_type, metadata_type):
-    """Treat Laravel TIMESTAMP and SQLAlchemy DateTime as compatible for reset tokens."""
+    """Treat the deployed timestamp representation as compatible for reset tokens."""
     if (
         metadata_column.table.name == "password_reset_tokens"
         and metadata_column.name == "created_at"

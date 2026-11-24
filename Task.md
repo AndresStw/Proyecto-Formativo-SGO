@@ -4,49 +4,52 @@
 
 - ✅ Local MySQL (XAMPP) connected.
 - ✅ Alembic configured.
-- ✅ Database is empty. We need to build the ORM models!
+- ✅ Authentication and business tables are created in MySQL.
+- ✅ Alembic is at revision `e09827dd3b4d`.
 
 ---
 
 ## ⚠️ IMPORTANT: How to create a Model (ORM)
 
 Each Epic must create its own files inside `app/models/`.
-**Do not run Alembic directly on `Backend`.** Work on your feature branch, create the models, test the import, and open a PR. The Lead will run the final migration.
+Create and review a migration for each new model set before applying it to a shared database. Keep relationships aligned with the single `users` table for account roles.
 
 Example workflow for your task:
 
 1. Create the `.py` files in `app/models/`.
 2. Update `app/models/__init__.py` to import your new models.
-3. Run `python -c "import app.models; print('OK')"` to ensure no syntax errors.
-4. Push and open a PR.
+3. Run `python -c "import app.models; print('OK')"` to ensure no import errors.
+4. Generate and review an Alembic migration, then run `alembic upgrade head` in the intended environment.
 
 ---
 
 ## 🔴 EP-01 — Authentication & Accounts (BLOCKING) - ✅ COMPLETED
 
 **Assignee:** Lead
-**Framework:** Laravel 11 + Laravel Sanctum
+**Framework:** FastAPI + SQLAlchemy + JWT
 
-_Architecture Note: Implemented using "Single Table Inheritance" (a single `Usuario` table with a `rol` column) instead of separate tables for Cliente, Mesero, etc. This simplifies queries and maintenance._
+_Architecture note: account roles use one `users` table with a `role` column. Business records reference `users.id`; there are no separate account tables for customers, waiters, cooks, cashiers or administrators._
 
-**Model Tasks (Laravel - `app/Models/`):**
+**Model tasks (`app/models/`):**
 
-- [x] `Usuario.php` (idUsuario, names, email, password_hash, telefono, direccion, rol, estado) implementing `HasApiTokens`.
+- [x] `user.py` (`id`, names, email, `password_hash`, phone, address, role, active state).
+- [x] Persist JWT sessions and one-time password reset tokens.
 
-**Endpoint Tasks (`routes/api.php`):**
+**Endpoint tasks (`app/api/v1/auth.py`):**
 
-- [x] `POST /api/register` (Creates user with 'cliente' role by default and returns Token).
-- [x] `POST /api/login` (Validates Bcrypt credentials and returns Token).
-- [x] `GET /api/me` (Protected route to view profile).
-- [x] `PUT /api/me` (Protected route to update profile).
-- [x] `POST /api/logout` (Destroys the current token).
-- [x] `POST /api/forgot-password` (Sends a simulated reset link to the log file).
-- [x] `POST /api/reset-password` (Resets the password using the token).
+- [x] `POST /api/v1/auth/register` (Creates a `CLIENTE` account and returns a JWT).
+- [x] `POST /api/v1/auth/login` (Validates credentials and returns a JWT).
+- [x] `GET /api/v1/auth/me` (Protected profile read).
+- [x] `PUT /api/v1/auth/me` (Protected profile update).
+- [x] `POST /api/v1/auth/logout` (Revokes the current session).
+- [x] `POST /api/v1/auth/forgot-password` (Writes a reset link to the application log).
+- [x] `POST /api/v1/auth/reset-password` (Validates a reset token and changes the password).
+- [x] `GET /api/v1/auth/users` and `POST /api/v1/auth/users` (Administrator account management).
 
-**Middlewares:**
+**Authorization dependencies:**
 
-- [x] `auth:sanctum` (Replaces the old Python `@require_auth` decorator, protects private routes).
-- [x] `AdminMiddleware` (Created and registered to protect admin-only routes).
+- [x] `get_current_user` (Validates JWT, session, account state and expiry).
+- [x] `require_admin` (Protects administrator-only routes).
 
 ---
 

@@ -1,4 +1,4 @@
-"""Rutas de autenticación Python y rutas compatibles con EP-01 de Laravel."""
+"""Authentication, profile and account routes for the versioned API."""
 
 import logging
 from datetime import datetime, timezone
@@ -17,23 +17,19 @@ from app.infrastructure.database.session import get_db
 from app.models.user import User
 from app.models.user_session import UserSession
 from app.schemas.auth import (
+    AuthResponse,
     ForgotPasswordRequest,
-    LaravelAuthResponse,
-    LaravelProfileUpdateResponse,
-    LaravelUserResponse,
     LoginRequest,
     ProfileUpdateRequest,
     RegisterRequest,
     ResetPasswordRequest,
     StaffUserCreateRequest,
-    TokenResponse,
 )
 from app.schemas.user import UserResponse
 from app.services.auth_service import (
     AuthenticationError,
     PasswordResetError,
     RegistrationError,
-    authenticate_user,
     authenticate_user_with_user,
     create_password_reset_link,
     create_staff_user,
@@ -45,7 +41,6 @@ from app.services.auth_service import (
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/auth", tags=["Autenticación"])
-laravel_router = APIRouter(tags=["Autenticación EP-01"])
 
 
 def _request_ip(request: Request) -> str | None:
@@ -56,9 +51,9 @@ def _register(
     data: RegisterRequest,
     request: Request,
     db: Session,
-) -> LaravelAuthResponse | JSONResponse:
+) -> AuthResponse | JSONResponse:
     try:
-        user, access_token, _ = register_user(
+        user, access_token, expires_in = register_user(
             db=db,
             first_name=data.first_name,
             second_name=data.second_name,
@@ -83,20 +78,16 @@ def _register(
             },
         )
 
-    return LaravelAuthResponse(
+    return AuthResponse(
         access_token=access_token,
-        user=LaravelUserResponse.model_validate(user),
+        expires_in=expires_in,
+        user=UserResponse.model_validate(user),
     )
 
 
 @router.post(
     "/register",
-    response_model=LaravelAuthResponse,
-    status_code=status.HTTP_201_CREATED,
-)
-@laravel_router.post(
-    "/register",
-    response_model=LaravelAuthResponse,
+    response_model=AuthResponse,
     status_code=status.HTTP_201_CREATED,
 )
 def register(
@@ -108,7 +99,7 @@ def register(
     return _register(data, request, db)
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post("/login", response_model=AuthResponse)
 def login(
     data: LoginRequest,
     request: Request,
@@ -116,7 +107,7 @@ def login(
 ):
     """Conserva la respuesta del endpoint Python que ya existía."""
     try:
-        access_token, expires_in = authenticate_user(
+        user, access_token, expires_in = authenticate_user_with_user(
             db=db,
             email=str(data.email),
             password=data.password,
@@ -130,37 +121,10 @@ def login(
             headers={"WWW-Authenticate": "Bearer"},
         ) from error
 
-    return TokenResponse(access_token=access_token, expires_in=expires_in)
-
-
-@laravel_router.post("/login", response_model=LaravelAuthResponse)
-def laravel_login(
-    data: LoginRequest,
-    request: Request,
-    db: Session = Depends(get_db),
-):
-    """Devuelve el contrato accessToken + user esperado por Laravel/Postman."""
-    try:
-        user, access_token, _ = authenticate_user_with_user(
-            db=db,
-            email=str(data.email),
-            password=data.password,
-            ip_address=_request_ip(request),
-            user_agent=request.headers.get("user-agent"),
-        )
-    except AuthenticationError as error:
-        return JSONResponse(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            content={
-                "message": "Las credenciales son incorrectas.",
-                "errors": {"email": ["Las credenciales son incorrectas."]},
-                #Falta agregar eñ error o mensaje si el usuario esta inactivo.
-            },
-        )
-
-    return LaravelAuthResponse(
+    return AuthResponse(
         access_token=access_token,
-        user=LaravelUserResponse.model_validate(user),
+        expires_in=expires_in,
+        user=UserResponse.model_validate(user),
     )
 
 
@@ -172,26 +136,12 @@ def get_my_profile(
     return current_user
 
 
-@laravel_router.get("/me", response_model=LaravelUserResponse)
-def get_laravel_profile(current_user: User = Depends(get_current_user)):
-    return current_user
-
-
 @router.get("/users", response_model=list[UserResponse])
 def list_python_users(
     current_user: User = Depends(require_admin),
     db: Session = Depends(get_db),
 ):
     """Lista cuentas para administradores, sin exponer hashes de contraseña."""
-    return db.scalars(select(User).order_by(User.id)).all()
-
-
-@laravel_router.get("/users", response_model=list[LaravelUserResponse])
-def list_laravel_users(
-    current_user: User = Depends(require_admin),
-    db: Session = Depends(get_db),
-):
-    """Lista usuarios con los nombres de campo del contrato Laravel EP-01."""
     return db.scalars(select(User).order_by(User.id)).all()
 
 
@@ -229,20 +179,6 @@ def create_python_staff_account(
     db: Session = Depends(get_db),
 ):
     """Crea una cuenta de personal desde la API Python."""
-    return _create_staff_account(data, db)
-
-
-@laravel_router.post(
-    "/users",
-    response_model=LaravelUserResponse,
-    status_code=status.HTTP_201_CREATED,
-)
-def create_laravel_staff_account(
-    data: StaffUserCreateRequest,
-    admin: User = Depends(require_admin),
-    db: Session = Depends(get_db),
-):
-    """Permite a un administrador crear personal con el contrato Laravel."""
     return _create_staff_account(data, db)
 
 
@@ -299,27 +235,6 @@ def update_python_profile(
     return _update_profile(data, current_user, db)
 
 
-@laravel_router.put("/me", response_model=LaravelProfileUpdateResponse)
-def update_laravel_profile(
-    data: ProfileUpdateRequest,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    try:
-        updated_user = _update_profile(data, current_user, db)
-    except HTTPException as error:
-        detail = str(error.detail)
-        errors = {"telefono": [detail]} if "teléfono" in detail.lower() else {}
-        return JSONResponse(
-            status_code=error.status_code,
-            content={"message": detail, "errors": errors},
-        )
-    return LaravelProfileUpdateResponse(
-        message="Perfil actualizado correctamente",
-        user=LaravelUserResponse.model_validate(updated_user),
-    )
-
-
 def _revoke_current_session(
     credentials: HTTPAuthorizationCredentials | None,
     current_user: User,
@@ -374,18 +289,7 @@ def logout(
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-@laravel_router.post("/logout")
-def laravel_logout(
-    credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-):
-    _revoke_current_session(credentials, current_user, db)
-    return {"message": "Sesión cerrada exitosamente"}
-
-
 @router.post("/forgot-password")
-@laravel_router.post("/forgot-password")
 def forgot_password(
     data: ForgotPasswordRequest,
     db: Session = Depends(get_db),
@@ -404,7 +308,6 @@ def forgot_password(
 
 
 @router.post("/reset-password")
-@laravel_router.post("/reset-password")
 def reset_password(
     data: ResetPasswordRequest,
     db: Session = Depends(get_db),

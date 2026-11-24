@@ -1,17 +1,16 @@
-from datetime import datetime
 from typing import Literal
 
 from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
-    field_serializer,
     field_validator,
     model_validator,
 )
 
 from app.domain.enums.user_role import UserRole
 from app.schemas.email import EmailAddress
+from app.schemas.user import UserResponse
 
 
 class LoginRequest(BaseModel):
@@ -23,19 +22,8 @@ class LoginRequest(BaseModel):
     password: str = Field(min_length=1, max_length=128)
 
 
-class TokenResponse(BaseModel):
-    """
-    Respuesta que entrega el backend cuando
-    la autenticación es exitosa.
-    """
-
-    access_token: str
-    token_type: Literal["bearer"] = "bearer"
-    expires_in: int
-
-
 class RegisterRequest(BaseModel):
-    """Datos de registro compatibles con el contrato de Laravel."""
+    """Datos para registrar una cuenta en el backend."""
 
     model_config = ConfigDict(populate_by_name=True, extra="forbid")
 
@@ -171,34 +159,8 @@ class ResetPasswordRequest(BaseModel):
         return self
 
 
-class LaravelUserResponse(BaseModel):
-    """Respuesta de usuario con los nombres usados por el cliente Laravel."""
-
-    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
-
-    id: int = Field(validation_alias="id", serialization_alias="idUsuario")
-    first_name: str = Field(validation_alias="first_name", serialization_alias="primerNombre")
-    second_name: str | None = Field(validation_alias="second_name", serialization_alias="segundoNombre")
-    last_name: str = Field(validation_alias="last_name", serialization_alias="primerApellido")
-    second_last_name: str | None = Field(validation_alias="second_last_name", serialization_alias="segundoApellido")
-    phone: str | None = Field(validation_alias="phone", serialization_alias="telefono")
-    email: EmailAddress
-    address: str | None = Field(validation_alias="address", serialization_alias="direccion")
-    role: UserRole = Field(validation_alias="role", serialization_alias="rol")
-    is_active: bool = Field(validation_alias="is_active", serialization_alias="estado")
-    created_at: datetime
-    updated_at: datetime
-
-    @field_serializer("role")
-    def serialize_role(self, role: UserRole) -> str:
-        return role.value.lower()
-
-
-class LaravelAuthResponse(BaseModel):
-    access_token: str = Field(serialization_alias="accessToken")
-    user: LaravelUserResponse
-
-
-class LaravelProfileUpdateResponse(BaseModel):
-    message: str
-    user: LaravelUserResponse
+class AuthResponse(BaseModel):
+    access_token: str
+    token_type: Literal["bearer"] = "bearer"
+    expires_in: int
+    user: UserResponse

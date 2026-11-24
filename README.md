@@ -1,280 +1,118 @@
-# Backend API — Sabor Caleño SGO
+# Sabor Caleño SGO — Backend API
 
-En este README explico los cambios que se hicieron para pasar la parte de **usuarios e inicio de sesión (EP-01)** de Laravel a Python con FastAPI.
+API del sistema desarrollada con FastAPI, SQLAlchemy y Alembic. La autenticación usa JWT, sesiones persistidas y una tabla única `users` con el rol de cada cuenta.
 
-El código de Laravel está en la rama `Laravel_Code_Adapted(PHP)` y el de Python en `Backend`.
+## Preparar el entorno local
 
-## ¿Qué se cambió?
+Desde la raíz del repositorio, en PowerShell:
 
-| Parte                       | Antes (Laravel)        | Ahora (Python)                               |
-| --------------------------- | ---------------------- | -------------------------------------------- |
-| Framework                   | Laravel 11             | FastAPI                                      |
-| Inicio de sesión            | Laravel Sanctum        | JWT y sesiones guardadas en la base de datos |
-| Usuarios                    | Tabla `usuario`        | Tabla `users`                                |
-| Cambios en la base de datos | Migraciones de Laravel | SQLAlchemy y Alembic                         |
+```powershell
+if (-not (Test-Path .venv)) { python -m venv .venv }
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+```
 
-La idea fue pasar las funciones de EP-01 a Python sin crear otra tabla de usuarios ni cambiar toda la estructura que ya tenía el backend.
+Conserva tu `.env` actual si ya tiene configurada la conexión a MySQL. Inicia la API con:
 
-## ¿Cómo se hizo?
+```powershell
+uvicorn app.main:app --reload --port 8000
+```
 
-1. Revisé el controlador, el modelo `Usuario`, las rutas y las migraciones que tenía Laravel.
-2. Comparé eso con lo que ya estaba hecho en Python.
-3. Pasé los 5 usuarios de `usuario` a `users`, manteniendo sus IDs, contraseñas cifradas, roles y demás datos. La tabla original de Laravel quedó guardada.
-4. Agregué las rutas para registro, inicio y cierre de sesión, recuperación de contraseña y consulta de usuarios. También se configuró CORS.
-5. Alineé las relaciones de pedidos, reservas, mesas, inventario y ventas con la tabla única `users`, en vez de apuntarlas a tablas de roles que no existen.
-6. Preparé las migraciones para los modelos de negocio y la tabla de métodos de pago, y ajusté las dependencias y la configuración local/Vercel.
+La documentación de OpenAPI está en `http://127.0.0.1:8000/docs`.
 
-Los archivos están en [`migrations/versions/`](./migrations/versions/). La migración de negocio [e09827dd3b4d](./migrations/versions/e09827dd3b4d_create_business_tables.py) crea las 14 tablas de los modelos actuales. La base MySQL local quedó en `e09827dd3b4d`.
+## Autenticación y cuentas
 
-## Usuarios y base de datos
+Todas las rutas de autenticación están bajo `/api/v1/auth` y aparecen agrupadas como **Autenticación** en OpenAPI.
 
-Se sigue usando una sola tabla de usuarios. Algunos campos tienen nombres distintos en Python, pero la API acepta los nombres que se usaban en Laravel.
+| Método | Ruta | Acceso | Función |
+| --- | --- | --- | --- |
+| `POST` | `/api/v1/auth/register` | Público | Crea una cuenta `CLIENTE` |
+| `POST` | `/api/v1/auth/login` | Público | Inicia sesión y devuelve un JWT |
+| `GET` | `/api/v1/auth/me` | Bearer token | Consulta el perfil actual |
+| `PUT` | `/api/v1/auth/me` | Bearer token | Actualiza el perfil actual |
+| `POST` | `/api/v1/auth/logout` | Bearer token | Revoca la sesión actual |
+| `POST` | `/api/v1/auth/forgot-password` | Público | Registra un enlace de recuperación en los logs |
+| `POST` | `/api/v1/auth/reset-password` | Público | Cambia la contraseña con un token válido |
+| `GET` | `/api/v1/auth/users` | `ADMIN` o `SUPER_ADMIN` | Lista cuentas sin devolver hashes |
+| `POST` | `/api/v1/auth/users` | `ADMIN` o `SUPER_ADMIN` | Crea una cuenta de personal |
 
-| Campo en Laravel  | Campo en Python (`users`) | Para qué sirve                  |
-| ----------------- | ------------------------- | ------------------------------- |
-| `idUsuario`       | `id`                      | ID del usuario                  |
-| `primerNombre`    | `first_name`              | Primer nombre                   |
-| `segundoNombre`   | `second_name`             | Segundo nombre (opcional)       |
-| `primerApellido`  | `last_name`               | Primer apellido                 |
-| `segundoApellido` | `second_last_name`        | Segundo apellido (opcional)     |
-| `email`           | `email`                   | Correo, no se puede repetir     |
-| `telefono`        | `phone`                   | Teléfono, no se puede repetir   |
-| `direccion`       | `address`                 | Dirección (opcional)            |
-| `password_hash`   | `password_hash`           | Contraseña cifrada              |
-| `rol`             | `role`                    | Rol del usuario                 |
-| `estado`          | `is_active`               | Indica si la cuenta está activa |
+### Registrar una cuenta
 
-Cuando alguien se registra, recibe el rol `CLIENTE`. Se mantuvieron los roles que ya tenía Python, como `SUPER_ADMIN`, y se agregaron `MESERO` y `CAJERO`. En las respuestas de la API los roles aparecen en minúsculas, como en Laravel.
-
-## Rutas de EP-01
-
-Se mantuvo `/api` al principio de las rutas para poder seguir usando las solicitudes que ya teníamos en Postman.
-
-| Método | Ruta                   | Quién puede usarla      | Qué hace                                              |
-| ------ | ---------------------- | ----------------------- | ----------------------------------------------------- |
-| `POST` | `/api/register`        | Cualquiera              | Registra un cliente y devuelve `accessToken` y `user` |
-| `POST` | `/api/login`           | Cualquiera              | Inicia sesión y devuelve `accessToken` y `user`       |
-| `GET`  | `/api/me`              | Usuario con token       | Muestra su perfil                                     |
-| `PUT`  | `/api/me`              | Usuario con token       | Actualiza su perfil                                   |
-| `POST` | `/api/logout`          | Usuario con token       | Cierra la sesión actual                               |
-| `POST` | `/api/forgot-password` | Cualquiera              | Genera el enlace para recuperar la contraseña         |
-| `POST` | `/api/reset-password`  | Cualquiera              | Cambia la contraseña usando el token de recuperación  |
-| `GET`  | `/api/users`           | `ADMIN` o `SUPER_ADMIN` | Muestra la lista de usuarios sin sus contraseñas      |
-| `POST` | `/api/users`           | `ADMIN` o `SUPER_ADMIN` | Crea cuentas de personal                              |
-
-## Probar la API con Postman
-
-Primero inicia el servidor. Estas son las direcciones locales:
-
-- API: `http://127.0.0.1:8000`
-- Documentación de FastAPI: `http://127.0.0.1:8000/docs`
-
-En las solicitudes que llevan datos, usa **Body → raw → JSON** y el encabezado `Content-Type: application/json`.
-
-Cuando te registres o inicies sesión, copia el `accessToken`. Para usar las rutas protegidas, entra a **Authorization → Bearer Token** y pega ese token. Para consultar todos los usuarios necesitas iniciar sesión como `ADMIN` o `SUPER_ADMIN`.
-
-### Registrar usuario — `POST /api/register`
+Se requieren nombres separados. `segundoNombre` y `segundoApellido` son opcionales; no se acepta un campo combinado `nombre`.
 
 ```json
 {
-  "primerNombre": "Usuario",
-  "segundoNombre": "De Prueba",
-  "primerApellido": "Ejemplo",
-  "segundoApellido": "Lopez",
-  "email": "prueba.usuario01@example.com",
-  "telefono": "+573001112233",
+  "primerNombre": "Ana",
+  "segundoNombre": "María",
+  "primerApellido": "Torres",
+  "segundoApellido": "Pérez",
+  "email": "ana@example.com",
+  "telefono": "+573001234567",
   "direccion": "Cali",
   "password": "Clave123"
 }
 ```
 
-Si el correo o el teléfono ya existen, usa otros. La respuesta devuelve el token y los datos del usuario.
+Las respuestas de registro e inicio de sesión usan `access_token`, `token_type`, `expires_in` y `user`. El perfil contiene campos Python como `id`, `first_name`, `email` y `role`.
 
-### Iniciar sesión — `POST /api/login`
+### Crear una cuenta de personal
 
-```json
-{
-  "email": "admin@example.com",
-  "password": "contraseña_de_la_cuenta"
-}
-```
-
-Usa el correo y la contraseña de una cuenta que ya exista. Si quieres probar la lista de usuarios, entra con una cuenta administradora.
-En entornos `local`, `development` y `testing` también se aceptan correos locales terminados en `.test`, como `admin@local.test`; en `production` se mantiene la validación normal de correo.
-
-### Ver mi perfil — `GET /api/me`
-
-No necesita datos en el Body, pero sí el Bearer Token.
-
-### Actualizar mi perfil — `PUT /api/me`
-
-Necesita Bearer Token. Envía solo los datos que quieras cambiar:
+Envía un Bearer token de administrador y uno de estos roles: `MESERO`, `COCINERO`, `CAJERO` o `ADMIN`. El registro público solo asigna `CLIENTE`.
 
 ```json
 {
-  "primerNombre": "Usuario",
-  "segundoNombre": "Prueba",
-  "primerApellido": "Actualizado",
-  "telefono": "+573001112244",
-  "direccion": "Nueva dirección"
-}
-```
-
-### Cerrar sesión — `POST /api/logout`
-
-No necesita Body. Debes enviar el Bearer Token. Después de cerrar sesión, ese token deja de funcionar.
-
-### Pedir recuperación de contraseña — `POST /api/forgot-password`
-
-```json
-{
-  "email": "correo.existente@example.com"
-}
-```
-
-Por ahora, el enlace de recuperación aparece en la terminal donde está corriendo FastAPI.
-
-### Cambiar contraseña — `POST /api/reset-password`
-
-Copia el token que aparece en el enlace de recuperación y envíalo así:
-
-```json
-{
-  "email": "correo.existente@example.com",
-  "token": "token_recibido",
-  "password": "NuevaClave123",
-  "password_confirmation": "NuevaClave123"
-}
-```
-
-### Ver todos los usuarios — `GET /api/users`
-
-No necesita Body. Solo funciona con el token de un `ADMIN` o `SUPER_ADMIN`. Devuelve los datos de los usuarios, pero no sus contraseñas cifradas. Si entras con una cuenta `CLIENTE`, devuelve el error `403`.
-
-### Crear cuenta de personal — `POST /api/users`
-
-Necesita Bearer Token de `ADMIN` o `SUPER_ADMIN`. El registro público `/api/register` crea solo cuentas `CLIENTE`; para crear personal usa esta ruta y envía un rol permitido:
-
-```json
-{
-  "primerNombre": "Mesero",
+  "primerNombre": "Luis",
   "primerApellido": "Prueba",
-  "email": "mesero.prueba@example.com",
-  "telefono": "+573001112255",
-  "direccion": "Cali",
+  "email": "luis@example.com",
+  "telefono": "3001112233",
   "rol": "MESERO",
   "password": "Clave123"
 }
 ```
 
-Puedes cambiar `rol` por `COCINERO`, `CAJERO` o `ADMIN`. La respuesta `201 Created` contiene el perfil creado y no expone el hash de contraseña. El correo y el teléfono deben ser únicos.
-
-**Otros detalles:** el registro requiere `primerNombre` y `primerApellido`; `segundoNombre` y `segundoApellido` son opcionales. No se acepta un campo combinado `nombre`. También se validan el correo, el teléfono y la contraseña. Desde la actualización del perfil no se puede cambiar el rol ni el estado de la cuenta.
-
-Las rutas anteriores de Python, como `/api/v1/auth/...`, siguen funcionando.
-
-## Inicio de sesión y seguridad
-
-- Las contraseñas nuevas se guardan con **Argon2id**.
-- Si una cuenta venía de Laravel con **Bcrypt**, puede iniciar sesión normalmente. Después de entrar, su contraseña se actualiza a Argon2id.
-- Para iniciar sesión, Python usa tokens **JWT**. Las sesiones se guardan en `user_sessions` y al cerrar sesión solo se desactiva la sesión actual.
-- Los tokens para recuperar contraseñas se guardan cifrados, tienen fecha de vencimiento y solo se pueden usar una vez.
-- La función `require_admin` revisa que el usuario tenga rol `ADMIN` o `SUPER_ADMIN`.
-
-Los tokens viejos de Laravel Sanctum no funcionan con JWT. Por eso, aunque se conservó la tabla `personal_access_tokens`, cada usuario debe iniciar sesión otra vez en Python. Las 5 sesiones anteriores quedaron guardadas en `user_sessions_legacy` y sus copias en `user_sessions` quedaron desactivadas.
-
-## CORS
-
-CORS se configuró en FastAPI para las rutas `/api` y `/api/v1`. Los orígenes, métodos y encabezados permitidos se manejan desde variables de entorno.
-
-Para trabajar en local están incluidos `localhost` y `127.0.0.1` en los puertos `5173` y `3000`. También se permite el encabezado `Authorization`.
-
-Cuando se publique el frontend, hay que agregar su dirección exacta a `CORS_ORIGINS` en Vercel. No se debe usar `*` junto con credenciales.
-
-## Base de datos local
-
-Estos son los datos de la conexión que se usó:
-
-| Dato          | Valor                  |
-| ------------- | ---------------------- |
-| Motor         | MySQL 8.0.46           |
-| Host          | `127.0.0.1`            |
-| Base de datos | `sabor_caleno_sgo_end` |
-| Usuario       | `root`                 |
-| Puerto        | `3306`                 |
-
-El ejemplo de configuración está en [`.env.example`](./.env.example). Los datos reales de conexión van en `.env` y no se suben al repositorio.
-
-En la base ya existían tablas de Laravel como `usuario`, `personal_access_tokens` y `migrations`. Se conservaron. La tabla de sesiones anterior pasó a llamarse `user_sessions_legacy` para que Python pudiera usar `user_sessions`.
-
-Las cuentas Laravel originales se copiaron a `users`; `usuario` se conserva sin cambios como tabla de origen. Python usa `users` para autenticación y para las claves foráneas de las tablas de negocio. Las sesiones Laravel antiguas se conservaron y se revocaron para Python.
-
-La migración crea las tablas de negocio vacías. Para cargar los catálogos de modalidades y estados de pedidos después de migrar, ejecuta `python -m scripts.seed_pedidos`.
-
-## Ejecutar el proyecto en local
-
-Si es la primera vez que lo ejecutas, abre PowerShell en la carpeta del backend y escribe:
+En las rutas protegidas, selecciona **Authorization → Bearer Token** y pega el JWT. En PowerShell puedes ejecutar las pruebas automatizadas con:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-```
-
-Esto crea el entorno virtual, instala las dependencias y crea `.env` si todavía no existe. **Si ya tienes un `.env` configurado, no lo reemplaces.**
-
-Revisa `DATABASE_URL` y `CORS_ORIGINS` en `.env`. Después inicia el servidor:
-
-```powershell
-uvicorn app.main:app --reload --port 8000
-```
-
-Puedes entrar a `http://127.0.0.1:8000/docs` para ver y probar las rutas.
-
-### Si ya instalaste todo
-
-Solo necesitas activar el entorno y levantar la API:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-uvicorn app.main:app --reload --port 8000
-```
-
-Deja la terminal abierta mientras pruebas con Postman. Para detener el servidor, presiona `Ctrl+C`.
-
-Para ejecutar las pruebas automáticas:
-
-```powershell
-.\.venv\Scripts\Activate.ps1
+..venv\Scripts\Activate.ps1
 pytest -q
 ```
 
-Si vas a preparar otra base de datos que todavía tiene la estructura de Laravel, configura primero `DATABASE_URL` y luego ejecuta:
+## Pedidos y reservas
+
+Las rutas de negocio están agrupadas por módulo en OpenAPI:
+
+- **Pedidos:** `/api/v1/pedidos`
+- **Reservas:** `/api/v1/reservas`
+
+Las tablas de negocio comienzan vacías. Para cargar los estados y modalidades de pedidos, ejecuta `python -m scripts.seed_pedidos` después de aplicar las migraciones. Crear pedidos y reservas también requiere cuentas, platos y mesas existentes.
+
+## Base de datos y migraciones
+
+El backend utiliza `users` como tabla activa de cuentas. La tabla fuente existente `usuario` se conserva, y las cuentas se copian a `users` manteniendo sus IDs y hashes. Las claves foráneas de pedidos, mesas, reservas, inventario y ventas apuntan a `users.id`.
+
+La cadena de Alembic contiene estas revisiones:
+
+1. `84b4b07429c2`: crea `users` y `user_sessions` si no existen.
+2. `c9a7d2e84110`: completa los campos de cuenta, adopta registros existentes y configura la recuperación de contraseña.
+3. `e09827dd3b4d`: crea las 14 tablas de negocio.
+
+La base local está en `e09827dd3b4d (head)`. Para aplicar las revisiones pendientes en otro entorno, configura `DATABASE_URL` en `.env` y ejecuta:
 
 ```powershell
 alembic upgrade head
 ```
 
-En Vercel se usa [`api/index.py`](./api/index.py) para ejecutar la misma aplicación FastAPI.
+Comprueba si el modelo y la base siguen alineados con:
 
-## ¿Por qué algunos nombres están en inglés?
+```powershell
+alembic check
+```
 
-En Python se dejaron nombres como `first_name`, `password_hash`, `User` y `get_current_user` porque son fáciles de reconocer y van con la forma en que está organizado el código.
+## Configuración CORS
 
-De todas formas, la API sigue aceptando nombres en español como `primerNombre` para que las partes del proyecto que ya los usan no tengan problemas. Los mensajes que ve el usuario también pueden estar en español.
+Los orígenes, métodos y encabezados se definen con `CORS_ORIGINS`, `CORS_ALLOW_METHODS` y `CORS_ALLOW_HEADERS`. En producción agrega el origen exacto del frontend; no uses `*` junto con credenciales.
 
-## Estado de migraciones y validación
+## Convenciones de código
 
-- `alembic current` en MySQL muestra `e09827dd3b4d (head)`.
-- Las 14 tablas de negocio están creadas; estaban vacías al aplicar la migración.
-- Se conservaron `usuario`, `migrations`, `personal_access_tokens`, `password_reset_tokens` y las tablas de autenticación.
-- Se ensayó la cadena completa de migraciones en una base SQLite temporal.
-- `alembic check` reportó que no hay cambios de esquema pendientes.
-- La suite automatizada reportó **9 pruebas aprobadas** en SQLite.
-
-**Nota:** las pruebas hechas en Postman con Laravel no comprueban que Python funcione. Para eso hay que probar las rutas con el servidor FastAPI encendido.
-
-## Por qué se conservan `usuario` y `users`
-
-`users` es la tabla que utiliza el backend Python. `usuario` se conserva como tabla original de Laravel para no eliminar ni alterar sus datos; no es una segunda tabla activa de autenticación en Python.
+Los identificadores, clases y funciones usan nombres en inglés —por ejemplo `User`, `first_name` y `get_current_user`— para facilitar búsquedas y mantenimiento del código. Los campos de entrada en español se conservan donde el proyecto los requiere.

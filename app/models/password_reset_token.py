@@ -8,7 +8,7 @@ from app.models.user import utc_now_naive
 
 
 class PasswordResetToken(AuthBase):
-    """Tabla compatible con la tabla Laravel `password_reset_tokens`."""
+    """One-time password reset token associated with a user email."""
 
     __tablename__ = "password_reset_tokens"
 

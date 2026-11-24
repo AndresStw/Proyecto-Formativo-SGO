@@ -221,24 +221,6 @@ def authenticate_user_with_user(
     return user, access_token, expires_in
 
 
-def authenticate_user(
-    db: Session,
-    email: str,
-    password: str,
-    ip_address: str | None = None,
-    user_agent: str | None = None,
-) -> tuple[str, int]:
-    """Autentica y conserva la respuesta interna histórica del backend."""
-    _, access_token, expires_in = authenticate_user_with_user(
-        db=db,
-        email=email,
-        password=password,
-        ip_address=ip_address,
-        user_agent=user_agent,
-    )
-    return access_token, expires_in
-
-
 def create_password_reset_link(db: Session, email: str) -> str | None:
     normalized_email = email.strip().lower()
     user = db.scalar(select(User).where(User.email == normalized_email))
@@ -258,7 +240,7 @@ def create_password_reset_link(db: Session, email: str) -> str | None:
         )
         db.add(reset_record)
     else:
-        # The Laravel-compatible table stores one active token per email.
+        # Keep one active reset token per email.
         reset_record.token = token_hash
         reset_record.created_at = now
 

@@ -18,7 +18,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    """Create the Python tables without replacing legacy Laravel tables."""
+    """Create the account and session tables without replacing existing tables."""
     existing_tables = set(sa.inspect(op.get_bind()).get_table_names())
 
     if "users" not in existing_tables:
@@ -82,8 +82,8 @@ def upgrade() -> None:
             unique=False,
         )
 
-    # A Laravel/older Python database may already have a `user_sessions` table.
-    # Leave it in place; the next revision adopts its rows into the Python schema.
+    # A database may already have an older `user_sessions` table.
+    # Leave it in place; the next revision adopts its rows into the current schema.
     if "user_sessions" not in existing_tables:
         op.create_table(
             "user_sessions",
@@ -121,14 +121,14 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    """Remove only Python-owned tables; never drop legacy Laravel tables."""
+    """Remove only tables owned by this revision; preserve pre-existing tables."""
     bind = op.get_bind()
     inspector = sa.inspect(bind)
     tables = set(inspector.get_table_names())
 
     if "usuario" in tables or "user_sessions_legacy" in tables:
         raise RuntimeError(
-            "Downgrade is blocked for an adopted Laravel database; "
+            "Downgrade is blocked for a database with adopted account data; "
             "preserve its account and session data and plan a manual rollback."
         )
 

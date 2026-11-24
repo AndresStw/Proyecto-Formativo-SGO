@@ -5,7 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.v1.router import api_router
-from app.api.v1.auth import laravel_router
 from app.core.config import get_settings
 from app.api.health import router as health_router
 from app.core.exceptions import AppException
@@ -43,7 +42,6 @@ def create_application() -> FastAPI:
         api_router,
         prefix="/api/v1",
     )
-    application.include_router(laravel_router, prefix="/api")
 
     return application
 

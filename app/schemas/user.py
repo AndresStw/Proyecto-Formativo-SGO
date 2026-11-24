@@ -24,9 +24,12 @@ class UserResponse(BaseModel):
 
     id: int
     first_name: str
+    second_name: str | None
     last_name: str
+    second_last_name: str | None
     email: EmailAddress
     phone: str | None
+    address: str | None
     role: UserRole
     is_active: bool
     created_at: datetime

@@ -1,4 +1,4 @@
-"""Adopt Laravel EP-01 accounts into the existing Python auth schema.
+"""Adopt existing account data into the Python authentication schema.
 
 Revision ID: c9a7d2e84110
 Revises: 84b4b07429c2
@@ -115,7 +115,7 @@ def _read_user_rows(table_name: str, id_column: str) -> list[dict]:
     required = {"idUsuario", "primerNombre", "primerApellido", "email", "password_hash", "rol"}
     if not required.issubset(available):
         raise RuntimeError(
-            f"The legacy `{table_name}` table is missing required EP-01 columns: "
+        f"The existing `{table_name}` table is missing required account columns: "
             f"{', '.join(sorted(required - available))}. No schema or account data was changed."
         )
 
@@ -415,7 +415,7 @@ def _ensure_password_reset_table() -> None:
     available = _columns("password_reset_tokens")
     if not required.issubset(available):
         raise RuntimeError(
-            "The existing `password_reset_tokens` table is not Laravel-compatible; "
+            "The existing `password_reset_tokens` table has an unsupported schema; "
             "it was left untouched."
         )
 
@@ -486,7 +486,7 @@ def _ensure_sessions(source_sessions: list[dict]) -> None:
             {
                 "id": session_id,
                 "user_id": int(legacy["idUsuario"]),
-                # These Laravel/Sanctum identifiers are not valid Python JWTs.
+                # Previous token identifiers are not valid API JWTs.
                 # Prefix them and mark them revoked so they can never authenticate.
                 "jti": f"legacy-{session_id}-{str(legacy.get('jti') or '')}"[:255],
                 "created_at": created_at,
@@ -503,7 +503,7 @@ def _ensure_sessions(source_sessions: list[dict]) -> None:
 
 
 def upgrade() -> None:
-    """Preflight, then merge legacy Laravel accounts into `users` safely."""
+    """Preflight, then merge existing account rows into `users` safely."""
     source_accounts, source_sessions = _preflight()
 
     _ensure_user_columns()
@@ -540,8 +540,8 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    """Require a manual backup-based rollback to protect adopted Laravel data."""
+    """Require a manual backup-based rollback to protect adopted account data."""
     raise RuntimeError(
         "This account adoption is intentionally irreversible through Alembic. "
-        "Restore a verified database backup to roll back; Laravel tables and records were preserved."
+        "Restore a verified database backup to roll back; source tables and records were preserved."
     )

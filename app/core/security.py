@@ -30,7 +30,7 @@ def verify_password(
     """
 
     if hashed_password.startswith(("$2a$", "$2b$", "$2y$")):
-        # Laravel usa el prefijo $2y$; bcrypt de Python acepta $2b$.
+        # Some bcrypt hashes use the $2y$ prefix; Python bcrypt expects $2b$.
         bcrypt_hash = hashed_password
         if bcrypt_hash.startswith("$2y$"):
             bcrypt_hash = "$2b$" + bcrypt_hash[4:]

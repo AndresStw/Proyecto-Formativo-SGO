@@ -11,7 +11,7 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
 )
-from sqlalchemy.orm import Mapped, mapped_column, relationship, synonym
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.domain.enums.user_role import UserRole
 from app.infrastructure.database.auth_base import AuthBase
@@ -151,15 +151,3 @@ class User(AuthBase):
         cascade="all, delete-orphan",
         passive_deletes=True
     )
-
-    # Alias ORM para que los módulos que migran desde Laravel puedan seguir
-    # usando los nombres del contrato sin duplicar columnas en `users`.
-    idUsuario = synonym("id")
-    primerNombre = synonym("first_name")
-    segundoNombre = synonym("second_name")
-    primerApellido = synonym("last_name")
-    segundoApellido = synonym("second_last_name")
-    telefono = synonym("phone")
-    direccion = synonym("address")
-    rol = synonym("role")
-    estado = synonym("is_active")
