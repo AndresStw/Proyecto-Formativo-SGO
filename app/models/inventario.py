@@ -36,10 +36,10 @@ class Inventario(Base):
         comment="Administrador responsable del inventario"
     )
 
-    administrador: Mapped["Administrador"] = relationship(
-        "Administrador",
-        back_populates="inventarios"
-    )
+    # administrador: Mapped["Administrador"] = relationship(
+    #     "Administrador",
+    #     back_populates="inventarios"
+    # )
 
     insumos: Mapped[list["Insumo"]] = relationship(
         "Insumo",
@@ -111,10 +111,10 @@ class Receta(Base):
         comment="Plato al que pertenece la receta"
     )
 
-    plato: Mapped["Plato"] = relationship(
-        "Plato",
-        back_populates="receta"
-    )
+    # plato: Mapped["Plato"] = relationship(
+    #     "Plato",
+    #     back_populates="receta"
+    # )
 
     detalles: Mapped[list["DetalleReceta"]] = relationship(
         "DetalleReceta",

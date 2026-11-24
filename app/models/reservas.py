@@ -46,12 +46,12 @@ class Reserva(Base):
         default="Pendiente"
     )
 
-    cliente = relationship(
-        "Cliente",
-        back_populates="reservas"
-    )
+    # cliente = relationship(
+    #     "Cliente",
+    #     back_populates="reservas"
+    # )
 
-    mesa = relationship(
-        "Mesa",
-        back_populates="reservas"
-    )
+    # mesa = relationship(
+    #     "Mesa",
+    #     back_populates="reservas"
+    # )

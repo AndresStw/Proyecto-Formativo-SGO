@@ -1,6 +1,6 @@
 # from app.models.usuario import Usuario
 # from app.models.cliente import Cliente
-# from app.models.catalogo import TipoPlato, modalidadPedido, Estado_Pedido, MetodoPago
+from app.models.catalogos import TipoPlato, Plato, modalidadPedido, Estado_Pedido #MetodoPago
 # from app.models.roles import Administrador, Mesero, Cocinero, Cajero
 # from app.models.ubicacion import Direccion, Telefono
 # from app.models.plato import Plato
@@ -19,3 +19,4 @@ __all__ = [
     "Insumo", "Inventario", "Receta", "Detalle_Receta",
     "User", "UserSession", "PasswordResetToken"
 ]
+

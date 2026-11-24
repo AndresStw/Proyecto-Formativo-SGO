@@ -31,7 +31,7 @@ class Mesa(Base):
         nullable=False
     )
 
-    mesero = relationship(
-        "Mesero",
-        back_populates="mesas"
-    )
+    # mesero = relationship(
+    #     "Mesero",
+    #     back_populates="mesas"
+    # )
