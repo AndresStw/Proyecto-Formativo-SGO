@@ -13,11 +13,9 @@ os.environ["JWT_SECRET_KEY"] = "test-secret-key-that-is-long-enough-for-hs256"
 os.environ["CORS_ORIGINS"] = "http://localhost:5173"
 
 from app import create_app
+import app.models  # noqa: F401
 from app.infrastructure.database.base import Base
 from app.infrastructure.database.session import get_db
-from app.models.password_reset_token import PasswordResetToken
-from app.models.user import User
-from app.models.user_session import UserSession
 
 
 @pytest.fixture
@@ -27,36 +25,34 @@ def test_engine():
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
-    Base.metadata.create_all(
-        engine,
-        tables=[
-            User.__table__,
-            UserSession.__table__,
-            PasswordResetToken.__table__,
-        ],
-    )
+    Base.metadata.create_all(engine)
     yield engine
-    Base.metadata.drop_all(
-        engine,
-        tables=[
-            PasswordResetToken.__table__,
-            UserSession.__table__,
-            User.__table__,
-        ],
-    )
+    Base.metadata.drop_all(engine)
     engine.dispose()
 
 
 @pytest.fixture
-def client(test_engine):
-    testing_session = sessionmaker(
+def session_factory(test_engine):
+    return sessionmaker(
         bind=test_engine,
         autoflush=False,
         expire_on_commit=False,
     )
 
+
+@pytest.fixture
+def db_session(session_factory):
+    db = session_factory()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@pytest.fixture
+def client(session_factory):
     def override_get_db():
-        db = testing_session()
+        db = session_factory()
         try:
             yield db
         finally:

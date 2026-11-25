@@ -13,10 +13,18 @@ class Pedido(Base):
     fecha_hora = Column(DateTime, server_default=func.now(), nullable=False)
     tiempo_preparacion = Column(Integer, nullable=True)
     hora_entrega = Column(DateTime, nullable=True)
+    direccion_entrega = Column(String(255), nullable=True)
 
     id_mesero = Column("Mesero_id_mesero", Integer, ForeignKey("users.id"), nullable=False, index=True)
     id_mesa = Column("Mesa_idMesa", Integer, ForeignKey("mesa.idMesa", ondelete="SET NULL"), nullable=True)
-    id_cliente = Column("Cliente_id_cliente", Integer, ForeignKey("users.id"), nullable=False, index=True)
+    id_usuario = Column("users_id_users", Integer, ForeignKey("users.id"), nullable=False, index=True)
+    id_metodo_pago = Column(
+        "MetodoPago_idMetodoPago",
+        Integer,
+        ForeignKey("metodospago.idMetodoPago"),
+        nullable=True,
+        index=True,
+    )
     id_modalidad = Column(
         "modalidadPedido_id_modalidad",
         Integer,
@@ -33,6 +41,7 @@ class Pedido(Base):
     mesa = relationship("Mesa")
     estado = relationship("Estado_Pedido")
     modalidad = relationship("modalidadPedido")
+    metodo_pago = relationship("MetodoPago")
 
     detalles = relationship(
         "Detalle_Pedido",

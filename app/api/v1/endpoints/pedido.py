@@ -1,7 +1,7 @@
 """
 Rutas de pedidos (EP-03).
-POST  /pedidos                 -> crear pedido (estado inicial Pendiente)
-GET   /pedidos                 -> historial del usuario autenticado
+POST  /pedidos                 -> crear pedido (usuario del token, mesero y mesa automáticos)
+GET   /pedidos                 -> historial de todos los pedidos
 PATCH /pedidos/{id}/status     -> cambiar el estado de un pedido
 """
 
@@ -23,6 +23,8 @@ _STATUS_POR_ERROR = {
     pedido_service.PedidoNoEncontradoError: status.HTTP_404_NOT_FOUND,
     pedido_service.PlatoNoEncontradoError: status.HTTP_404_NOT_FOUND,
     pedido_service.PlatoNoDisponibleError: status.HTTP_409_CONFLICT,
+    pedido_service.MeseroNoDisponibleError: status.HTTP_409_CONFLICT,
+    pedido_service.MesaNoDisponibleError: status.HTTP_409_CONFLICT,
     pedido_service.TransicionInvalidaError: status.HTTP_409_CONFLICT,
     pedido_service.PermisoDenegadoError: status.HTTP_403_FORBIDDEN,
     pedido_service.CatalogoNoConfiguradoError: status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -39,7 +41,7 @@ def _a_http(error: pedido_service.PedidoError) -> HTTPException:
     )
 
 
-# ---------- RF-CAR-07: POST /pedidos ----------
+# ---------- RF-CAR-07: POST /pedidos  ----------
 
 @router.post(
     "",

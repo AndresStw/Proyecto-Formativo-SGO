@@ -85,7 +85,34 @@ Las rutas de negocio están agrupadas por módulo en OpenAPI:
 - **Pedidos:** `/api/v1/pedidos`
 - **Reservas:** `/api/v1/reservas`
 
-Las tablas de negocio comienzan vacías. Para cargar los estados y modalidades de pedidos, ejecuta `python -m scripts.seed_pedidos` después de aplicar las migraciones. Crear pedidos y reservas también requiere cuentas, platos y mesas existentes.
+### Crear un pedido
+
+`POST /api/v1/pedidos` requiere un token. El `id_usuario` se toma del JWT; el mesero y la mesa se asignan automáticamente según disponibilidad.
+
+```json
+{
+  "modalidad": "Mesa",
+  "metodo_pago": "Efectivo",
+  "direccion_entrega": null,
+  "id_plato": 1,
+  "cantidad": 2,
+  "observaciones": "Sin cebolla"
+}
+```
+
+- `Domicilio` exige `direccion_entrega`.
+- `Mesa` toma una mesa libre y la marca como ocupada hasta que el pedido se entregue o cancele.
+- El mesero elegido es el primer `MESERO` activo sin pedidos en curso.
+- El precio y el total se calculan con el precio del plato en la base de datos.
+
+Las tablas de negocio comienzan vacías. Después de aplicar las migraciones ejecuta:
+
+```powershell
+python -m scripts.seed_pedidos
+python -m scripts.seed_datos_pedidos
+```
+
+El segundo script carga meseros, mesas, platos y un cliente de prueba.
 
 ## Base de datos y migraciones
 
