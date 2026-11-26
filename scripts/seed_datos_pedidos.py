@@ -35,14 +35,52 @@ MESEROS = [
     },
 ]
 
-CLIENTE = {
+CLIENTE = [
+    {
     "first_name": "Cliente",
     "last_name": "Prueba",
     "email": "cliente.pedidos@test.com",
     "phone": "3000000201",
     "password": "Cliente123456",
     "address": "Cali",
-}
+},
+{
+  "first_name": "Juan",
+  "second_name": "Carlos",
+  "last_name": "Perez",
+  "second_last_name": "Lopez",
+  "email": "juan.perez.prueba@example.com",
+  "phone": "3001234567",
+  "password": "Juan123456",
+  "address": "Direccion de prueba",
+},
+]
+
+COCINERO = [
+    {
+        "first_name": "Andres",
+        "second_name": "",
+        "last_name": "Sanchez",
+        "second_last_name": "",
+        "email": "andres@example.com",
+        "phone": "3001234558",
+        "password": "Andres10",
+        "address": "",
+    },
+]
+
+CAJERO = [
+    {
+        "first_name": "Carlos",
+        "second_name": "",
+        "last_name": "Ramirez",
+        "second_last_name": "",
+        "email": "carlos@example.com",
+        "phone": "3001234560",
+        "password": "Carlos123",
+        "address": "",
+    },
+]
 
 TIPOS_PLATO = ["Plato fuerte", "Bebida", "Postre"]
 
@@ -142,6 +180,10 @@ def sembrar_datos() -> None:
 
         meseros = []
 
+        cocineros = []
+
+        cajeros = []
+
         for data in MESEROS:
             mesero, creado = _get_or_create_user(db, data, UserRole.MESERO)
             meseros.append(mesero)
@@ -149,11 +191,35 @@ def sembrar_datos() -> None:
             if creado:
                 creados.append(f"mesero: {data['email']}")
 
-        _cliente, creado = _get_or_create_user(db, CLIENTE, UserRole.CLIENTE)
+        for data in CLIENTE:
+            cliente, creado = _get_or_create_user(
+                db,data,UserRole.CLIENTE
+            )
 
         if creado:
             creados.append(f"cliente: {CLIENTE['email']}")
+ 
+        # Crear cocineros
+        for data in COCINERO:
+            cocinero, creado = _get_or_create_user(
+                db,data,UserRole.COCINERO
+            )
 
+            if creado:
+                cocineros.append(f"cocinero:{data['email']}")
+
+        # Crear cajeros
+
+        for data in CAJERO:
+            cajero, creado = _get_or_create_user(
+                db, data, UserRole.CAJERO
+            )
+
+            cajeros.append(cajero)
+
+        if creado:
+            creados.append(f"cajero: {data['email']}")
+       
         tipos = {}
 
         for nombre in TIPOS_PLATO:
@@ -201,6 +267,7 @@ def sembrar_datos() -> None:
         print("  - Cliente: cliente.pedidos@test.com / Cliente123456")
         print("  - Mesero 1: mesero1@test.com / Mesero123456")
         print("  - Mesero 2: mesero2@test.com / Mesero123456")
+        print("  - Cocinero: andres@example.com / Andres10")
 
     except SQLAlchemyError as error:
         db.rollback()

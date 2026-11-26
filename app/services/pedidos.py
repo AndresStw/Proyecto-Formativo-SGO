@@ -245,3 +245,15 @@ def cambiar_estado(
         raise
 
     return repo.get_pedido_por_id(db, pedido.id_pedido)
+
+#RF-PD002 Historial de pedidos
+
+def listar_pedidos_pendientes(db: Session, user: User) -> list[Pedido]:
+    """Lista los pedidos pendientes para cocina y administradores."""
+
+    if user.role not in ROLES_STAFF:
+        raise PermisoDenegadoError(
+            "No tienes permisos para consultar los pedidos pendientes."
+        )
+
+    return repo.listar_pedidos_pendientes(db)

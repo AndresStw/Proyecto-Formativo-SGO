@@ -4,18 +4,18 @@ from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 
 from app.repositories import reservas as reserva_repository
+from app.models.user import User
+from app.domain.enums.user_role import UserRole
 
 
-def crear_reserva(db: Session, datos):
+def crear_reserva(db: Session, datos, current_user: User):
 
-    # 1. Verificar que el cliente exista
-    cliente = reserva_repository.obtener_cliente(
-        db,
-        datos.cliente_id_cliente
-    )
-
-    if not cliente:
-        raise ValueError("El cliente no existe")
+    # 1. Verificar que el usuario autenticado sea un cliente activo
+    if (
+        current_user.role != UserRole.CLIENTE
+        or not current_user.is_active
+    ):
+        raise ValueError("Solo los clientes activos pueden realizar reservas")
 
     # 2. Verificar que la mesa exista
     mesa = reserva_repository.obtener_mesa(
@@ -27,7 +27,7 @@ def crear_reserva(db: Session, datos):
         raise ValueError("La mesa seleccionada no existe")
 
     # 3. Verificar que la mesa esté disponible para reservas
-    if mesa.estado.capitalize == "fuera de servicio":
+    if mesa.estado.lower() == "fuera de servicio":
         raise ValueError("La mesa está fuera de servicio")
 
     # 4. Verificar capacidad
@@ -60,23 +60,26 @@ def crear_reserva(db: Session, datos):
     # 8. Verificar que no existan cruces de horarios
     for reserva in reservas:
 
+        # Solo las reservas pendientes y confirmadas bloquean el horario
+        if reserva.estado not in ["Pendiente", "Confirmada"]:
+            continue
+
         reserva_inicio = datetime.combine(
             reserva.fecha,
             reserva.hora
         )
-
         reserva_fin = reserva_inicio + timedelta(hours=2)
 
-        if (
-            fecha_hora_inicio < reserva_fin
-            and fecha_hora_fin > reserva_inicio
-        ):
+        if fecha_hora_inicio < reserva_fin and fecha_hora_fin > reserva_inicio:
             raise ValueError(
                 "La mesa ya tiene una reserva en ese horario"
             )
 
     # 9. Preparar los datos
     nuevos_datos = datos.model_dump()
+
+    # Asignar id al usuario autenticado
+    nuevos_datos["cliente_id_cliente"] = current_user.id
 
     # 10. Crear la reserva
     nueva_reserva = reserva_repository.crear_reserva(
@@ -85,19 +88,23 @@ def crear_reserva(db: Session, datos):
     )
 
     return nueva_reserva
- # ! Obtener el historial de reservas
 
+
+# ! Obtener el historial de reservas
 def obtener_historial_reservas(db: Session):
     return reserva_repository.obtener_historial_reservas(db)
 
-#! Filtrar por id
+
+# ! Filtrar por id
 def obtener_historial_por_cliente(db: Session, cliente_id: int):
     return reserva_repository.obtener_historial_por_cliente(
         db, cliente_id
     )
-# ! Actualizar el estado de reserva
 
+
+# ! Actualizar el estado de reserva
 def actualizar_estado_reserva(db: Session, reserva_id: int, nuevo_estado: str):
+
     estados_permitidos = {
         "Pendiente": ["Confirmada", "Cancelada"],
         "Confirmada": ["Cancelada", "Finalizada", "No asistió"],

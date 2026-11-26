@@ -7,8 +7,6 @@ from typing import Literal
 # Datos que recibe el Backend para crear una reserva
 class ReservaCreate(BaseModel):
 
-    cliente_id_cliente: int = Field(gt=0)
-
     mesa_id_mesa: int = Field(gt=0) # Mayor que 0
 
     fecha: date

@@ -99,3 +99,27 @@ def actualizar_estado_pedido(
         raise _a_http(error)
 
     return schemas.PedidoResponse.desde_modelo(pedido)
+
+# ? RF-PED-01: GET /pedidos/pendientes 
+
+@router.get(
+    "/pendientes",
+    response_model=list[schemas.PedidoResponse],
+)
+def pedidos_pendientes(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Lista los pedidos pendientes para cocina y administradores."""
+
+    try:
+        pedidos = pedido_service.listar_pedidos_pendientes(
+            db, current_user
+        )
+    except pedido_service.PedidoError as error:
+        raise _a_http(error)
+
+    return [
+        schemas.PedidoResponse.desde_modelo(pedido)
+        for pedido in pedidos
+    ]

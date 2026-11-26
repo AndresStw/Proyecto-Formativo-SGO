@@ -125,3 +125,25 @@ def require_admin(
             detail="No tienes permisos para acceder a este recurso.",
         )
     return current_user
+
+
+def require_staff(
+    current_user: User = Depends(get_current_user),
+) -> User:
+    """Permitir el acceso únicamente al personal del restaurante."""
+
+    staff_roles = (
+        UserRole.SUPER_ADMIN,
+        UserRole.ADMIN,
+        UserRole.MESERO,
+        UserRole.COCINERO,
+        UserRole.CAJERO,
+    )
+
+    if current_user.role not in staff_roles:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="No tienes permisos para acceder a este recurso.",
+        )
+
+    return current_user

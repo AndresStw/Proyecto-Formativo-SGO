@@ -130,3 +130,21 @@ def listar_todos_los_pedidos(db: Session) -> list[Pedido]:
             .options(*_cargar_relaciones())
         ).all()
     )
+
+# Consultar pedidos por medio de tarjeta RF-PED-001
+
+def listar_pedidos_pendientes(db: Session) -> list[Pedido]:
+    """Lista los pedidos pendientes, del más antiguo al más reciente."""
+
+    return list(
+        db.scalars(
+            select(Pedido)
+            .join(Pedido.estado)
+            .where(
+                Estado_Pedido.nombre_estado
+                == EstadoPedidoNombre.PENDIENTE.value
+            )
+            .order_by(Pedido.fecha_hora.asc(), Pedido.id_pedido.asc())
+            .options(*_cargar_relaciones())
+        ).all()
+    )
