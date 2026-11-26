@@ -196,8 +196,8 @@ def sembrar_datos() -> None:
                 db,data,UserRole.CLIENTE
             )
 
-        if creado:
-            creados.append(f"cliente: {CLIENTE['email']}")
+            for c in CLIENTE:
+                creados.append(f"cliente: {c['email']}")
  
         # Crear cocineros
         for data in COCINERO:
