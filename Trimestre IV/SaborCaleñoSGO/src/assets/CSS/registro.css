@@ -1,11 +1,11 @@
 
-/* Fondo oscuro completo */
+/* Fondo claro completo */
 .registro-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0b1116;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
   padding: 1.5rem;
 }
 
@@ -15,9 +15,9 @@
   max-width: 950px;
   width: 100%;
   min-height: 580px;
-  background-color: #141c22;
+  background-color: #FFFFFF;
   border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 
@@ -40,28 +40,29 @@
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 0.8rem;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.2);
 }
 
 .registro-title {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--text-dark);
   margin-bottom: 0.25rem;
 }
 
 .registro-subtitle {
-  color: #94a3b8;
+  color: var(--text-gray);
   font-size: 0.9rem;
 }
 
 /* Alertas */
 .registro-error {
-  background: rgba(220, 38, 38, 0.2);
-  border: 1px solid #ef4444;
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
   border-radius: 10px;
   padding: 0.75rem 1rem;
-  color: #fca5a5;
+  color: #DC2626;
   font-size: 0.85rem;
   margin-bottom: 1.25rem;
   display: flex;
@@ -69,11 +70,11 @@
 }
 
 .registro-exito {
-  background: rgba(16, 185, 129, 0.2);
+  background: #ECFDF5;
   border: 1px solid #10b981;
   border-radius: 10px;
   padding: 0.75rem 1rem;
-  color: #a7f3d0;
+  color: #047857;
   font-size: 0.85rem;
   margin-bottom: 1.25rem;
   display: flex;
@@ -95,19 +96,19 @@
 .input-capsule {
   display: flex;
   align-items: center;
-  background-color: #202b33;
+  background-color: #F8FAFC;
   border-radius: 40px;
   padding: 4px;
   width: 100%;
   box-sizing: border-box;
-  border: 2px solid transparent;
+  border: 2px solid #E5E7EB;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* EFECTO FOCUS: Borde azul en la cápsula */
+/* EFECTO FOCUS: Borde naranja en la cápsula */
 .input-capsule:focus-within {
-  border-color: #2563eb;
-  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+  border-color: var(--secondary);
+  box-shadow: 0 0 10px rgba(255, 107, 0, 0.25);
 }
 
 /* Inputs transparentes */
@@ -118,12 +119,12 @@
   outline: none !important;
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
-  color: #ffffff !important;
+  color: var(--text-dark) !important;
   box-shadow: none !important;
 }
 
 .capsule-input::placeholder {
-  color: #718096;
+  color: #9CA3AF;
 }
 
 /* Bolita blanca que aloja los íconos */
@@ -133,18 +134,18 @@
   min-width: 42px;
   min-height: 42px;
   border-radius: 50%;
-  background-color: #ffffff !important;
+  background-color: #FFFFFF !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  border: none;
+  border: 1px solid #E5E7EB;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 .icon-circle i {
-  color: #141c22 !important;
+  color: var(--secondary) !important;
   font-size: 1.1rem !important;
   display: inline-block !important;
   line-height: 1 !important;
@@ -195,30 +196,31 @@
 }
 
 .registro-footer p {
-  color: #94a3b8;
+  color: var(--text-gray);
   font-size: 0.88rem;
   margin: 0;
 }
 
 .registro-link {
-  color: #ffffff;
+  color: var(--secondary);
   text-decoration: none;
   font-weight: 600;
 }
 
 .registro-link:hover {
+  color: var(--secondary-dark);
   text-decoration: underline;
 }
 
 .back-link {
-  color: #64748b;
+  color: var(--text-gray);
   text-decoration: none;
   font-size: 0.82rem;
   transition: color 0.2s ease;
 }
 
 .back-link:hover {
-  color: #ffffff;
+  color: var(--text-dark);
 }
 
 /* Panel derecho decorativo */
@@ -227,9 +229,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0d1317;
+  background: linear-gradient(145deg, var(--secondary), var(--secondary-dark));
   padding: 2.5rem;
-  border-left: 1px solid #1a242c;
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .decoration-content {
@@ -245,7 +247,7 @@
 }
 
 .decoration-content p {
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.95rem;
   margin: 0;
 }
@@ -264,7 +266,7 @@
   .registro-decoration {
     padding: 2rem 1.5rem;
     border-left: none;
-    border-top: 1px solid #1a242c;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
 
   .decoration-content h3 {

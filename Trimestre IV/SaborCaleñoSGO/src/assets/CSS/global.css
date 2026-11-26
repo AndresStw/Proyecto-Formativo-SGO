@@ -11,13 +11,13 @@
   --secondary: #FF6B00;
   --secondary-light: #FF8C00;
   --secondary-dark: #E05F00;
-  --btn:rgb(7, 220, 7); /*Nuevo solo para botones cambiar nombre le puse de imrpovisado --btn*/
+  --btn: #FF6B00; /* Botones naranjas (paleta clara de la version en blanco) */
 
-  --bg-white: #353539; /*Toca cambiar esto en todas las variables, porque cambie el tono */
-  --bg-light: #121212;
+  --bg-white: #FFFFFF;
+  --bg-light: #F8F9FA;
   --bg-gray: #F1F5F9;
 
-  --text-dark: #ffffff; /*Se requiere cambio en classname por re hacer la coloraion del proyecto*/
+  --text-dark: #1A1A2E;
   --text-gray: #6B7280;
   --text-light: #9CA3AF;
   --text-white: #FFFFFF;
@@ -41,7 +41,7 @@
 
 body {
   font-family: var(--font-family);
-  background: linear-gradient(rgb(67, 47, 47),rgb(0, 0, 0));
+  background: var(--bg-light);
   color: var(--text-dark);
   -webkit-font-smoothing: antialiased;
 }
@@ -130,7 +130,7 @@ body {
   font-size: 10px !important;
   line-height: 1;
   border-radius: 50%;
-  color: var(--text-dark) !important;
+  color: var(--text-white) !important;
   background: transparent !important;
   border: none;
   font-weight: 500;
@@ -248,7 +248,7 @@ body {
 }
 
 .btn-primary-custom:hover {
-  background: var(--btn);
+  background: var(--secondary-dark);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -344,13 +344,13 @@ body {
 }
 
 .btn-theme-toggle:hover {
-  background: var(--bg-icon-hover, rgba(7, 220, 7, 0.15));
+  background: var(--bg-icon-hover, rgba(255, 107, 0, 0.15));
   transform: scale(1.08);
 }
 
 /* Iconos que cambian con el tema */
 .icon-accent {
-  color: var(--icon-primary, #07dc07);
+  color: var(--icon-primary, #FF6B00);
   transition: color 0.3s ease, transform 0.25s ease;
 }
 

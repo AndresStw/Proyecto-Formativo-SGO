@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import "../assets/CSS/theme-selector.css";
 
 function ThemeSelector({ onClose }) {
-  const [theme, setTheme] = useState("green");
+  const [theme, setTheme] = useState("orange");
   const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("userColorTheme") || "green";
+    const savedTheme = localStorage.getItem("userColorTheme") || "orange";
     setTheme(savedTheme);
     applyTheme(savedTheme);
 
@@ -34,6 +34,7 @@ function ThemeSelector({ onClose }) {
   };
 
   const themes = [
+    { name: "orange", label: "Naranja", color: "#ff6b00" },
     { name: "green", label: "Verde", color: "#07dc07" },
     { name: "yellow", label: "Amarillo neón", color: "#fff700" },
     { name: "pink", label: "Rosa", color: "#ff6699" },

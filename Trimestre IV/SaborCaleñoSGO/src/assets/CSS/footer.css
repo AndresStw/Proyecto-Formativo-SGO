@@ -10,7 +10,7 @@
   padding: 3rem 0 1rem;
   margin-top: 15px;
   border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .footer-titulo {
@@ -38,7 +38,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.05);
+  background: #F1F5F9;
   border-radius: 50%;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -46,7 +46,7 @@
 }
 
 .footer-social a:hover {
-  background: var(--bg-icon-hover, rgba(7, 220, 7, 0.15));
+  background: var(--bg-icon-hover, rgba(255, 107, 0, 0.15));
   transform: translateY(-3px);
 }
 
@@ -68,7 +68,7 @@
 }
 
 .footer-links a:hover {
-  color: var(--icon-primary, #07dc07);
+  color: var(--icon-primary, #FF6B00);
 }
 
 .footer-contact {
@@ -92,7 +92,7 @@
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   padding-top: 1.5rem;
   margin-top: 2rem;
   text-align: center;

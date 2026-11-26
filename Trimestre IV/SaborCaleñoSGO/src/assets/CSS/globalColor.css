@@ -1,14 +1,30 @@
 /* src/assets/CSS/globalColor.css */
 
 /*Sistema de temas para personalizar el color de los iconos.
-  Temas disponibles: default (verde), yellow, pink, blue.*/
+  Temas disponibles: default (naranja), green, yellow, pink, blue.*/
 
 :root {
 
-    /* DEFAUlT THEME*/
-    --icon-primary: rgba(7, 220, 7);
-    --icon-sencondary: #39ff39;
-    --icon-hover: rgba(7, 220, 7, 0.15);
+    /* DEFAUlT THEME (naranja, coherente con los botones) */
+    --icon-primary: #FF6B00;
+    --icon-secondary: #FF8C00;
+    --icon-hover: #E05F00;
+    --bg-icon-hover: rgba(255, 107, 0, 0.15);
+}
+
+/* Tema Naranja */
+html[data-theme="orange"] {
+    --icon-primary: #FF6B00;
+    --icon-secondary: #FF8C00;
+    --icon-hover: #E05F00;
+    --bg-icon-hover: rgba(255, 107, 0, 0.15);
+}
+
+/* Tema Verde */
+html[data-theme="green"] {
+    --icon-primary: #07DC07;
+    --icon-secondary: #39FF39;
+    --icon-hover: #05C305;
     --bg-icon-hover: rgba(7, 220, 7, 0.15);
 }
 

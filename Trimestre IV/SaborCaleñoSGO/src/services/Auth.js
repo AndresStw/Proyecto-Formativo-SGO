@@ -14,11 +14,26 @@
 */
 
 //Hooks
-const API_URL = "http://localhost:3000";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 const TOKEN_KEY = "token";
 const USER_KEY = "user";
 
 //#region Funciones
+
+/**
+ * Envuelve fetch para devolver un error claro cuando el backend
+ * (json-server + json-server-auth) no esta corriendo.
+ */
+async function request(path, options = {}) {
+  try {
+    return await fetch(`${API_URL}${path}`, options);
+  } catch {
+    throw new Error(
+      `No se pudo conectar con el servidor (${API_URL}). ` +
+        "Verifica que el backend esté activo con: npm run server",
+    );
+  }
+}
 
 export function getToken() {
   return localStorage.getItem(TOKEN_KEY);
@@ -77,7 +92,7 @@ export async function authFetch(path, options = {}) {
   headers.set("Content-Type", "application/json");
   if (token) headers.set("Authorization", `Bearer ${token}`);
 
-  const response = await fetch(`${API_URL}${path}`, { ...options, headers });
+  const response = await request(path, { ...options, headers });
   if (response.status === 401) {
     clearAuth();
     throw new Error("Sesion expirada. Inicia sesion nuevamente.");
@@ -86,7 +101,7 @@ export async function authFetch(path, options = {}) {
 }
 
 export async function login(email, password) {
-  const response = await fetch(`${API_URL}/login`, {
+  const response = await request("/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -98,7 +113,7 @@ export async function login(email, password) {
 }
 
 export async function register(userData) {
-  const response = await fetch(`${API_URL}/register`, {
+  const response = await request("/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),

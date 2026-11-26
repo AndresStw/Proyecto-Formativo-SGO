@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "cliente@saborcaleno.com",
-      "password": "$2a$10$Lt5hw3E3D4FX6CZyL.cCfeWl6ijyW9JxR/Zf/R9iEz9U.ip8col.q",
+      "password": "$2a$10$mEiV.BNNFxtNN2rIyy8zR.mgGcJOxkfVxup2mXwNPSaMDAk00suoW",
       "id": 1,
       "nombre": "Cliente Demo",
       "telefono": "3001234567"

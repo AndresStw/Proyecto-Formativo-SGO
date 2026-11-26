@@ -38,7 +38,7 @@ function Nosotros() {
         <div className="col-md-6">
           <div className="nosotros-info">
             <h4 className="info-titulo">
-              <i className="fa-regular fa-clock me-2" style={{ color: 'var(--secondary, #10b981)' }}></i>
+              <i className="fa-regular fa-clock me-2" style={{ color: 'var(--secondary)' }}></i>
               Horarios de Atención
             </h4>
             <ul className="info-lista">
@@ -53,7 +53,7 @@ function Nosotros() {
             </ul>
 
             <h4 className="info-titulo mt-4">
-              <i className="fa-regular fa-heart me-2" style={{ color: 'var(--secondary, #10b981)' }}></i>
+              <i className="fa-regular fa-heart me-2" style={{ color: 'var(--secondary)' }}></i>
               Nuestra Misión
             </h4>
             <p className="info-mision">
@@ -63,7 +63,7 @@ function Nosotros() {
 
             <div className="info-ubicacion">
               <h4 className="info-titulo">
-                <i className="fa-solid fa-location-dot me-2" style={{ color: 'var(--secondary, #10b981)' }}></i>
+                <i className="fa-solid fa-location-dot me-2" style={{ color: 'var(--secondary)' }}></i>
                 Encuéntranos
               </h4>
               <p>

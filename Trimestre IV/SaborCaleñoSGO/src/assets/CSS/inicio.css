@@ -23,7 +23,7 @@
   right: 0;
   bottom: 0;
   background: url('../Img/fondo/Mesas.jpg') center/cover no-repeat;
-  opacity: 0.25;
+  opacity: 0.12;
   z-index: 0;
   border-radius: 40px;
   margin-top: 30px;
@@ -33,7 +33,7 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  color: white;
+  color: var(--text-dark);
 }
 
 .hero-title {
@@ -44,20 +44,17 @@
 }
 
 .hero-highlight {
-  background: linear-gradient(90deg, var(--btn), var(--btn));
+  background: linear-gradient(90deg, var(--secondary), var(--secondary-light));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1px rgb(0, 0, 0);
   background-clip: text;
-  
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
   max-width: 600px;
   margin: 0 auto 2rem;
-  color: rgba(255,255,255,0.8);
-  -webkit-text-stroke: 2px white;
+  color: var(--text-gray);
 }
 
 .hero-buttons {
@@ -72,7 +69,7 @@
 }
 
 .feature-card {
-  background: rgba(141, 115, 115, 0.396);
+  background: var(--bg-white);
   padding: 2rem;
   border-radius: var(--border-radius);
   text-align: center;
@@ -99,7 +96,7 @@
 }
 
 .feature-card p {
-  color: var(--text-white);
+  color: var(--text-gray);
   margin-bottom: 0;
 }
 

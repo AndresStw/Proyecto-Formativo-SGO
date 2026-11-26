@@ -15,7 +15,7 @@
   padding: 1rem;
   z-index: 200;
   animation: slideDown 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 @keyframes slideDown {
@@ -100,7 +100,7 @@
   align-items: center;
   margin-bottom: 0.85rem;
   padding-bottom: 0.6rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .theme-header h5 {
@@ -126,7 +126,7 @@
 }
 
 .theme-close-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.06);
   color: var(--text-dark);
   transform: rotate(90deg);
 }
@@ -157,7 +157,7 @@
 
 .theme-btn.active {
   border-color: var(--text-dark);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
   transform: scale(1.1);
 }
 
