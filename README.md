@@ -25,17 +25,17 @@ La documentación de OpenAPI está en `http://127.0.0.1:8000/docs`.
 
 Todas las rutas de autenticación están bajo `/api/v1/auth` y aparecen agrupadas como **Autenticación** en OpenAPI.
 
-| Método | Ruta | Acceso | Función |
-| --- | --- | --- | --- |
-| `POST` | `/api/v1/auth/register` | Público | Crea una cuenta `CLIENTE` |
-| `POST` | `/api/v1/auth/login` | Público | Inicia sesión y devuelve un JWT |
-| `GET` | `/api/v1/auth/me` | Bearer token | Consulta el perfil actual |
-| `PUT` | `/api/v1/auth/me` | Bearer token | Actualiza el perfil actual |
-| `POST` | `/api/v1/auth/logout` | Bearer token | Revoca la sesión actual |
-| `POST` | `/api/v1/auth/forgot-password` | Público | Registra un enlace de recuperación en los logs |
-| `POST` | `/api/v1/auth/reset-password` | Público | Cambia la contraseña con un token válido |
-| `GET` | `/api/v1/auth/users` | `ADMIN` o `SUPER_ADMIN` | Lista cuentas sin devolver hashes |
-| `POST` | `/api/v1/auth/users` | `ADMIN` o `SUPER_ADMIN` | Crea una cuenta de personal |
+| Método | Ruta                           | Acceso                  | Función                                        |
+| ------ | ------------------------------ | ----------------------- | ---------------------------------------------- |
+| `POST` | `/api/v1/auth/register`        | Público                 | Crea una cuenta `CLIENTE`                      |
+| `POST` | `/api/v1/auth/login`           | Público                 | Inicia sesión y devuelve un JWT                |
+| `GET`  | `/api/v1/auth/me`              | Bearer token            | Consulta el perfil actual                      |
+| `PUT`  | `/api/v1/auth/me`              | Bearer token            | Actualiza el perfil actual                     |
+| `POST` | `/api/v1/auth/logout`          | Bearer token            | Revoca la sesión actual                        |
+| `POST` | `/api/v1/auth/forgot-password` | Público                 | Registra un enlace de recuperación en los logs |
+| `POST` | `/api/v1/auth/reset-password`  | Público                 | Cambia la contraseña con un token válido       |
+| `GET`  | `/api/v1/auth/users`           | `ADMIN` o `SUPER_ADMIN` | Lista cuentas sin devolver hashes              |
+| `POST` | `/api/v1/auth/users`           | `ADMIN` o `SUPER_ADMIN` | Crea una cuenta de personal                    |
 
 ### Registrar una cuenta
 
@@ -80,10 +80,10 @@ pytest -q
 
 ## Pedidos y reservas
 
-Las rutas de negocio están agrupadas por módulo en OpenAPI:
+Las rutas de negocio están agrupadas por módulo en **OpenAPI**:
 
-- **Pedidos:** `/api/v1/pedidos`
-- **Reservas:** `/api/v1/reservas`
+- **Pedidos:** `/api/v1/pedidos` _**"Orders"**_
+- **Reservas:** `/api/v1/reservas` _**"Reservations"**_
 
 ### Crear un pedido
 
@@ -100,8 +100,8 @@ Las rutas de negocio están agrupadas por módulo en OpenAPI:
 }
 ```
 
-- `Domicilio` exige `direccion_entrega`.
-- `Mesa` toma una mesa libre y la marca como ocupada hasta que el pedido se entregue o cancele.
+- Si es `Domicilio` exige `direccion_entrega`.
+- Si es `Mesa` toma una mesa libre y la marca como ocupada hasta que el pedido se entregue o cancele.
 - El mesero elegido es el primer `MESERO` activo sin pedidos en curso.
 - El precio y el total se calculan con el precio del plato en la base de datos.
 
