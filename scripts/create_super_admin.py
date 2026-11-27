@@ -1,5 +1,5 @@
 """
-Crea el único usuario SUPER_ADMIN de Harmony Spa.
+Crea el único usuario SUPER_ADMIN de SGO_Caleno.
 
 Este script se ejecuta desde la terminal local.
 No existe un endpoint público para crear este usuario.
@@ -62,7 +62,7 @@ def crear_super_admin() -> None:
         if existing_admin:
             print(
                 "\nNo se puede crear otro SUPER_ADMIN."
-                "\nYa existe uno registrado en Harmony Spa."
+                "\nYa existe uno registrado en SGO_Caleno."
             )
             return
 

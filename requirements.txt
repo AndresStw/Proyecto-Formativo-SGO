@@ -15,3 +15,4 @@ PyJWT
 pwdlib[argon2]
 bcrypt>=4.2
 gunicorn==27.0.1
+tzdata
